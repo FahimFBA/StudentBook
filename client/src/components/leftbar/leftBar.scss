@@ -1,0 +1,35 @@
+.leftBar {
+  .container {
+    padding: 20px;
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        span {
+        }
+      }
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        img {
+            width: 30px;
+        }
+        span {
+        }
+      }
+    }
+  }
+}
