@@ -44,6 +44,67 @@ const LeftBar = () => {
                         <span>Memories</span>
                     </div>
                 </div>
+
+                <hr />
+                <div className="menu">
+                    <span>Your shortcuts</span>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                    <div className="item">
+                        <img src={Gallery} alt="" />
+                        <span>Gallery</span>
+                    </div>
+                    <div className="item">
+                        <img src={Videos} alt="" />
+                        <span>Videos</span>
+                    </div>
+                    <div className="item">
+                        <img src={Messages} alt="" />
+                        <span>Messages</span>
+                    </div>
+                </div>
+                <hr />
+                <div className="menu">
+                    <span>Others</span>
+                    <div className="item">
+                        <img src={Tutorials} alt="" />
+                        <span>Tutorials</span>
+                    </div>
+                    <div className="item">
+                        <img src={Courses} alt="" />
+                        <span>Courses</span>
+                    </div>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                    <div className="item">
+                        <img src={Events} alt="" />
+                        <span>Event</span>
+                    </div>
+                </div>
             </div>
 
         </div>

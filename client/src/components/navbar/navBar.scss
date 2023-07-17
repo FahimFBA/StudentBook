@@ -5,6 +5,9 @@
   padding: 10px 20px;
   height: 50px;
   border-bottom: 1px solid lightgray;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 
   .left {
     display: flex;
@@ -34,10 +37,10 @@
     align-items: center;
     gap: 20px;
     .user {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
       img {
         width: 30px;
         height: 30px;
