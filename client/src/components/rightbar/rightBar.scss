@@ -8,4 +8,37 @@
   &::-webkit-scrollbar {
     display: none;
   }
+
+  .container {
+    padding: 20px;
+
+    .item {
+      span {
+        color: gray;
+      }
+
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0px;
+        .userInfo {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        .buttons {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
 }
