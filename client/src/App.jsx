@@ -5,6 +5,7 @@ import Login from "./pages/login/Login"
 import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
+import "./style.scss"
 
 import {
     createBrowserRouter,
@@ -19,7 +20,7 @@ function App() {
 
     const Layout = () => {
         return (
-            <div>
+            <div className="theme-dark">
                 <NavBar />
                 <div style={{ display: "flex" }}>
                     <LeftBar />
