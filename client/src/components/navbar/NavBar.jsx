@@ -10,9 +10,12 @@ import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
+import { AuthContext } from "../../context/authContext";
 
 const NavBar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="navBar">
       <div className="left">
@@ -38,8 +41,8 @@ const NavBar = () => {
         <NotificationsOutlinedIcon />
 
         <div className="user">
-          <img src="https://beeimg.com/images/m47975022502.jpg" alt="" />
-          <span>Fahim Amin</span>
+          <img src={currentUser.profilePic} alt="" />
+          <span>{currentUser.name}</span>
         </div>
       </div>
     </div>

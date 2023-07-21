@@ -8,7 +8,11 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = () => {
-    // To be implemented later
+    setCurrentUser({
+      id: 1,
+      name: "Fahim Amin",
+      profilePic: "https://beeimg.com/images/m47975022502.jpg",
+    });
   };
 
   useEffect(() => {
