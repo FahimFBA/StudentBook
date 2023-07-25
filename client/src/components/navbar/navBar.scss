@@ -36,6 +36,8 @@
           width: 500px;
           background-color: transparent;
           color: themed("textColor");
+
+       
         }
       }
     }
@@ -43,6 +45,11 @@
       display: flex;
       align-items: center;
       gap: 10px;
+
+      @include mobile {
+        display: none;
+      }
+
       .user {
         display: flex;
         align-items: center;
