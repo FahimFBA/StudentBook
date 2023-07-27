@@ -8,8 +8,7 @@ const Posts = () => {
       id: 1,
       name: "Fahim Amin",
       userId: 1,
-      profilePic:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      profilePic: "https://beeimg.com/images/m47975022502.jpg",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
       img: "https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600",
     },
