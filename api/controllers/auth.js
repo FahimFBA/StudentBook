@@ -1,5 +1,6 @@
 import { db } from "../connect.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
 
@@ -25,15 +26,16 @@ export const register = (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.user_password, salt);
 
-        const q = "INSERT INTO usertable (`user_name`, `user_email`, `user_password`) VALUE (?)"
+        const q = "INSERT INTO usertable (`user_name`, `user_fullname`, `user_email`, `user_password`) VALUE (?)"
 
         const values = [
             req.body.user_name,
+            req.body.user_fullname,
             req.body.user_email,
             hashedPassword
         ];
 
-        db.query(q, [values], (err, data)=> {
+        db.query(q, [values], (err, data) => {
             if (err) return res.status(500).json(err);
             return res.status(200).json("User has been created successfully!");
         });
@@ -50,9 +52,28 @@ export const register = (req, res) => {
 
 export const login = (req, res) => {
 
-};
+    const q = "SELECT * FROM usertable WHERE user_name = ?"
 
+    db.query(q, [req.body.user_name], (err, data) => {
+        if (err) return res.status(500).json(err);
+        if (data.length === 0) return res.status(404).json("User not found!");
+
+        const checkPassword = bcrypt.compareSync(req.body.user_password, data[0].user_password);
+
+        if (!checkPassword) return res.status(400).json("Wrong password or username!");
+
+        const token = jwt.sign({ id: data[0].id }, "secretkey");
+
+        const { password, ...others } = data[0]
+
+        res.cookie("accessToken", token, {
+            httpOnly: true,
+        })
+            .status(200).json(others);
+
+    });
+}
 
 export const logout = (req, res) => {
-
-};
+    
+}
