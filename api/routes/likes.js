@@ -4,6 +4,6 @@ import {  } from "../controllers/like.js";
 const router = express.Router()
 
 
-router.get("", getUser) 
+// router.get("", getUser) 
 
 export default router;
