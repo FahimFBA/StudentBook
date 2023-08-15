@@ -16,6 +16,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
+import Something from "./pages/something/Something";
 
 function App() {
   const {currentUser} = useContext(AuthContext);
@@ -58,6 +59,10 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/something",
+          element: <Something />,
         },
         {
           path: "/profile/:id",
