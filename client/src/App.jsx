@@ -8,6 +8,7 @@ import Profile from "./pages/profile/Profile";
 import "./style.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import {
   createBrowserRouter,
@@ -19,23 +20,27 @@ import { AuthContext } from "./context/authContext";
 import Something from "./pages/something/Something";
 
 function App() {
-  const {currentUser} = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   const { darkMode } = useContext(DarkModeContext);
 
+  const queryClient = new QueryClient();
+
   const Layout = () => {
     return (
-      <div className={`theme-${darkMode ? "dark" : "light"}`}>
-        <NavBar />
-        <div style={{ display: "flex" }}>
-          <LeftBar />
-          <div style={{ flex: 6 }}>
-            <Outlet />
-          </div>
+      <QueryClientProvider client={queryClient}>
+        <div className={`theme-${darkMode ? "dark" : "light"}`}>
+          <NavBar />
+          <div style={{ display: "flex" }}>
+            <LeftBar />
+            <div style={{ flex: 6 }}>
+              <Outlet />
+            </div>
 
-          <RightBar />
+            <RightBar />
+          </div>
         </div>
-      </div>
+      </QueryClientProvider>
     );
   };
 
