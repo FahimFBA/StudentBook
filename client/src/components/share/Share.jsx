@@ -9,7 +9,18 @@ import { makeRequest } from "../../axios";
 
 const Share = () => {
   const [file, setFile] = useState(null);
-  const [post_desc, setPostDesc] = useState("");
+  const [post_desc, setpost_desc] = useState("");
+
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await makeRequest.post("/upload", formData);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const { currentUser } = useContext(AuthContext);
 
@@ -27,9 +38,13 @@ const Share = () => {
     }
   );
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    mutation.mutate({ post_desc });
+    let imgUrl = "";
+    if (file) imgUrl = await upload();
+    mutation.mutate({ post_desc, img: imgUrl });
+    setpost_desc("");
+    setFile(null);
   };
 
   return (
@@ -39,8 +54,9 @@ const Share = () => {
           <img src={currentUser.profilePic} alt="" />
           <input
             type="text"
+            value={post_desc}
             placeholder={`What's on your mind ${currentUser.name}?`}
-            onChange={(e) => setPostDesc(e.target.value)}
+            onChange={(e) => setpost_desc(e.target.value)}
           />
         </div>
         <hr />

@@ -7,6 +7,11 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Comments from "../comments/Comments";
+import moment from "moment";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
@@ -20,7 +25,7 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={post.user_profile_img} alt="" />
+            <img src={"/upload/" + post.user_profile_img} alt="" />
             <div className="details">
               <Link
                 to={`/profile/${post.user_id}`}
@@ -28,14 +33,16 @@ const Post = ({ post }) => {
               >
                 <span className="name">{post.user_name}</span>
               </Link>
-              <span className="date">1 min ago</span>
+              <span className="date">
+                {moment(post.post_creation_time).fromNow()}
+              </span>
             </div>
           </div>
           <MoreHorizIcon />
         </div>
         <div className="content">
           <p>{post.post_desc}</p>
-          <img src={post.img} alt="" />
+          <img src={"/upload/" + post.img} alt="" />
         </div>
         <div className="info">
           <div className="item">

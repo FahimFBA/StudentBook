@@ -1,6 +1,7 @@
-import moment from "moment";
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
+import moment from "moment";
+
 
 export const getPosts = (req, res) => {
 
@@ -75,7 +76,7 @@ export const addPost = (req, res) => {
             req.body.img,
             moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
             userInfo.id,
-        ]
+        ];
 
 
 
