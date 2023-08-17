@@ -4,6 +4,8 @@ import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
 
 const Share = () => {
   const [file, setFile] = useState(null);
@@ -11,8 +13,23 @@ const Share = () => {
 
   const { currentUser } = useContext(AuthContext);
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (newPost) => {
+      return makeRequest.post("/posts", newPost);
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["posts"]);
+      },
+    }
+  );
+
   const handleClick = (e) => {
     e.preventDefault();
+    mutation.mutate({ post_desc });
   };
 
   return (
