@@ -51,13 +51,20 @@ const Share = () => {
     <div className="share">
       <div className="container">
         <div className="top">
-          <img src={currentUser.profilePic} alt="" />
-          <input
-            type="text"
-            value={post_desc}
-            placeholder={`What's on your mind ${currentUser.name}?`}
-            onChange={(e) => setpost_desc(e.target.value)}
-          />
+          <div className="left">
+            <img src={currentUser.profilePic} alt="" />
+            <input
+              type="text"
+              value={post_desc}
+              placeholder={`What's on your mind ${currentUser.name}?`}
+              onChange={(e) => setpost_desc(e.target.value)}
+            />
+          </div>
+          <div className="right">
+            {file && (
+              <img className="file" alt="" src={URL.createObjectURL(file)} />
+            )}
+          </div>
         </div>
         <hr />
         <div className="bottom">

@@ -15,21 +15,38 @@
       .top {
         display: flex;
         align-items: center;
-        gap: 20px;
-        img {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
+        justify-content: space-between;
 
-        input {
-          border: none;
-          outline: none;
-          padding: 20px 10px;
-          background-color: transparent;
-          width: 60%;
-          color: themed("textColor");
+        .left {
+          display: flex;
+          align-items: center;
+          flex: 3;
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          input {
+            border: none;
+            outline: none;
+            padding: 20px 10px;
+            background-color: transparent;
+            width: 60%;
+            color: themed("textColor");
+          }
+        }
+        .right {
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+          .file {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 0px;
+          }
         }
       }
 
