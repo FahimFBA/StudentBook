@@ -36,7 +36,7 @@ CREATE TABLE `commentstable` (
   KEY `comment_user_id_idx` (`user_id`),
   CONSTRAINT `comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `post_id` FOREIGN KEY (`post_id`) REFERENCES `poststable` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +45,7 @@ CREATE TABLE `commentstable` (
 
 LOCK TABLES `commentstable` WRITE;
 /*!40000 ALTER TABLE `commentstable` DISABLE KEYS */;
+INSERT INTO `commentstable` VALUES (1,'new comment from Joy',NULL,8,34);
 /*!40000 ALTER TABLE `commentstable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,4 +208,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-19  0:34:23
+-- Dump completed on 2023-08-19 23:18:52
