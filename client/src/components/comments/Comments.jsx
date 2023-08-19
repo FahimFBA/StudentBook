@@ -1,10 +1,21 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./comments.scss";
 import { AuthContext } from "../../context/authContext";
-
-const Comments = () => {
+import moment from "moment";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
+const Comments = ({ post_id }) => {
   const { currentUser } = useContext(AuthContext);
-  
+
+  const { isLoading, error, data } = useQuery(["comments"], () =>
+    makeRequest.get(`/comments?post_id=${post_id}`).then((res) => {
+      return res?.data
+    })
+  );
+
+  // console.log(data);
+  // console.log("isloading", isLoading);
+
   return (
     <div className="comments">
       <div className="write">
@@ -12,16 +23,20 @@ const Comments = () => {
         <input type="text" placeholder="write a comment" />
         <button>Send</button>
       </div>
-      {comments.map((comment) => (
-        <div className="comment">
-          <img src={comment.profilePicture} alt="" />
-          <div className="info">
-            <span>{comment.name}</span>
-            <p>{comment.desc}</p>
-          </div>
-          <span className="date">1 hour ago</span>
-        </div>
-      ))}
+      {isLoading
+        ? "loading"
+        : data?.map((comment) => (
+            <div className="comment">
+              <img src={comment.user_profile_img} alt="" />
+              <div className="info">
+                <span>{comment.user_name}</span>
+                <p>{comment.comment_desc}</p>
+              </div>
+              <span className="date">
+                {moment(comment.comment_creation_time).fromNow()}
+              </span>
+            </div>
+          ))}
     </div>
   );
 };
