@@ -5,27 +5,53 @@ import moment from "moment";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 const Comments = ({ post_id }) => {
+  const [comment_desc, setcomment_desc] = useState("");
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, error, data } = useQuery(["comments"], () =>
     makeRequest.get(`/comments?post_id=${post_id}`).then((res) => {
-      return res?.data
+      return res?.data;
     })
   );
 
   // console.log(data);
   // console.log("isloading", isLoading);
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(
+    (newComment) => {
+      return makeRequest.post("/comments", newComment);
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["comments"]);
+      },
+    }
+  );
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    mutation.mutate({ comment_desc, post_id });
+    setcomment_desc("");
+  };
+
   return (
     <div className="comments">
       <div className="write">
         <img src={currentUser.user_profile_img} alt="" />
-        <input type="text" placeholder="write a comment" />
-        <button>Send</button>
+        <input
+          type="text"
+          placeholder="write a comment"
+          value={comment_desc}
+          onChange={(e) => setcomment_desc(e.target.value)}
+        />
+        <button onClick={handleClick}>Send</button>
       </div>
       {isLoading
         ? "loading"
-        : data?.map((comment) => (
+        : data.map((comment) => (
             <div className="comment">
               <img src={comment.user_profile_img} alt="" />
               <div className="info">
