@@ -16,9 +16,15 @@ import { AuthContext } from "../../context/authContext";
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
 
-  // TEMPORARY
+  const { currentUser } = useContext(AuthContext);
 
-  const liked = false;
+  const { isLoading, error, data } = useQuery(["likes", post.post_id], () =>
+    makeRequest.get("/likes?post_id=" + post.post_id).then((res) => {
+      return res.data;
+    })
+  );
+
+  console.log(data);
 
   return (
     <div className="post">
@@ -46,8 +52,14 @@ const Post = ({ post }) => {
         </div>
         <div className="info">
           <div className="item">
-            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            {isLoading ? (
+              "loading"
+            ) : data.includes(currentUser.id) ? (
+              <FavoriteOutlinedIcon style={{ color: "red" }} />
+            ) : (
+              <FavoriteBorderOutlinedIcon />
+            )}
+            {data?.length} Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
