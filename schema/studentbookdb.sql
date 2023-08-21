@@ -66,7 +66,7 @@ CREATE TABLE `likestable` (
   KEY `likePostId_idx` (`post_id`),
   CONSTRAINT `likeeUserId` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `likePostId` FOREIGN KEY (`post_id`) REFERENCES `poststable` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,7 +96,7 @@ CREATE TABLE `poststable` (
   UNIQUE KEY `post_id_UNIQUE` (`post_id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `poststable` (
 
 LOCK TABLES `poststable` WRITE;
 /*!40000 ALTER TABLE `poststable` DISABLE KEYS */;
-INSERT INTO `poststable` VALUES (1,'this is a post',NULL,3,NULL),(2,'this is another post',NULL,6,NULL),(3,'from user 7',NULL,7,NULL),(4,'asdasd',NULL,6,NULL),(5,'asdasdas',NULL,7,NULL),(6,'jane theke',NULL,8,NULL),(7,'from postman',NULL,NULL,'2023-08-16 23:40:20'),(8,'from postman 2',NULL,NULL,'2023-08-16 23:41:47'),(9,'from postman 232',NULL,NULL,'2023-08-16 23:44:22'),(10,'from postman (testing for showing the user id automatically)',NULL,8,'2023-08-16 23:46:16'),(11,'asdasd',NULL,8,'2023-08-17 17:31:48'),(12,'This is from Fahim',NULL,8,'2023-08-17 17:31:58'),(13,'desc with an image',NULL,8,'2023-08-17 17:53:14'),(14,'desc with an image',NULL,8,'2023-08-17 17:53:43'),(15,'',NULL,8,'2023-08-17 17:55:19'),(16,'img',NULL,8,'2023-08-17 17:56:01'),(17,'asdasd',NULL,8,'2023-08-17 17:58:33'),(18,'from postman (testing for showing the user id automatically)',NULL,8,'2023-08-17 22:55:02'),(19,'from postman (testing for showing the user id automatically)asdasd',NULL,8,'2023-08-17 23:21:52'),(20,'posting',NULL,8,'2023-08-17 23:36:09'),(21,'postingasdas',NULL,8,'2023-08-17 23:46:09'),(22,'I am with Joy Bhai now',NULL,8,'2023-08-18 00:21:28'),(23,'asdasdasdawt3wt23qerq','',8,'2023-08-18 00:26:28'),(24,'asdasdasdawt3wt23qerq','1692296795439istockphoto-1322992439-612x612.jpg',8,'2023-08-18 00:26:35'),(25,'Again trying','1692297003778big_news1.gif',8,'2023-08-18 00:30:03'),(26,'Again trying without image','1692297008684big_news1.gif',8,'2023-08-18 00:30:08'),(27,'asdasdas','',8,'2023-08-18 00:30:19'),(28,'asdasdas',NULL,8,'2023-08-18 00:31:14'),(29,'3ewqy3gesf',NULL,8,'2023-08-18 00:31:23'),(30,'asfgawfgasd',NULL,8,'2023-08-18 00:32:22'),(31,'',NULL,8,'2023-08-18 00:32:30'),(32,'asdasdasde3tasfsdf','',8,'2023-08-18 00:33:47'),(33,'','1692297230592istockphoto-1322992439-612x612.jpg',8,'2023-08-18 00:33:50'),(34,'asdatgfwa','1692297234865istockphoto-1322992439-612x612.jpg',8,'2023-08-18 00:33:54'),(35,'post number 35. Posting without image ','',8,'2023-08-18 10:56:26'),(36,'post number 35. Posting with image ','1692334610806Introduction To Open Source ( à¦à¦ªà§à¦¨ à¦¸à§à¦°à§à¦¸ à¦¨à¦¿à§à§ à¦ªà¦°à¦¿à¦à¦¿à¦¤à¦¿ à¦®à§à¦²à¦ à¦à¦²à§à¦à¦¨à¦¾ ).png',8,'2023-08-18 10:56:50'),(37,'let me check it','16923828299742023-08-16_01-38.png',8,'2023-08-19 00:20:29');
+INSERT INTO `poststable` VALUES (1,'this is a post',NULL,3,NULL),(2,'this is another post',NULL,6,NULL),(3,'from user 7',NULL,7,NULL),(4,'asdasd',NULL,6,NULL),(5,'asdasdas',NULL,7,NULL),(6,'jane theke',NULL,8,NULL),(7,'from postman',NULL,NULL,'2023-08-16 23:40:20'),(8,'from postman 2',NULL,NULL,'2023-08-16 23:41:47'),(9,'from postman 232',NULL,NULL,'2023-08-16 23:44:22'),(10,'from postman (testing for showing the user id automatically)',NULL,8,'2023-08-16 23:46:16'),(11,'asdasd',NULL,8,'2023-08-17 17:31:48'),(12,'This is from Fahim',NULL,8,'2023-08-17 17:31:58'),(13,'desc with an image',NULL,8,'2023-08-17 17:53:14'),(14,'desc with an image',NULL,8,'2023-08-17 17:53:43'),(15,'',NULL,8,'2023-08-17 17:55:19'),(16,'img',NULL,8,'2023-08-17 17:56:01'),(17,'asdasd',NULL,8,'2023-08-17 17:58:33'),(18,'from postman (testing for showing the user id automatically)',NULL,8,'2023-08-17 22:55:02'),(19,'from postman (testing for showing the user id automatically)asdasd',NULL,8,'2023-08-17 23:21:52'),(20,'posting',NULL,8,'2023-08-17 23:36:09'),(21,'postingasdas',NULL,8,'2023-08-17 23:46:09'),(22,'I am with Joy Bhai now',NULL,8,'2023-08-18 00:21:28'),(23,'asdasdasdawt3wt23qerq','',8,'2023-08-18 00:26:28'),(24,'asdasdasdawt3wt23qerq','1692296795439istockphoto-1322992439-612x612.jpg',8,'2023-08-18 00:26:35'),(25,'Again trying','1692297003778big_news1.gif',8,'2023-08-18 00:30:03'),(26,'Again trying without image','1692297008684big_news1.gif',8,'2023-08-18 00:30:08'),(27,'asdasdas','',8,'2023-08-18 00:30:19'),(28,'asdasdas',NULL,8,'2023-08-18 00:31:14'),(29,'3ewqy3gesf',NULL,8,'2023-08-18 00:31:23'),(30,'asfgawfgasd',NULL,8,'2023-08-18 00:32:22'),(31,'',NULL,8,'2023-08-18 00:32:30'),(32,'asdasdasde3tasfsdf','',8,'2023-08-18 00:33:47'),(33,'','1692297230592istockphoto-1322992439-612x612.jpg',8,'2023-08-18 00:33:50'),(34,'asdatgfwa','1692297234865istockphoto-1322992439-612x612.jpg',8,'2023-08-18 00:33:54'),(35,'post number 35. Posting without image ','',8,'2023-08-18 10:56:26'),(36,'post number 35. Posting with image ','1692334610806Introduction To Open Source ( à¦à¦ªà§à¦¨ à¦¸à§à¦°à§à¦¸ à¦¨à¦¿à§à§ à¦ªà¦°à¦¿à¦à¦¿à¦¤à¦¿ à¦®à§à¦²à¦ à¦à¦²à§à¦à¦¨à¦¾ ).png',8,'2023-08-18 10:56:50'),(37,'let me check it','16923828299742023-08-16_01-38.png',8,'2023-08-19 00:20:29'),(38,'another user\'s post',NULL,9,NULL);
 /*!40000 ALTER TABLE `poststable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +153,7 @@ CREATE TABLE `userrelationshiptable` (
   KEY `followerd_user_idx` (`followeduserid`),
   CONSTRAINT `follower_user` FOREIGN KEY (`followeruserid`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `followerd_user` FOREIGN KEY (`followeduserid`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,7 +162,7 @@ CREATE TABLE `userrelationshiptable` (
 
 LOCK TABLES `userrelationshiptable` WRITE;
 /*!40000 ALTER TABLE `userrelationshiptable` DISABLE KEYS */;
-INSERT INTO `userrelationshiptable` VALUES (1,7,6),(2,7,8);
+INSERT INTO `userrelationshiptable` VALUES (1,7,6),(2,7,8),(3,9,8),(9,8,9);
 /*!40000 ALTER TABLE `userrelationshiptable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +198,7 @@ CREATE TABLE `usertable` (
 
 LOCK TABLES `usertable` WRITE;
 /*!40000 ALTER TABLE `usertable` DISABLE KEYS */;
-INSERT INTO `usertable` VALUES (3,'FahimFBA','Md. Fahim Bin Amin','fahimbinamin@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$DdN9PYPP9UdATQNZRX4vo.KiISP/WFtOd7aRJfNpUlqo0CD3IshnC',NULL,NULL),(4,'asda','gsdgherwsd','asd@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$pThl9Iq144PYpJ6VGB1NXOyAi1kASRmD81fqYVEz0FAYPEwhI7EoW',NULL,NULL),(5,'','','',NULL,NULL,NULL,NULL,'$2a$10$exqFrNx9OXws72/cQoS4aeUyOVKAFcFJk2QnCyEhK2vtWObObh30q',NULL,NULL),(6,'testMe','test me Full','test@gmail.com',NULL,NULL,'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',NULL,'$2a$10$xfUFJCHlVH76LqfmGuzfgebdR6uFa4er.fQ7Sh7RpLW1W4IIUsmp6',NULL,NULL),(7,'testMe2','test me Full2','test2@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$r6mqi12DNlBySWESCd.2TukAvEkUrP4x8pUS4y9NBj1rf5cl.WgF2',NULL,NULL),(8,'Jane','Jane Doe AB','jane23@gmail.com',NULL,NULL,'https://images.pexels.com/photos/9571268/pexels-photo-9571268.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load','https://images.pexels.com/photos/17992693/pexels-photo-17992693.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','Dhaka','fahimbinamin.com'),(9,'Tester','Test Doe AB','jane21213@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$7ku8vobrFQmQUxnIKY5QZ.P2DzTg4gw3v3i1Gea.Eyl1GRgYxNeGq',NULL,NULL);
+INSERT INTO `usertable` VALUES (3,'FahimFBA','Md. Fahim Bin Amin','fahimbinamin@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$DdN9PYPP9UdATQNZRX4vo.KiISP/WFtOd7aRJfNpUlqo0CD3IshnC',NULL,NULL),(4,'asda','gsdgherwsd','asd@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$pThl9Iq144PYpJ6VGB1NXOyAi1kASRmD81fqYVEz0FAYPEwhI7EoW',NULL,NULL),(5,'','','',NULL,NULL,NULL,NULL,'$2a$10$exqFrNx9OXws72/cQoS4aeUyOVKAFcFJk2QnCyEhK2vtWObObh30q',NULL,NULL),(6,'testMe','test me Full','test@gmail.com',NULL,NULL,'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',NULL,'$2a$10$xfUFJCHlVH76LqfmGuzfgebdR6uFa4er.fQ7Sh7RpLW1W4IIUsmp6',NULL,NULL),(7,'testMe2','test me Full2','test2@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$r6mqi12DNlBySWESCd.2TukAvEkUrP4x8pUS4y9NBj1rf5cl.WgF2',NULL,NULL),(8,'Jane','','jane23@gmail.com',NULL,NULL,'169261906637678585957_2435762763344830_7944738235358380032_n.jpg','1692619066384Introduction To Open Source ( à¦à¦ªà§à¦¨ à¦¸à§à¦°à§à¦¸ à¦¨à¦¿à§à§ à¦ªà¦°à¦¿à¦à¦¿à¦¤à¦¿ à¦®à§à¦²à¦ à¦à¦²à§à¦à¦¨à¦¾ ).png','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','',''),(9,'Tester','Test Doe AB','jane21213@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$7ku8vobrFQmQUxnIKY5QZ.P2DzTg4gw3v3i1Gea.Eyl1GRgYxNeGq',NULL,NULL);
 /*!40000 ALTER TABLE `usertable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -211,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-21 14:46:13
+-- Dump completed on 2023-08-21 18:00:03
