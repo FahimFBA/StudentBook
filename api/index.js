@@ -46,6 +46,8 @@ app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/likes", likeRoutes);
 
+// our user id would be like this = currentUser.id and userInfo.id
+
 
 
 
