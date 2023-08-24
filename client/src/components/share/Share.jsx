@@ -7,8 +7,11 @@ import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 
+// Image upload problem
+
 const Share = () => {
   const [file, setFile] = useState(null);
+  console.log(file);
   const [post_desc, setpost_desc] = useState("");
 
   const upload = async () => {
@@ -62,7 +65,15 @@ const Share = () => {
           </div>
           <div className="right">
             {file && (
-              <img className="file" alt="" src={URL.createObjectURL(file)} />
+              <img
+                styles={{
+                  height: "200px",
+                  width: "200px",
+                }}
+                className="file"
+                alt=""
+                src={URL.createObjectURL(file)}
+              />
             )}
           </div>
         </div>
@@ -74,6 +85,7 @@ const Share = () => {
               id="file"
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
+              // value={file}
             />
             <label htmlFor="file">
               <div className="item">

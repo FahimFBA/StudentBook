@@ -15,9 +15,13 @@ import {
   Navigate,
   Outlet,
   RouterProvider,
+  BrowserRouter,
+  Routes,
+  Route,
 } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
 import Something from "./pages/something/Something";
+import Article from "./pages/Article/Article";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -64,6 +68,10 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/articles",
+          element: <Article />,
         },
         {
           path: "/something",
