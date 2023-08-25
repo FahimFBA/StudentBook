@@ -78,6 +78,124 @@ INSERT INTO `commentstable` VALUES (1,'new comment from Joy',NULL,8,34);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `faculty_table`
+--
+
+DROP TABLE IF EXISTS `faculty_table`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `faculty_table` (
+  `faculty_id` int NOT NULL,
+  `faculty_research_interest` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`faculty_id`),
+  UNIQUE KEY `faculty_id_UNIQUE` (`faculty_id`),
+  CONSTRAINT `faculty_id_ftable` FOREIGN KEY (`faculty_id`) REFERENCES `usertable` (`user_if_faculty_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `faculty_table`
+--
+
+LOCK TABLES `faculty_table` WRITE;
+/*!40000 ALTER TABLE `faculty_table` DISABLE KEYS */;
+/*!40000 ALTER TABLE `faculty_table` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `facultydegreetable`
+--
+
+DROP TABLE IF EXISTS `facultydegreetable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `facultydegreetable` (
+  `faculty_id` int NOT NULL,
+  `faculty_degree1` varchar(200) NOT NULL,
+  `faculty_degree2` varchar(200) DEFAULT NULL,
+  `faculty_degree3` varchar(200) DEFAULT NULL,
+  `faculty_degree4` varchar(200) DEFAULT NULL,
+  `faculty_degree5` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`faculty_id`),
+  UNIQUE KEY `faculty_id_UNIQUE` (`faculty_id`),
+  CONSTRAINT `faculty_id` FOREIGN KEY (`faculty_id`) REFERENCES `faculty_table` (`faculty_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `facultydegreetable`
+--
+
+LOCK TABLES `facultydegreetable` WRITE;
+/*!40000 ALTER TABLE `facultydegreetable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `facultydegreetable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `facultydepttable`
+--
+
+DROP TABLE IF EXISTS `facultydepttable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `facultydepttable` (
+  `faculty_id` int NOT NULL,
+  `faculty_dept1` varchar(200) NOT NULL,
+  `faculty_dept2` varchar(200) DEFAULT NULL,
+  `faculty_dept3` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`faculty_id`),
+  UNIQUE KEY `faculty_id_UNIQUE` (`faculty_id`),
+  CONSTRAINT `faculty_id_dept` FOREIGN KEY (`faculty_id`) REFERENCES `faculty_table` (`faculty_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `facultydepttable`
+--
+
+LOCK TABLES `facultydepttable` WRITE;
+/*!40000 ALTER TABLE `facultydepttable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `facultydepttable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jobtable`
+--
+
+DROP TABLE IF EXISTS `jobtable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jobtable` (
+  `job_id` int NOT NULL AUTO_INCREMENT,
+  `job_provider_user_name` varchar(200) NOT NULL,
+  `job_provider_company_name` varchar(200) NOT NULL,
+  `job_provider_company_linkedin` varchar(200) NOT NULL,
+  `job_provider_company_website` varchar(200) NOT NULL,
+  `job_provider_company_email` varchar(200) NOT NULL,
+  `job_description` varchar(500) NOT NULL,
+  `job_requirement` varchar(200) NOT NULL,
+  `job_salary` int NOT NULL,
+  `job_provider_company_twitter` varchar(200) DEFAULT NULL,
+  `job_provider_company_facebook` varchar(200) DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `job_creation_time` date NOT NULL,
+  PRIMARY KEY (`job_id`),
+  UNIQUE KEY `job_id_UNIQUE` (`job_id`),
+  KEY `user_id_idx` (`user_id`),
+  CONSTRAINT `job_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobtable`
+--
+
+LOCK TABLES `jobtable` WRITE;
+/*!40000 ALTER TABLE `jobtable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jobtable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `likestable`
 --
 
@@ -138,6 +256,31 @@ INSERT INTO `poststable` VALUES (1,'this is a post',NULL,3,NULL),(2,'this is ano
 UNLOCK TABLES;
 
 --
+-- Table structure for table `stafftable`
+--
+
+DROP TABLE IF EXISTS `stafftable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `stafftable` (
+  `staff_id` int NOT NULL,
+  `staff_designation` varchar(200) NOT NULL,
+  PRIMARY KEY (`staff_id`),
+  UNIQUE KEY `staff_id_UNIQUE` (`staff_id`),
+  CONSTRAINT `staff_id` FOREIGN KEY (`staff_id`) REFERENCES `usertable` (`user_if_staff_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stafftable`
+--
+
+LOCK TABLES `stafftable` WRITE;
+/*!40000 ALTER TABLE `stafftable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stafftable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `storiestable`
 --
 
@@ -162,6 +305,35 @@ CREATE TABLE `storiestable` (
 LOCK TABLES `storiestable` WRITE;
 /*!40000 ALTER TABLE `storiestable` DISABLE KEYS */;
 /*!40000 ALTER TABLE `storiestable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `studenttable`
+--
+
+DROP TABLE IF EXISTS `studenttable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `studenttable` (
+  `student_id` int NOT NULL,
+  `student_cgpa` varchar(5) DEFAULT NULL,
+  `student_stat` varchar(45) NOT NULL,
+  `student_work_email` varchar(200) DEFAULT NULL,
+  `student_work_company` varchar(200) DEFAULT NULL,
+  `student_dept` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`student_id`),
+  UNIQUE KEY `student_id_UNIQUE` (`student_id`),
+  CONSTRAINT `student_id` FOREIGN KEY (`student_id`) REFERENCES `usertable` (`user_if_student_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `studenttable`
+--
+
+LOCK TABLES `studenttable` WRITE;
+/*!40000 ALTER TABLE `studenttable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `studenttable` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -213,10 +385,17 @@ CREATE TABLE `usertable` (
   `user_password` varchar(200) NOT NULL,
   `user_city` varchar(200) DEFAULT NULL,
   `user_website` varchar(200) DEFAULT NULL,
+  `user_occ` varchar(50) NOT NULL,
+  `user_if_student_id` int DEFAULT NULL,
+  `user_if_faculty_id` int DEFAULT NULL,
+  `user_if_staff_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `user_email_UNIQUE` (`user_email`),
-  UNIQUE KEY `user_name_UNIQUE` (`user_name`)
+  UNIQUE KEY `user_name_UNIQUE` (`user_name`),
+  UNIQUE KEY `user_if_student_id_UNIQUE` (`user_if_student_id`),
+  UNIQUE KEY `user_if_faculty_id_UNIQUE` (`user_if_faculty_id`),
+  UNIQUE KEY `user_if_staff_id_UNIQUE` (`user_if_staff_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -226,7 +405,7 @@ CREATE TABLE `usertable` (
 
 LOCK TABLES `usertable` WRITE;
 /*!40000 ALTER TABLE `usertable` DISABLE KEYS */;
-INSERT INTO `usertable` VALUES (3,'FahimFBA','Md. Fahim Bin Amin','fahimbinamin@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$DdN9PYPP9UdATQNZRX4vo.KiISP/WFtOd7aRJfNpUlqo0CD3IshnC',NULL,NULL),(4,'asda','gsdgherwsd','asd@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$pThl9Iq144PYpJ6VGB1NXOyAi1kASRmD81fqYVEz0FAYPEwhI7EoW',NULL,NULL),(5,'','','',NULL,NULL,NULL,NULL,'$2a$10$exqFrNx9OXws72/cQoS4aeUyOVKAFcFJk2QnCyEhK2vtWObObh30q',NULL,NULL),(6,'testMe','test me Full','test@gmail.com',NULL,NULL,'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',NULL,'$2a$10$xfUFJCHlVH76LqfmGuzfgebdR6uFa4er.fQ7Sh7RpLW1W4IIUsmp6',NULL,NULL),(7,'testMe2','test me Full2','test2@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$r6mqi12DNlBySWESCd.2TukAvEkUrP4x8pUS4y9NBj1rf5cl.WgF2',NULL,NULL),(8,'Jane','Fahim Bin Amin','jane23@gmail.com',NULL,NULL,'1692619066384Introduction To Open Source ( à¦à¦ªà§à¦¨ à¦¸à§à¦°à§à¦¸ à¦¨à¦¿à§à§ à¦ªà¦°à¦¿à¦à¦¿à¦¤à¦¿ à¦®à§à¦²à¦ à¦à¦²à§à¦à¦¨à¦¾ ).png','169261906637678585957_2435762763344830_7944738235358380032_n.jpg','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','Fahim','Fahim'),(9,'Tester','Test Doe AB','jane21213@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$7ku8vobrFQmQUxnIKY5QZ.P2DzTg4gw3v3i1Gea.Eyl1GRgYxNeGq',NULL,NULL);
+INSERT INTO `usertable` VALUES (3,'FahimFBA','Md. Fahim Bin Amin','fahimbinamin@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$DdN9PYPP9UdATQNZRX4vo.KiISP/WFtOd7aRJfNpUlqo0CD3IshnC',NULL,NULL,'',NULL,NULL,NULL),(4,'asda','gsdgherwsd','asd@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$pThl9Iq144PYpJ6VGB1NXOyAi1kASRmD81fqYVEz0FAYPEwhI7EoW',NULL,NULL,'',NULL,NULL,NULL),(5,'','','',NULL,NULL,NULL,NULL,'$2a$10$exqFrNx9OXws72/cQoS4aeUyOVKAFcFJk2QnCyEhK2vtWObObh30q',NULL,NULL,'',NULL,NULL,NULL),(6,'testMe','test me Full','test@gmail.com',NULL,NULL,'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',NULL,'$2a$10$xfUFJCHlVH76LqfmGuzfgebdR6uFa4er.fQ7Sh7RpLW1W4IIUsmp6',NULL,NULL,'',NULL,NULL,NULL),(7,'testMe2','test me Full2','test2@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$r6mqi12DNlBySWESCd.2TukAvEkUrP4x8pUS4y9NBj1rf5cl.WgF2',NULL,NULL,'',NULL,NULL,NULL),(8,'Jane','Fahim Bin Amin','jane23@gmail.com',NULL,NULL,'1692619066384Introduction To Open Source ( à¦à¦ªà§à¦¨ à¦¸à§à¦°à§à¦¸ à¦¨à¦¿à§à§ à¦ªà¦°à¦¿à¦à¦¿à¦¤à¦¿ à¦®à§à¦²à¦ à¦à¦²à§à¦à¦¨à¦¾ ).png','169261906637678585957_2435762763344830_7944738235358380032_n.jpg','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','Fahim','Fahim','',NULL,NULL,NULL),(9,'Tester','Test Doe AB','jane21213@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$7ku8vobrFQmQUxnIKY5QZ.P2DzTg4gw3v3i1Gea.Eyl1GRgYxNeGq',NULL,NULL,'',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usertable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -239,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-25  3:43:01
+-- Dump completed on 2023-08-26  2:17:34
