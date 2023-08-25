@@ -22,6 +22,7 @@ import {
 import { AuthContext } from "./context/authContext";
 import Something from "./pages/something/Something";
 import Article from "./pages/Article/Article";
+import Job from "./pages/Job/Job";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -72,6 +73,10 @@ function App() {
         {
           path: "/articles",
           element: <Article />,
+        },
+        {
+          path: "/jobs",
+          element: <Job />,
         },
         {
           path: "/something",

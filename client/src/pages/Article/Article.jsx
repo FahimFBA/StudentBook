@@ -107,8 +107,8 @@ const Article = () => {
 
       {/*  Display articles here */}
 
-      {articleData?.map(item=>{
-        return <ArticleCard key={item?.article_id} {...item}/>
+      {articleData?.map((item) => {
+        return <ArticleCard key={item?.article_id} {...item} />;
       })}
     </div>
   );
