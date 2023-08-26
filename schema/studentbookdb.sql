@@ -31,8 +31,9 @@ CREATE TABLE `articletable` (
   `article_creation_time` datetime NOT NULL,
   `article_title` varchar(45) NOT NULL,
   PRIMARY KEY (`article_id`),
-  UNIQUE KEY `article_id_UNIQUE` (`article_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `article_id_UNIQUE` (`article_id`),
+  KEY `user_id_idx` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +42,7 @@ CREATE TABLE `articletable` (
 
 LOCK TABLES `articletable` WRITE;
 /*!40000 ALTER TABLE `articletable` DISABLE KEYS */;
-INSERT INTO `articletable` VALUES (1,'I am with Joy Bhai now',8,'2023-08-24 22:39:34',''),(2,'I am with Joy Bhai now',8,'2023-08-25 02:27:43',''),(3,'hello',8,'2023-08-25 02:29:00',''),(4,'well asdasdasdasd',8,'2023-08-25 02:30:42',''),(5,'I am with Joy Bhai now',8,'2023-08-25 03:04:12','new title'),(6,'I am with Joy Bhai now at 3.11 AM',8,'2023-08-25 03:11:17','newer title');
+INSERT INTO `articletable` VALUES (2,'I am with Joy Bhai now',8,'2023-08-25 02:27:43',''),(4,'well asdasdasdasd',8,'2023-08-25 02:30:42',''),(5,'I am with Joy Bhai now',8,'2023-08-25 03:04:12','new title'),(8,'asdasdasd',8,'2023-08-26 21:31:33','new article');
 /*!40000 ALTER TABLE `articletable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,7 +175,7 @@ CREATE TABLE `jobtable` (
   `job_provider_company_email` varchar(200) NOT NULL,
   `job_description` varchar(500) NOT NULL,
   `job_requirement` varchar(200) NOT NULL,
-  `job_salary` int NOT NULL,
+  `job_salary` varchar(15) NOT NULL,
   `job_provider_company_twitter` varchar(200) DEFAULT NULL,
   `job_provider_company_facebook` varchar(200) DEFAULT NULL,
   `user_id` int NOT NULL,
@@ -183,7 +184,7 @@ CREATE TABLE `jobtable` (
   UNIQUE KEY `job_id_UNIQUE` (`job_id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `job_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,6 +193,7 @@ CREATE TABLE `jobtable` (
 
 LOCK TABLES `jobtable` WRITE;
 /*!40000 ALTER TABLE `jobtable` DISABLE KEYS */;
+INSERT INTO `jobtable` VALUES (1,'Fahim','Brain Station 23','linkedin.com/in/bs','bs.com','bs@gmail.com','This is a long job description','This is a job requirement','20,000 BDT','x.com/bs','fb.com/bs',8,'2023-08-26'),(2,'Joy Shaheb','joycompany','https://www.joy.com','https://www.joy.com','j@gmail.com','askdbasjkfba','aewiughteisunvjklashbtu7823bgkjsebnglijkswebg','121213','https://www.joy.com','https://www.joy.com',8,'2023-08-26');
 /*!40000 ALTER TABLE `jobtable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,6 +335,7 @@ CREATE TABLE `studenttable` (
 
 LOCK TABLES `studenttable` WRITE;
 /*!40000 ALTER TABLE `studenttable` DISABLE KEYS */;
+INSERT INTO `studenttable` VALUES (2,'3.50','former','asds@gmail.com','nothin','CSE'),(3,'2.30','alumni','asdsdat3w@gmail.com','nothing 2','CSE'),(4,'3.99','alumni','as@gmail.com','nothing 3','EEE');
 /*!40000 ALTER TABLE `studenttable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -389,6 +392,7 @@ CREATE TABLE `usertable` (
   `user_if_student_id` int DEFAULT NULL,
   `user_if_faculty_id` int DEFAULT NULL,
   `user_if_staff_id` int DEFAULT NULL,
+  `user_cal` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `user_email_UNIQUE` (`user_email`),
@@ -396,7 +400,7 @@ CREATE TABLE `usertable` (
   UNIQUE KEY `user_if_student_id_UNIQUE` (`user_if_student_id`),
   UNIQUE KEY `user_if_faculty_id_UNIQUE` (`user_if_faculty_id`),
   UNIQUE KEY `user_if_staff_id_UNIQUE` (`user_if_staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -405,7 +409,7 @@ CREATE TABLE `usertable` (
 
 LOCK TABLES `usertable` WRITE;
 /*!40000 ALTER TABLE `usertable` DISABLE KEYS */;
-INSERT INTO `usertable` VALUES (3,'FahimFBA','Md. Fahim Bin Amin','fahimbinamin@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$DdN9PYPP9UdATQNZRX4vo.KiISP/WFtOd7aRJfNpUlqo0CD3IshnC',NULL,NULL,'',NULL,NULL,NULL),(4,'asda','gsdgherwsd','asd@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$pThl9Iq144PYpJ6VGB1NXOyAi1kASRmD81fqYVEz0FAYPEwhI7EoW',NULL,NULL,'',NULL,NULL,NULL),(5,'','','',NULL,NULL,NULL,NULL,'$2a$10$exqFrNx9OXws72/cQoS4aeUyOVKAFcFJk2QnCyEhK2vtWObObh30q',NULL,NULL,'',NULL,NULL,NULL),(6,'testMe','test me Full','test@gmail.com',NULL,NULL,'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',NULL,'$2a$10$xfUFJCHlVH76LqfmGuzfgebdR6uFa4er.fQ7Sh7RpLW1W4IIUsmp6',NULL,NULL,'',NULL,NULL,NULL),(7,'testMe2','test me Full2','test2@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$r6mqi12DNlBySWESCd.2TukAvEkUrP4x8pUS4y9NBj1rf5cl.WgF2',NULL,NULL,'',NULL,NULL,NULL),(8,'Jane','Fahim Bin Amin','jane23@gmail.com',NULL,NULL,'1692619066384Introduction To Open Source ( à¦à¦ªà§à¦¨ à¦¸à§à¦°à§à¦¸ à¦¨à¦¿à§à§ à¦ªà¦°à¦¿à¦à¦¿à¦¤à¦¿ à¦®à§à¦²à¦ à¦à¦²à§à¦à¦¨à¦¾ ).png','169261906637678585957_2435762763344830_7944738235358380032_n.jpg','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','Fahim','Fahim','',NULL,NULL,NULL),(9,'Tester','Test Doe AB','jane21213@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$7ku8vobrFQmQUxnIKY5QZ.P2DzTg4gw3v3i1Gea.Eyl1GRgYxNeGq',NULL,NULL,'',NULL,NULL,NULL);
+INSERT INTO `usertable` VALUES (3,'FahimFBA','Md. Fahim Bin Amin','fahimbinamin@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$DdN9PYPP9UdATQNZRX4vo.KiISP/WFtOd7aRJfNpUlqo0CD3IshnC',NULL,NULL,'',NULL,NULL,NULL,NULL),(4,'asda','gsdgherwsd','asd@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$pThl9Iq144PYpJ6VGB1NXOyAi1kASRmD81fqYVEz0FAYPEwhI7EoW',NULL,NULL,'',NULL,NULL,NULL,NULL),(5,'','','',NULL,NULL,NULL,NULL,'$2a$10$exqFrNx9OXws72/cQoS4aeUyOVKAFcFJk2QnCyEhK2vtWObObh30q',NULL,NULL,'',NULL,NULL,NULL,NULL),(6,'testMe','test me Full','test@gmail.com',NULL,NULL,'https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load',NULL,'$2a$10$xfUFJCHlVH76LqfmGuzfgebdR6uFa4er.fQ7Sh7RpLW1W4IIUsmp6',NULL,NULL,'',NULL,NULL,NULL,NULL),(7,'testMe2','test me Full2','test2@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$r6mqi12DNlBySWESCd.2TukAvEkUrP4x8pUS4y9NBj1rf5cl.WgF2',NULL,NULL,'Student',4,NULL,NULL,NULL),(8,'Jane','Fahim Bin Amin','jane23@gmail.com',NULL,NULL,'1692619066384Introduction To Open Source ( à¦à¦ªà§à¦¨ à¦¸à§à¦°à§à¦¸ à¦¨à¦¿à§à§ à¦ªà¦°à¦¿à¦à¦¿à¦¤à¦¿ à¦®à§à¦²à¦ à¦à¦²à§à¦à¦¨à¦¾ ).png','169261906637678585957_2435762763344830_7944738235358380032_n.jpg','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','Fahim','Fahim','Student',3,NULL,NULL,'https://calendly.com/'),(9,'Tester','Test Doe AB','jane21213@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$7ku8vobrFQmQUxnIKY5QZ.P2DzTg4gw3v3i1Gea.Eyl1GRgYxNeGq',NULL,NULL,'Student',2,NULL,NULL,NULL),(10,'Fahmida','Fahmida Test','asdasd@gmail.com',NULL,NULL,NULL,NULL,'asdasdasd',NULL,NULL,'Faculty',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usertable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -418,4 +422,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-26  2:17:34
+-- Dump completed on 2023-08-26 23:57:27
