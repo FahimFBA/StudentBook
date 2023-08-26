@@ -11,6 +11,7 @@ import jobRouter from './routes/jobs.js'
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import multer from "multer";
+import searchRoutes from "./routes/searches.js";
 
 // middlewares
 app.use((req, res, next) => {
@@ -51,6 +52,7 @@ app.use("/api/jobs", jobRouter);
 app.use("/api/comments", commentRoutes);
 app.use("/api/likes", likeRoutes);
 app.use("/api/relationships", relationshipRoutes);
+app.use("/api/searches", searchRoutes);
 
 // our user id would be like this = currentUser.id and userInfo.id
 
