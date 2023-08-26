@@ -48,10 +48,29 @@ const Article = () => {
       return res.data;
     })
   );
-  console.log(articleData);
 
   const handleInputChange = (e) =>
     setData({ ...data, [e.target.name]: e.target.value });
+
+  const deleteMutation = useMutation(
+    (articleId) => {
+      return makeRequest.delete("/articles/" + articleId);
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["articles"]);
+        toast.success("Article deleted successfully");
+      },  
+      onError: (err) => {
+        toast.error("ServerError");
+      }
+    }
+  );
+
+  const handleDelete = (articleId) => {
+    deleteMutation.mutate(articleId);
+  };
 
   return (
     <div className="p-5 bg-black min-h-[100vh]">
@@ -108,7 +127,7 @@ const Article = () => {
       {/*  Display articles here */}
 
       {articleData?.map((item) => {
-        return <ArticleCard key={item?.article_id} {...item} />;
+        return <ArticleCard key={item?.article_id} {...item} onDelete={handleDelete} />;
       })}
     </div>
   );
