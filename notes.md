@@ -1,6 +1,6 @@
 ## Friday 
-* job portal -> CRUD -> tag -> who posted the job
-* delete article
+* job portal -> CRUD -> tag -> who posted the job // Fahim's task
+* delete article // done
 * fix image preview
 * roles -> student, faculty, staff, alumni-> SQL
 
