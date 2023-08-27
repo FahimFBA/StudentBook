@@ -27,6 +27,7 @@ import CodeIcon from "../../assets/coding.png";
 import StackIcon from "../../assets/stackoverflow.png";
 import BkashIcon from "../../assets/bkash.png";
 import BankIcon from "../../assets/debit-card.png";
+import QuoraIcon from "../../assets/quora.png";
 import FCC from "../../assets/fcc.png";
 import LinkedInIcon from "../../assets/linkedin.png";
 import { AuthContext } from "../../context/authContext";
@@ -77,7 +78,11 @@ const LeftBar = () => {
             <img src={GitHubIcon} alt="" />
             <span>GitHub</span>
           </Link>
-          <Link to="https://stackoverflow.com/" target="_blank" className="item">
+          <Link
+            to="https://stackoverflow.com/"
+            target="_blank"
+            className="item"
+          >
             <img src={StackIcon} alt="" />
             <span>StackOverflow</span>
           </Link>
@@ -85,7 +90,11 @@ const LeftBar = () => {
             <img src={MailIcon} alt="" />
             <span>GMail</span>
           </Link>
-          <Link to="https://www.researchgate.net/" target="_blank" className="item">
+          <Link
+            to="https://www.researchgate.net/"
+            target="_blank"
+            className="item"
+          >
             <img src={ResearchIcon} alt="" />
             <span>ResearchGate</span>
           </Link>
@@ -97,7 +106,11 @@ const LeftBar = () => {
         <hr />
         <div className="menu">
           <span>Others</span>
-          <Link to="https://ib.dhakabank.com.bd/" target="_blank" className="item">
+          <Link
+            to="https://ib.dhakabank.com.bd/"
+            target="_blank"
+            className="item"
+          >
             <img src={BankIcon} alt="" />
             <span>Tuition Fee Payment (Dhaka Bank)</span>
           </Link>
@@ -109,7 +122,11 @@ const LeftBar = () => {
             <img src={LinkedInIcon} alt="" />
             <span>LinkedIn</span>
           </Link>
-          <Link to="https://www.freecodecamp.org/" target="_blank" className="item">
+          <Link
+            to="https://www.freecodecamp.org/"
+            target="_blank"
+            className="item"
+          >
             <img src={FCC} alt="" />
             <span>freeCodeCamp</span>
           </Link>
@@ -117,9 +134,17 @@ const LeftBar = () => {
             <img src={CourseraIcon} alt="" />
             <span>Coursera</span>
           </Link>
-          <Link to="https://www.goodreads.com/" target="_blank" className="item">
+          <Link
+            to="https://www.goodreads.com/"
+            target="_blank"
+            className="item"
+          >
             <img src={GoodReadIcon} alt="" />
             <span>GoodRead</span>
+          </Link>
+          <Link to="https://www.quora.com/" target="_blank" className="item">
+            <img src={QuoraIcon} alt="" />
+            <span>Quora</span>
           </Link>
           {/* <div className="item">
             <img src={Courses} alt="" />
