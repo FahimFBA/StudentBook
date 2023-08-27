@@ -12,19 +12,6 @@ export const createJob = (req, res) => {
 
         // const q = "INSERT INTO articletable (`article_content`, `article_creation_time`, `user_id`, `article_title`) VALUES (?)";
 
-        // insert into these:
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-        // : "",
-
         const q = "INSERT INTO jobtable (`job_provider_user_name`, `job_provider_company_name`, `job_provider_company_linkedin`, `job_provider_company_website`, `job_provider_company_email`, `job_description`, `job_requirement`, `job_salary`, `job_provider_company_twitter`, `job_provider_company_facebook`, `user_id`, `job_creation_time`) VALUES (?)";
         // const values = [
         //     req.body.article_content,
@@ -48,13 +35,6 @@ export const createJob = (req, res) => {
             moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
         ];
 
-
-
-        // db.query(q, [values], (err, data) => {
-        //     if (err) return res.status(500).json(err);
-        //     return res.status(200).json("Article has been created!");
-        // });
-
         db.query(q, [values], (err, data) => {
             if (err) return res.status(500).json(err);
             return res.status(200).json("Job has been created!");
@@ -75,7 +55,7 @@ export const getAllJobs = (req, res) => {
 
         const q = `
                 SELECT j.job_id, j.job_provider_user_name, j.job_provider_company_name, j.job_provider_company_linkedin, j.job_provider_company_website, j.job_provider_company_email, j.job_description, j.job_requirement, j.job_salary, j.job_provider_company_twitter, j.job_provider_company_facebook, j.user_id, j.job_creation_time,
-                    u.user_fullname
+                    u.user_fullname, u.user_profile_img
                 FROM jobtable j
                 INNER JOIN usertable u ON j.user_id = u.id
             `;

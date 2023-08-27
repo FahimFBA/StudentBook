@@ -10,6 +10,8 @@ const ArticleCard = ({
   user_profile_img,
   onDelete,
 }) => {
+
+  console.log(user_profile_img)
   return (
     <article className="my-2 p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <TrashIcon
@@ -41,7 +43,7 @@ const ArticleCard = ({
           <img
             className="w-7 h-7 rounded-full"
             // src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-            src={user_profile_img}
+            src={"/upload/"+user_profile_img}
             alt="user profile picture"
           />
           <span className="font-medium dark:text-white">{user_fullname}</span>

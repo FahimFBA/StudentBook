@@ -77,7 +77,7 @@ const Profile = () => {
               className="profilePic"
             />
           </div>
-          <div className="profileContainer">
+          <div className="profileContainer mt-12">
             <div className="uInfo">
               <div className="left">
                 <a href="http://facebook.com">
@@ -97,7 +97,7 @@ const Profile = () => {
                 </a>
               </div>
               <div className="center">
-                <span>{data.user_fullname}</span>
+              <div className="text-center text-2xl font-bold">{data.user_fullname}</div>
                 <div className="info">
                   <div className="item">
                     <PlaceIcon />

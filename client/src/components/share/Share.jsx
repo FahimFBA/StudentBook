@@ -51,16 +51,17 @@ const Share = () => {
   };
 
   return (
-    <div className="share">
+    <form onSubmit={handleClick} className="share">
       <div className="container">
         <div className="top">
           <div className="left">
-            <img src={currentUser.profilePic} alt="" />
+            <img src={"/upload/" + currentUser.user_profile_img} alt="" />
             <input
               type="text"
               value={post_desc}
               placeholder={`What's on your mind ${currentUser.name}?`}
               onChange={(e) => setpost_desc(e.target.value)}
+              required
             />
           </div>
           <div className="right">
@@ -103,11 +104,11 @@ const Share = () => {
             </div>
           </div>
           <div className="right">
-            <button onClick={handleClick}>Share</button>
+            <button type="submit">Share</button>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

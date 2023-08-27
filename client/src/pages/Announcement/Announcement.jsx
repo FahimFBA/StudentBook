@@ -128,6 +128,7 @@ const Announcement = () => {
       {/*  Display announcement here */}
 
       {announcementData?.map((item) => {
+        console.log(item)
         return (
           <AnnouncementCard
             key={item?.announcement_id}

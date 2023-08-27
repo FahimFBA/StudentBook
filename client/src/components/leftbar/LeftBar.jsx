@@ -1,17 +1,4 @@
 import "./leftbar.scss";
-import Friends from "../../assets/1.png";
-import Groups from "../../assets/2.png";
-import Market from "../../assets/3.png";
-import Watch from "../../assets/4.png";
-import Memories from "../../assets/5.png";
-import Events from "../../assets/6.png";
-import Gaming from "../../assets/7.png";
-import Gallery from "../../assets/8.png";
-import Videos from "../../assets/9.png";
-import Messages from "../../assets/10.png";
-import Tutorials from "../../assets/11.png";
-import Courses from "../../assets/12.png";
-import Fund from "../../assets/13.png";
 import ApplicationIcon from "../../assets/application.png";
 import AnnouncementIcon from "../../assets/loudspeaker.png";
 import ResearchIcon from "../../assets/research.png";
@@ -37,14 +24,16 @@ import { Link } from "react-router-dom";
 const LeftBar = () => {
   const { currentUser } = useContext(AuthContext);
 
+  console.log("TBA", currentUser)
+
   return (
     <div className="leftBar">
       <div className="container">
         <div className="menu">
-          <div className="user">
-            <img src={currentUser.user_profile_img} alt="" />
-            <span>{currentUser.user_name}</span>
-          </div>
+          <Link to={`/profile/${currentUser?.id}`} className="user">
+            <img src={"/upload/" + currentUser.user_profile_img} alt="" />
+            <div className="text-xl">{currentUser.user_fullname}</div>
+          </Link>
           <Link to="/" className="item">
             <img src={HomeIcon} alt="" />
             <span>Home</span>

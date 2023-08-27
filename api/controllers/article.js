@@ -43,7 +43,7 @@ export const getAllArticles = (req, res) => {
 
         const q = `
             SELECT a.article_id, a.article_content, a.user_id, a.article_title, a.article_creation_time,
-                   u.user_fullname
+                   u.user_fullname, u.user_profile_img
             FROM articletable a
             INNER JOIN usertable u ON a.user_id = u.id
         `;

@@ -54,11 +54,13 @@ export const login = (req, res) => {
 
     const q = "SELECT * FROM usertable WHERE user_name = ?"
 
-    db.query(q, [req.body.user_name], (err, data) => {
+    const  {user_name, user_password} = req.body
+
+    db.query(q, [user_name], (err, data) => {
         if (err) return res.status(500).json(err);
         if (data.length === 0) return res.status(404).json("User not found!");
 
-        const checkPassword = bcrypt.compareSync(req.body.user_password, data[0].user_password);
+        const checkPassword = bcrypt.compareSync(user_password, data[0].user_password);
 
         if (!checkPassword) return res.status(400).json("Wrong password or username!");
 

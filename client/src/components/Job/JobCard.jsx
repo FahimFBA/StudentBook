@@ -15,9 +15,10 @@ const JobCard = ({
   user_id,
   user_profile_img,
   job_creation_time,
+  onDelete
 }) => {
   return (
-    <job className="my-2 p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div className="my-2 p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <TrashIcon
         onClick={() => onDelete(job_id)}
         className="h-6 text-red-600"
@@ -46,7 +47,7 @@ const JobCard = ({
         <div className="flex items-center space-x-4">
           <img
             className="w-7 h-7 rounded-full"
-            src={user_profile_img}
+            src={"/upload/"+user_profile_img}
             alt="user profile picture"
           />
           <span className="font-medium dark:text-white">
@@ -72,7 +73,7 @@ const JobCard = ({
           </svg>
         </a>
       </div>
-    </job>
+    </div>
   );
 };
 
