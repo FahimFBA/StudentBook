@@ -59,7 +59,7 @@ const Share = () => {
             <input
               type="text"
               value={post_desc}
-              placeholder={`What's on your mind ${currentUser.name}?`}
+              placeholder={`What's on your mind, ${currentUser.user_fullname}?`}
               onChange={(e) => setpost_desc(e.target.value)}
               required
             />

@@ -26,12 +26,13 @@ export const register = (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(req.body.user_password, salt);
 
-        const q = "INSERT INTO usertable (`user_name`, `user_fullname`, `user_email`, `user_password`) VALUE (?)"
+        const q = "INSERT INTO usertable (`user_name`, `user_fullname`, `user_email`,  `user_occ`, `user_password`) VALUE (?)"
 
         const values = [
             req.body.user_name,
             req.body.user_fullname,
             req.body.user_email,
+            req.body.user_occ,
             hashedPassword
         ];
 
@@ -54,7 +55,7 @@ export const login = (req, res) => {
 
     const q = "SELECT * FROM usertable WHERE user_name = ?"
 
-    const  {user_name, user_password} = req.body
+    const { user_name, user_password } = req.body
 
     db.query(q, [user_name], (err, data) => {
         if (err) return res.status(500).json(err);
