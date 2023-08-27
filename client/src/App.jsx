@@ -1,6 +1,6 @@
 import LeftBar from "./components/leftbar/LeftBar";
 import NavBar from "./components/navbar/NavBar";
-import RightBar from "./components/rightbar/RightBar";
+// import RightBar from "./components/rightbar/RightBar";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
@@ -43,7 +43,7 @@ function App() {
               <Outlet />
             </div>
 
-            <RightBar />
+            {/* <RightBar /> */}
           </div>
         </div>
       </QueryClientProvider>

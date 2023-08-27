@@ -12,6 +12,23 @@ import Messages from "../../assets/10.png";
 import Tutorials from "../../assets/11.png";
 import Courses from "../../assets/12.png";
 import Fund from "../../assets/13.png";
+import ApplicationIcon from "../../assets/application.png";
+import AnnouncementIcon from "../../assets/loudspeaker.png";
+import ResearchIcon from "../../assets/research.png";
+import MailIcon from "../../assets/gmail.png";
+import CourseraIcon from "../../assets/coursera.png";
+import GoodReadIcon from "../../assets/goodreads.png";
+import HomeIcon from "../../assets/homepage.png";
+import LMSIcon from "../../assets/learning.png";
+import UCAMIcon from "../../assets/immigration.png";
+import GitHubIcon from "../../assets/github.png";
+import JobIcon from "../../assets/job.png";
+import CodeIcon from "../../assets/coding.png";
+import StackIcon from "../../assets/stackoverflow.png";
+import BkashIcon from "../../assets/bkash.png";
+import BankIcon from "../../assets/debit-card.png";
+import FCC from "../../assets/fcc.png";
+import LinkedInIcon from "../../assets/linkedin.png";
 import { AuthContext } from "../../context/authContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -28,55 +45,83 @@ const LeftBar = () => {
             <span>{currentUser.user_name}</span>
           </div>
           <Link to="/" className="item">
-            <img src={Friends} alt="" />
-            <span>Friends</span>
+            <img src={HomeIcon} alt="" />
+            <span>Home</span>
           </Link>
           <Link to="/articles" className="item">
-            <img src={Groups} alt="" />
+            <img src={ApplicationIcon} alt="" />
             <span>Articles</span>
           </Link>
-          <div className="item">
-            <img src={Market} alt="" />
-            <span>Marketplace</span>
-          </div>
-          <div className="item">
-            <img src={Watch} alt="" />
-            <span>Watch</span>
-          </div>
-          <div className="item">
-            <img src={Memories} alt="" />
-            <span>Memories</span>
-          </div>
+          <Link to="/announcements" className="item">
+            <img src={AnnouncementIcon} alt="" />
+            <span>Announncement</span>
+          </Link>
+          <Link to="/jobs" className="item">
+            <img src={JobIcon} alt="" />
+            <span>Job Portal</span>
+          </Link>
+          <Link to="http://lms.uiu.ac.bd/" target="_blank" className="item">
+            <img src={LMSIcon} alt="" />
+            <span>eLMS</span>
+          </Link>
+          <Link to="http://ucam.uiu.ac.bd/" target="_blank" className="item">
+            <img src={UCAMIcon} alt="" />
+            <span>UCAM</span>
+          </Link>
         </div>
 
         <hr />
         <div className="menu">
           <span>Your shortcuts</span>
-          <div className="item">
-            <img src={Events} alt="" />
-            <span>Event</span>
-          </div>
-          <div className="item">
-            <img src={Gallery} alt="" />
-            <span>Gallery</span>
-          </div>
-          <div className="item">
-            <img src={Videos} alt="" />
-            <span>Videos</span>
-          </div>
-          <div className="item">
-            <img src={Messages} alt="" />
-            <span>Messages</span>
-          </div>
+          <Link to="http://github.com/" target="_blank" className="item">
+            <img src={GitHubIcon} alt="" />
+            <span>GitHub</span>
+          </Link>
+          <Link to="https://stackoverflow.com/" target="_blank" className="item">
+            <img src={StackIcon} alt="" />
+            <span>StackOverflow</span>
+          </Link>
+          <Link to="mailto://" target="_blank" className="item">
+            <img src={MailIcon} alt="" />
+            <span>GMail</span>
+          </Link>
+          <Link to="https://www.researchgate.net/" target="_blank" className="item">
+            <img src={ResearchIcon} alt="" />
+            <span>ResearchGate</span>
+          </Link>
+          <Link to="https://leetcode.com/" target="_blank" className="item">
+            <img src={CodeIcon} alt="" />
+            <span>LeetCode</span>
+          </Link>
         </div>
         <hr />
         <div className="menu">
           <span>Others</span>
-          <div className="item">
-            <img src={Tutorials} alt="" />
-            <span>Tutorials</span>
-          </div>
-          <div className="item">
+          <Link to="https://ib.dhakabank.com.bd/" target="_blank" className="item">
+            <img src={BankIcon} alt="" />
+            <span>Tuition Fee Payment (Dhaka Bank)</span>
+          </Link>
+          <Link to="https://www.bkash.com/" target="_blank" className="item">
+            <img src={BkashIcon} alt="" />
+            <span>bKash</span>
+          </Link>
+          <Link to="https://linkedin.com/" target="_blank" className="item">
+            <img src={LinkedInIcon} alt="" />
+            <span>LinkedIn</span>
+          </Link>
+          <Link to="https://www.freecodecamp.org/" target="_blank" className="item">
+            <img src={FCC} alt="" />
+            <span>freeCodeCamp</span>
+          </Link>
+          <Link to="https://www.coursera.org/" target="_blank" className="item">
+            <img src={CourseraIcon} alt="" />
+            <span>Coursera</span>
+          </Link>
+          <Link to="https://www.goodreads.com/" target="_blank" className="item">
+            <img src={GoodReadIcon} alt="" />
+            <span>GoodRead</span>
+          </Link>
+          {/* <div className="item">
             <img src={Courses} alt="" />
             <span>Courses</span>
           </div>
@@ -107,7 +152,7 @@ const LeftBar = () => {
           <div className="item">
             <img src={Events} alt="" />
             <span>Event</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
