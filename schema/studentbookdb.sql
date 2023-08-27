@@ -18,6 +18,36 @@ USE `studentbookdb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `announcementtable`
+--
+
+DROP TABLE IF EXISTS `announcementtable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `announcementtable` (
+  `announcement_id` int NOT NULL AUTO_INCREMENT,
+  `announcement_content` varchar(500) NOT NULL,
+  `user_id` int NOT NULL,
+  `announcement_creation_time` datetime NOT NULL,
+  `announcement_title` varchar(45) NOT NULL,
+  PRIMARY KEY (`announcement_id`),
+  UNIQUE KEY `announcement_id_UNIQUE` (`announcement_id`),
+  KEY `user_id_idx` (`user_id`),
+  CONSTRAINT `announcement_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `announcementtable`
+--
+
+LOCK TABLES `announcementtable` WRITE;
+/*!40000 ALTER TABLE `announcementtable` DISABLE KEYS */;
+INSERT INTO `announcementtable` VALUES (2,'desc',8,'2023-08-27 18:29:52','new announcement');
+/*!40000 ALTER TABLE `announcementtable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `articletable`
 --
 
@@ -194,7 +224,7 @@ CREATE TABLE `jobtable` (
 
 LOCK TABLES `jobtable` WRITE;
 /*!40000 ALTER TABLE `jobtable` DISABLE KEYS */;
-INSERT INTO `jobtable` VALUES (1,'Fahim','Brain Station 23','linkedin.com/in/bs','bs.com','bs@gmail.com','This is a long job description','This is a job requirement','20,000 BDT','x.com/bs','fb.com/bs',8,'2023-08-26'),(2,'Joy Shaheb','joycompany','https://www.joy.com','https://www.joy.com','j@gmail.com','askdbasjkfba','aewiughteisunvjklashbtu7823bgkjsebnglijkswebg','121213','https://www.joy.com','https://www.joy.com',8,'2023-08-26');
+INSERT INTO `jobtable` VALUES (2,'Joy Shaheb','joycompany','https://www.joy.com','https://www.joy.com','j@gmail.com','askdbasjkfba','aewiughteisunvjklashbtu7823bgkjsebnglijkswebg','121213','https://www.joy.com','https://www.joy.com',8,'2023-08-26');
 /*!40000 ALTER TABLE `jobtable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,4 +453,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-27  1:07:57
+-- Dump completed on 2023-08-27 19:24:27
