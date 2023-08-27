@@ -4,6 +4,7 @@
 
 ### Student
 * Jane = 1212
+* R2 = 1212
   
 ## Faculty
 * Israt = 1212
