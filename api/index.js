@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import multer from "multer";
 import searchRoutes from "./routes/searches.js";
+import announcementRoutes from "./routes/announcements.js";
 
 // middlewares
 app.use((req, res, next) => {
@@ -53,6 +54,7 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/likes", likeRoutes);
 app.use("/api/relationships", relationshipRoutes);
 app.use("/api/searches", searchRoutes);
+app.use("/api/announcements", announcementRoutes);
 
 // our user id would be like this = currentUser.id and userInfo.id
 
