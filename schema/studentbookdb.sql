@@ -34,7 +34,7 @@ CREATE TABLE `announcementtable` (
   UNIQUE KEY `announcement_id_UNIQUE` (`announcement_id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `announcement_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `announcementtable` (
 
 LOCK TABLES `announcementtable` WRITE;
 /*!40000 ALTER TABLE `announcementtable` DISABLE KEYS */;
-INSERT INTO `announcementtable` VALUES (4,'This will be our announcement section',12,'2023-08-28 02:10:44','Launch for a new social media');
+INSERT INTO `announcementtable` VALUES (4,'This will be our announcement section',12,'2023-08-28 02:10:44','Launch for a new social media'),(5,'The project show will be held on tomorrow from 10:00 AM.',2,'2023-08-28 10:01:34','Project Show Summer 2023'),(6,'Tomorrow from 12 PM',14,'2023-08-28 12:29:38','CSE Project Shoqw');
 /*!40000 ALTER TABLE `announcementtable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `articletable` (
   UNIQUE KEY `article_id_UNIQUE` (`article_id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `article_user_fk` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `articletable` (
 
 LOCK TABLES `articletable` WRITE;
 /*!40000 ALTER TABLE `articletable` DISABLE KEYS */;
-INSERT INTO `articletable` VALUES (11,'Hello everyone!\nI hope you all are doing well in this new community of ours. If you have any question, then feel free to reach out to me! My appointment schedule is available for you on my profile! ✌️',12,'2023-08-28 02:08:39','Instruction for StudentBook');
+INSERT INTO `articletable` VALUES (11,'Hello everyone!\nI hope you all are doing well in this new community of ours. If you have any question, then feel free to reach out to me! My appointment schedule is available for you on my profile! ✌️',12,'2023-08-28 02:08:39','Instruction for StudentBook'),(12,'Hello students,\nAll of the class resources have been updated in the LMS. Make sure to check them out. If you have any question, then make sure to let me know.',2,'2023-08-28 10:03:22','Class resources for DBMS');
 /*!40000 ALTER TABLE `articletable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +96,7 @@ CREATE TABLE `commentstable` (
   KEY `comment_user_id_idx` (`user_id`),
   CONSTRAINT `comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `post_id` FOREIGN KEY (`post_id`) REFERENCES `poststable` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -105,7 +105,7 @@ CREATE TABLE `commentstable` (
 
 LOCK TABLES `commentstable` WRITE;
 /*!40000 ALTER TABLE `commentstable` DISABLE KEYS */;
-INSERT INTO `commentstable` VALUES (13,'Welcome, Jane!','2023-08-28 01:55:06',2,120),(14,'Looks very beautiful, Ma\'am!','2023-08-28 02:14:21',12,122),(15,'Welcome me, too!','2023-08-28 02:23:15',13,123);
+INSERT INTO `commentstable` VALUES (13,'Welcome, Jane!','2023-08-28 01:55:06',2,120),(14,'Looks very beautiful, Ma\'am!','2023-08-28 02:14:21',12,122),(15,'Welcome me, too!','2023-08-28 02:23:15',13,123),(16,'Welcome!','2023-08-28 10:10:04',2,123),(17,'I am commenting','2023-08-28 12:27:27',1,125);
 /*!40000 ALTER TABLE `commentstable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `faculty_table` (
 
 LOCK TABLES `faculty_table` WRITE;
 /*!40000 ALTER TABLE `faculty_table` DISABLE KEYS */;
-INSERT INTO `faculty_table` VALUES (22,'Bioinformetics');
+INSERT INTO `faculty_table` VALUES (22,'Bioinformetics'),(23,'Machine Learning');
 /*!40000 ALTER TABLE `faculty_table` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `facultydegreetable` (
 
 LOCK TABLES `facultydegreetable` WRITE;
 /*!40000 ALTER TABLE `facultydegreetable` DISABLE KEYS */;
-INSERT INTO `facultydegreetable` VALUES (22,'Lecturer',NULL,NULL,NULL,NULL);
+INSERT INTO `facultydegreetable` VALUES (22,'BSc in CSE',NULL,NULL,NULL,NULL),(23,'MSc in CSE','BSc in CSE',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `facultydegreetable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +189,7 @@ CREATE TABLE `facultydepttable` (
 
 LOCK TABLES `facultydepttable` WRITE;
 /*!40000 ALTER TABLE `facultydepttable` DISABLE KEYS */;
-INSERT INTO `facultydepttable` VALUES (22,'CSE','EEE',NULL);
+INSERT INTO `facultydepttable` VALUES (22,'CSE','EEE',NULL),(23,'CSE',NULL,NULL);
 /*!40000 ALTER TABLE `facultydepttable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,7 +218,7 @@ CREATE TABLE `jobtable` (
   UNIQUE KEY `job_id_UNIQUE` (`job_id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `job_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,7 +227,6 @@ CREATE TABLE `jobtable` (
 
 LOCK TABLES `jobtable` WRITE;
 /*!40000 ALTER TABLE `jobtable` DISABLE KEYS */;
-INSERT INTO `jobtable` VALUES (8,'Anisul Islam (Anis)','United International University','https://www.linkedin.com/school/uiuinfo/','https://www.uiu.ac.bd/','hr.uiu@gmail.com','We are going to hire a senior backend developer for our this new platform StudentBook. Interested participant is requested to apply.','4+ years experience, Expertise in NodeJS, Angular, Django is a must.','60000','https://twitter.com/uiuedu?lang=en','https://www.facebook.com/uiuinfo/',12,'2023-08-28');
 /*!40000 ALTER TABLE `jobtable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +247,7 @@ CREATE TABLE `likestable` (
   KEY `likePostId_idx` (`post_id`),
   CONSTRAINT `likeeUserId` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `likePostId` FOREIGN KEY (`post_id`) REFERENCES `poststable` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +256,7 @@ CREATE TABLE `likestable` (
 
 LOCK TABLES `likestable` WRITE;
 /*!40000 ALTER TABLE `likestable` DISABLE KEYS */;
-INSERT INTO `likestable` VALUES (21,2,120),(23,1,120),(24,1,122),(25,12,122);
+INSERT INTO `likestable` VALUES (21,2,120),(23,1,120),(24,1,122),(25,12,122),(26,14,123),(29,2,123),(30,12,124),(34,14,125);
 /*!40000 ALTER TABLE `likestable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +278,7 @@ CREATE TABLE `poststable` (
   UNIQUE KEY `post_id_UNIQUE` (`post_id`),
   KEY `user_id_idx` (`user_id`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +287,7 @@ CREATE TABLE `poststable` (
 
 LOCK TABLES `poststable` WRITE;
 /*!40000 ALTER TABLE `poststable` DISABLE KEYS */;
-INSERT INTO `poststable` VALUES (120,'Hello, I am Jane Doe, and I am from Canada. Glad to meet you!','1693166075107pexels-kamizzle-15666462.jpg',1,'2023-08-28 01:54:35','Jane Doe'),(122,'Wow!','1693166327596pexels-alina-vilchenko-17439236.jpg',2,'2023-08-28 01:58:47','Israt Jahan Khan'),(123,'Just joined here! Glad to meet you!','',12,'2023-08-28 02:01:51','Anisul Islam');
+INSERT INTO `poststable` VALUES (120,'Hello, I am Jane Doe, and I am from Canada. Glad to meet you!','1693166075107pexels-kamizzle-15666462.jpg',1,'2023-08-28 01:54:35','Jane Doe'),(122,'Wow!','1693166327596pexels-alina-vilchenko-17439236.jpg',2,'2023-08-28 01:58:47','Israt Jahan Khan'),(123,'Just joined here! Glad to meet you!','',12,'2023-08-28 02:01:51','Anisul Islam'),(124,'Really enjoyed there!','1693195762307pexels-kasuma-1785493.jpg',2,'2023-08-28 10:09:22','Israt Jahan Khan'),(125,'I am creating a  new post','1693203939099pexels-michael-block-3225517.jpg',1,'2023-08-28 12:25:39','Jane Doe');
 /*!40000 ALTER TABLE `poststable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -314,7 +313,7 @@ CREATE TABLE `stafftable` (
 
 LOCK TABLES `stafftable` WRITE;
 /*!40000 ALTER TABLE `stafftable` DISABLE KEYS */;
-INSERT INTO `stafftable` VALUES (110,'Admin');
+INSERT INTO `stafftable` VALUES (23,'Accountant'),(110,'Admin');
 /*!40000 ALTER TABLE `stafftable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,7 +371,7 @@ CREATE TABLE `studenttable` (
 
 LOCK TABLES `studenttable` WRITE;
 /*!40000 ALTER TABLE `studenttable` DISABLE KEYS */;
-INSERT INTO `studenttable` VALUES (11201111,'2.30','Formal','jane@uiu.ac.bd','N/A','CSE','2025');
+INSERT INTO `studenttable` VALUES (11201111,'2.30','Formal','jane@uiu.ac.bd','N/A','CSE','2025'),(11202178,'3.99','Alumni','mou@uiu.ac.bd','Brain Station 23','EEE','2023');
 /*!40000 ALTER TABLE `studenttable` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -393,7 +392,7 @@ CREATE TABLE `userrelationshiptable` (
   KEY `followerd_user_idx` (`followeduserid`),
   CONSTRAINT `follower_user` FOREIGN KEY (`followeruserid`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `followerd_user` FOREIGN KEY (`followeduserid`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -430,6 +429,7 @@ CREATE TABLE `usertable` (
   `user_if_faculty_id` int DEFAULT NULL,
   `user_if_staff_id` int DEFAULT NULL,
   `user_cal` varchar(200) DEFAULT NULL,
+  `twitter` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `user_email_UNIQUE` (`user_email`),
@@ -437,7 +437,7 @@ CREATE TABLE `usertable` (
   UNIQUE KEY `user_if_student_id_UNIQUE` (`user_if_student_id`),
   UNIQUE KEY `user_if_faculty_id_UNIQUE` (`user_if_faculty_id`),
   UNIQUE KEY `user_if_staff_id_UNIQUE` (`user_if_staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -446,7 +446,7 @@ CREATE TABLE `usertable` (
 
 LOCK TABLES `usertable` WRITE;
 /*!40000 ALTER TABLE `usertable` DISABLE KEYS */;
-INSERT INTO `usertable` VALUES (1,'Jane','Jane Doe','jane23@gmail.com',NULL,NULL,'1693163601886pexels-daka-17813826.jpg','1693163601872pexels-lina-kivaka-16550526.jpg','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','Canada','janedoe.com','Student',11201111,NULL,NULL,'https://calendly.com/'),(2,'Israt','Israt Jahan Khan','isratjahankhan@gmail.com',NULL,NULL,'1693166237794329901150_5732024393591687_3590245626934702253_n.jpg','1693166237786pexels-jacob-colvin-1761279.jpg','$2a$10$AIUdFUpH3ZXmDRbzRacLc.BAH3rbB.Daoe/SQ99uYYaJBXJ/NjLmq','Bangladesh','github.io/IsratIJK','Faculty',NULL,22,NULL,NULL),(12,'Anisul','Anisul Islam','anisul@gmail.com',NULL,NULL,'1693166576309pexels-pixabay-220453.jpg','1693166576301pexels-jacob-colvin-1761279.jpg','$2a$10$VOdFHQ13eur6eQxM1nEw/.XIlvdUR4JOzcAVznw.c/4Z0kPzzyCU6','Chittagong','anisul.com','Staff',NULL,NULL,110,NULL),(13,'R2','Robin','robin@gmail.com',NULL,NULL,'1693167779669pexels-arianna-jadÃ©-2896853.jpg','1693167779659pexels-andre-moura-17734945.jpg','$2a$10$LoNJX.1d.pVQEr2lUAKe5eEPCqVYqP8FYE4pdM39JpRo9QdKZ4tvy','Canada','r2.com','Student',NULL,NULL,NULL,NULL);
+INSERT INTO `usertable` VALUES (1,'Jane','Jane Doe','jane23@gmail.com',NULL,NULL,'1693163601886pexels-daka-17813826.jpg','1693163601872pexels-lina-kivaka-16550526.jpg','$2a$10$ZU0crC7xwDiJo0LYSH5IbuMDG0u/7sbRV18lhUDPQAllBkr5goEPS','Canada','janedoe.com','Student',11201111,NULL,NULL,'https://calendly.com/',NULL),(2,'Israt','Israt Jahan Khan','isratjahankhan@gmail.com',NULL,NULL,'16931956846021693166237794329901150_5732024393591687_3590245626934702253_n.jpg','1693195684537pexels-michael-block-3225517.jpg','$2a$10$AIUdFUpH3ZXmDRbzRacLc.BAH3rbB.Daoe/SQ99uYYaJBXJ/NjLmq','Bangladesh','https://github.com/IsratIJK','Faculty',NULL,22,NULL,NULL,'https://twitter.com/'),(12,'Anisul','Anisul Islam','anisul@gmail.com',NULL,NULL,'1693166576309pexels-pixabay-220453.jpg','1693166576301pexels-jacob-colvin-1761279.jpg','$2a$10$VOdFHQ13eur6eQxM1nEw/.XIlvdUR4JOzcAVznw.c/4Z0kPzzyCU6','Chittagong','anisul.com','Staff',NULL,NULL,110,NULL,NULL),(13,'R2','Robin','robin@gmail.com',NULL,NULL,'1693167779669pexels-arianna-jadÃ©-2896853.jpg','1693167779659pexels-andre-moura-17734945.jpg','$2a$10$LoNJX.1d.pVQEr2lUAKe5eEPCqVYqP8FYE4pdM39JpRo9QdKZ4tvy','Canada','r2.com','Student',NULL,NULL,NULL,NULL,NULL),(14,'Mou','Sadia Afrin Mou','mou@gmail.com',NULL,NULL,'16932040845061693166237794329901150_5732024393591687_3590245626934702253_n.jpg','1693204084434pexels-kasuma-1785493.jpg','$2a$10$IVL4cOjsAmtkXAUUudDh9.b1Nbd57giDpiPWJcGQkR/suuvXvahgC','USA','test.com','Student',11202178,NULL,NULL,NULL,NULL),(15,'Larisa','Larisa Jahan Khan','larisa@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$KCx02RG3w/RcdK.Sz3.db.52h4jqLB41cO0PFSB9fW3XdBXbjc.lC',NULL,NULL,'Staff',NULL,NULL,23,NULL,NULL),(16,'Sadia','Sadia Islam','sadia@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$B.VeEhxdmdYMf1Mh3M9o.OQtZ7UJWNt.71HZycZf1dwFJKW/t7Deu',NULL,NULL,'Faculty',NULL,23,NULL,NULL,NULL),(17,'NewU','New User','new@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$Dai4CQWvDU5xvQKUEelkE.EfliXBjVJBom0J5efUFOKlMYWWE/Acy',NULL,NULL,'Staff',NULL,NULL,NULL,NULL,NULL),(18,'y5','new test user','add@gmail.com',NULL,NULL,NULL,NULL,'$2a$10$qSXhHVDXkBa3mpjwEdGzGuGF1fYhy39vuBxW/vOb76bXm3MMv1cym',NULL,NULL,'Student',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usertable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -459,4 +459,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-28  2:24:15
+-- Dump completed on 2023-08-29  1:34:00
