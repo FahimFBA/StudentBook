@@ -80,16 +80,10 @@ const Profile = () => {
           <div className="profileContainer mt-12">
             <div className="uInfo">
               <div className="left">
-                <a href="http://facebook.com">
-                  <FacebookTwoToneIcon fontSize="large" />
-                </a>
-                <a href="http://facebook.com">
-                  <InstagramIcon fontSize="large" />
-                </a>
-                <a href="http://facebook.com">
+                <a href="https://twitter.com/">
                   <TwitterIcon fontSize="large" />
                 </a>
-                <a href="http://facebook.com">
+                <a href="http://facebook.com">  
                   <LinkedInIcon fontSize="large" />
                 </a>
                 <a href="http://facebook.com">

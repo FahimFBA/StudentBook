@@ -7,6 +7,7 @@ const Register = () => {
   const [inputs, setInputs] = useState({
     user_name: "",
     user_fullname: "",
+    user_occ: "",
     user_email: "",
     user_password: "",
     // passwordAgain: "",
@@ -57,6 +58,13 @@ const Register = () => {
               type="text"
               placeholder="Name"
               name="user_fullname"
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Occupation"
+              name="user_occ"
               onChange={handleChange}
               required
             />
