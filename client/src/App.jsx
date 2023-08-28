@@ -1,6 +1,6 @@
 import LeftBar from "./components/leftbar/LeftBar";
 import NavBar from "./components/navbar/NavBar";
-import RightBar from "./components/rightbar/RightBar";
+// import RightBar from "./components/rightbar/RightBar";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
@@ -15,9 +15,15 @@ import {
   Navigate,
   Outlet,
   RouterProvider,
+  BrowserRouter,
+  Routes,
+  Route,
 } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
 import Something from "./pages/something/Something";
+import Article from "./pages/Article/Article";
+import Job from "./pages/Job/Job";
+import Announcement from "./pages/Announcement/Announcement";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -37,7 +43,7 @@ function App() {
               <Outlet />
             </div>
 
-            <RightBar />
+            {/* <RightBar /> */}
           </div>
         </div>
       </QueryClientProvider>
@@ -64,6 +70,18 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/articles",
+          element: <Article />,
+        },
+        {
+          path: "/jobs",
+          element: <Job />,
+        },
+        {
+          path: "/announcements",
+          element: <Announcement />,
         },
         {
           path: "/something",

@@ -14,10 +14,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
+  console.log("fba", post);
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
+  // console.log(currentUser);
 
   const { isLoading, error, data } = useQuery(["likes", post.post_id], () =>
     makeRequest.get("/likes?post_id=" + post.post_id).then((res) => {
@@ -65,14 +67,13 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={post.user_profile_img} alt="" />
+            <img src={"/upload/" + post.user_profile_img} alt="" />
             <div className="details">
               <Link
                 to={`/profile/${post.user_id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <span className="name">{post.user_name}</span>
-                {/* Need to change it to user_fullname */}
+                <span className="name">{post.user_fullname}</span>
               </Link>
               <span className="date">
                 {moment(post.post_creation_time).fromNow()}

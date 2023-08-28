@@ -7,7 +7,7 @@ export const getUser = (req, res) => {
 
     db.query(q, [userId], (err, data) => {
         if (err) return res.status(500).json(err)
-        const { password, ...info } = data[0];
+        const { password, ...info } = data[0] || {};
         return res.json(info);
     })
 }
@@ -23,11 +23,11 @@ export const updateUser = (req, res) => {
         const q = "UPDATE usertable SET `user_fullname`=?, `user_city`=?, `user_website`=?, `user_profile_img`=?, `user_cover_img`=? WHERE id=?"
 
         db.query(q, [
-            req.body.name,
-            req.body.city,
-            req.body.website,
-            req.body.user_cover_img,
+            req.body.user_fullname,
+            req.body.user_city,
+            req.body.user_website,
             req.body.user_profile_img,
+            req.body.user_cover_img,
             userInfo.id
         ], (err, data) => {
             if (err) res.status(500).json(err)

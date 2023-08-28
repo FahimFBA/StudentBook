@@ -1,0 +1,503 @@
+{
+	"info": {
+		"_postman_id": "ee2c9d5c-a619-466b-815d-38a7e233c8e6",
+		"name": "StudentBook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27937534"
+	},
+	"item": [
+		{
+			"name": "Articles",
+			"item": [
+				{
+					"name": "Add Article",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"article_content\": \"I am with Joy Bhai now at 3.11 AM\",\r\n    \"article_title\": \"newer title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/articles",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Articles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/articles/get-all-articles",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"articles",
+								"get-all-articles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE 1 Article",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/articles/3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"articles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Announcements",
+			"item": [
+				{
+					"name": "Add Announcement",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"announcement_content\": \"this is new announcement content\",\r\n    \"announcement_title\": \"this is a new announcement_title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/announcements",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"announcements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Announcements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/announcements/get-all-announcements",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"announcements",
+								"get-all-announcements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE 1 Announcement",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/announcements/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"announcements",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search folder",
+			"item": [
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/searches/test",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"searches",
+								"test"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "ydcgysdcyu",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "Add Job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"job_provider_user_name\": \"Fahim Bin Amin 2\",\r\n            \"job_provider_company_name\": \"Brain Station 23\",\r\n            \"job_provider_company_linkedin\": \"linkedin.com/in/bs\",\r\n            \"job_provider_company_website\": \"bs.com\",\r\n            \"job_provider_company_email\": \"bs@gmail.com\",\r\n            \"job_description\": \"This is a long job description\",\r\n            \"job_requirement\": \"This is a job requirement\",\r\n            \"job_salary\": \"20,000 BDT\",\r\n            \"job_provider_company_twitter\": \"x.com/bs\",\r\n            \"job_provider_company_facebook\": \"fb.com/bs\",\r\n            \"user_id\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/api/jobs",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Jobs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/jobs/get-all-jobs",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"jobs",
+								"get-all-jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE 1 Job",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/jobs/3",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"jobs",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\": \"Israt\",\r\n    \"user_fullname\": \"Israt Jahan Khan\",\r\n    \"user_email\": \"isratjahankhan@gmail.com\",\r\n    \"user_occ\": \"Faculty\",\r\n    \"user_password\": \"1212\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"post_desc\": \"creating new post\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_name\": \"Jane\",\r\n    \"user_password\": \"1212\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/api/auth/login",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Like",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/api/likes?post_id=32",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "32"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/comments?post_id=34",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "34"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Likes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}/api/likes?post_id=32",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"likes"
+					],
+					"query": [
+						{
+							"key": "post_id",
+							"value": "32"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_fullname\":\"hi\",\r\n    \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/api/users",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "http://localhost:8800",
+			"type": "string"
+		}
+	]
+}

@@ -14,9 +14,6 @@ const Comments = ({ post_id }) => {
     })
   );
 
-  // console.log(data);
-  // console.log("isloading", isLoading);
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
@@ -40,7 +37,7 @@ const Comments = ({ post_id }) => {
   return (
     <div className="comments">
       <div className="write">
-        <img src={currentUser.user_profile_img} alt="" />
+        <img src={"/upload/" + currentUser.user_profile_img} alt="" />
         <input
           type="text"
           placeholder="write a comment"
@@ -53,7 +50,7 @@ const Comments = ({ post_id }) => {
         ? "loading"
         : data.map((comment) => (
             <div className="comment">
-              <img src={comment.user_profile_img} alt="" />
+              <img src={"/upload/" + comment.user_profile_img} alt="" />
               <div className="info">
                 <span>{comment.user_name}</span>
                 <p>{comment.comment_desc}</p>
