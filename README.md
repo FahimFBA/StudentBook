@@ -76,5 +76,12 @@ announcements, and educational resources.
 By incorporating these features, the StudentBook project aims to create an all-inclusive educational social platform that enriches the academic experience and fosters a sense of community within the educational institution.
 
 
+## :desktop_computer: ERD
+
+<details>
+<summary>:computer_mouse: Click here!</summary>
+<br>
+<img src="img/ERD.jpg" alt="ERD" width="1000"/>
+</details>
 
 
