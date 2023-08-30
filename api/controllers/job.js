@@ -10,15 +10,9 @@ export const createJob = (req, res) => {
     jwt.verify(token, "secretkey", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
-        // const q = "INSERT INTO articletable (`article_content`, `article_creation_time`, `user_id`, `article_title`) VALUES (?)";
 
         const q = "INSERT INTO jobtable (`job_provider_user_name`, `job_provider_company_name`, `job_provider_company_linkedin`, `job_provider_company_website`, `job_provider_company_email`, `job_description`, `job_requirement`, `job_salary`, `job_provider_company_twitter`, `job_provider_company_facebook`, `user_id`, `job_creation_time`) VALUES (?)";
-        // const values = [
-        //     req.body.article_content,
-        //     moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-        //     userInfo.id,
-        //     req.body.article_title
-        // ];
+
 
         const values = [
             req.body.job_provider_user_name,
