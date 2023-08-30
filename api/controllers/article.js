@@ -39,7 +39,6 @@ export const getAllArticles = (req, res) => {
     jwt.verify(token, "secretkey", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
-        // const q = "SELECT * FROM articletable";
 
         const q = `
             SELECT a.article_id, a.article_content, a.user_id, a.article_title, a.article_creation_time,
