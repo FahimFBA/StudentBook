@@ -39,6 +39,7 @@ StudentBook is a revamped social media platform for educational institutions. It
 - Go to the client directory `cd client`
 - Install the dependencies `npm ci`
 - Import the database to your MySQL server from [schema](/schema/) directory. I suggest to use the MySQL Workbench for this.
+- Modify the schema by adding the root password. Use `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';`
 - Run the backend server. For this, go to the api directory `cd api` and run `npm start`
 - Run the frontend server. For this, go to the client directory `cd client` and run `npm run dev`
 - It will open the application in your browser. If not, go to [http://localhost:5173](http://localhost:5173). Make sure to go the Login page by adding `/login` at the end of the URL if that does not happen automatically (For presenting the project, I might have disabled the prtected route then.). It would be [http://localhost:5173/login](http://localhost:5173/login) in that case.
@@ -117,3 +118,17 @@ By incorporating these features, the StudentBook project aims to create an all-i
 <br>
 <img src="img/Schema.png" alt="ERD" width="1000"/>
 </details>
+
+
+## :video_camera: Video Demonstration
+*Coming Soon*
+
+## :camera: Some Screenshots
+
+### Login Page
+![Login page](img/login.png)
+
+### Register Page
+![Register page](img/register.png)
+
+### Home Page
