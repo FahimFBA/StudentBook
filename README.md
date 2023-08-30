@@ -132,3 +132,10 @@ By incorporating these features, the StudentBook project aims to create an all-i
 ![Register page](img/register.png)
 
 ### Home Page
+![Home page](img/HomeLong.png)
+
+![Home Page 1](img/h1.png)
+
+Did I forget to mention that we also have a dark mode? :smile:
+
+![Home Page 2](img/h2.png)
