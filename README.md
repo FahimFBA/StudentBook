@@ -7,6 +7,10 @@ The only social media you need for your education and career needs.
 ## :raising_hand: What is StudentBook
 StudentBook is a revamped social media platform for educational institutions. It is a web application that allows students, faculty, alumni, and staff to connect and collaborate in a secure and exclusive environment. StudentBook is a one-stop solution for all your educational and career needs. It is a platform where you can share your thoughts, ideas, and resources with your peers. You can also host virtual classrooms, seminars, and workshops using the integrated video conferencing tools (using [Calendly](https://calendly.com/) for now). StudentBook also has a job portal where you can explore internship, part-time job, and full-time job opportunities. Employers can post job listings and connect with potential candidates directly through the platform. StudentBook is designed with a responsive and accessible user interface to cater to diverse user needs. It also has customizable user profiles to enhance user experience. StudentBook is a centralized repository for academic resources, including lecture notes, study materials, and research papers. It has search and filtering options to help users quickly find other users along with their CGPA (if they are students). StudentBook implements robust security measures to protect user data, including encryption and secure authentication. It also uses hashed password protection for enhanced security.
 
+## :raising_hand: Project Show Festival (27 August 2021)
+
+![Project Show Festival](img/project_show.jpg)
+
 ## :computer: Technologies Used
 * FrontEnd
     * React
