@@ -4,7 +4,7 @@ The only social media you need for your education and career needs.
 
 ![Login page](img/login.png)
 
-## Installation
+## :man_technologist: Installation
 
 - Clone the repository `git clone https://github.com/FahimFBA/StudentBook.git`
 - Go to the project directory `cd StudentBook`
