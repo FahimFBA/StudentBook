@@ -129,7 +129,7 @@ By incorporating these features, the StudentBook project aims to create an all-i
 ![Login page](img/login.png)
 
 ### Register Page
-![Register page](img/register.png)
+![Register page](img/Register.png)
 
 ### Home Page
 ![Home page](img/HomeLong.png)
