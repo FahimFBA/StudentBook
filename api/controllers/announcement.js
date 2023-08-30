@@ -35,9 +35,6 @@ export const getAllAnnouncements = (req, res) => {
     jwt.verify(token, "secretkey", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
-        // also make sure to descend order by announcement_creation_time
-        // const q = `SELECT * FROM announcementtable ORDER BY announcement_creation_time DESC`;
-
         const q = `SELECT a.announcement_id, a.announcement_content, 
         a.announcement_creation_time, a.announcement_title, 
         a.user_id, u.user_fullname, u.user_profile_img FROM announcementtable a 
