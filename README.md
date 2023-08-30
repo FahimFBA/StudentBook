@@ -139,3 +139,49 @@ By incorporating these features, the StudentBook project aims to create an all-i
 Did I forget to mention that we also have a dark mode? :smile:
 
 ![Home Page 2](img/h2.png)
+
+### Profile Page
+![Profile page](img/p1.png)
+
+![Profile page](img/p2.png)
+
+In dark mode!
+
+![Profile page](img/p3.png)
+
+### Article Page
+
+In white mode!
+
+![Article page](img/a1.png)
+
+In dark mode!
+
+![Article page](img/a2.png)
+
+### Announcement Page
+
+In white mode!
+
+![Announcement page](img/an1.png)
+
+In dark mode!
+
+![Announcement page](img/an2.png)
+
+### Job Page
+
+In white mode!
+
+![Job page](img/j1.png)
+
+![Job page](img/j2.png)
+
+In dark mode!
+
+![Job page](img/j3.png)
+
+
+
+## :page_with_curl: License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
