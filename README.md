@@ -20,7 +20,7 @@ The only social media you need for your education and career needs.
 - Enjoy!
 
 <details>
-<summary>Test Users' Credentials</summary>
+<summary>:memo: Test Users' Credentials</summary>
 <br>
    :student: <br> Student 1 <br>
     Username: Jane <br> Password: 1212 <br>
