@@ -40,5 +40,41 @@ The only social media you need for your education and career needs.
 * Sadia Afrin Mou (Database Designer and Poster Designer)
 * Abtahi Arifeen (As Extra Supportive Member)
 
+## :feather: Project Features
+1. Connectivity for Unique Educational Social Media:
+   * Create a secure and exclusive social media platform tailored to the specific 
+educational institution.
+    * Implement user authentication mechanisms to ensure only valid students, 
+faculty, alumni, and staff can access the platform.
+    * Foster a sense of community by providing a dedicated space for students, 
+    faculty, alumni, and staff to interact and collaborate.
+2. Sharing Posts and Resources
+    * Enable users to create, share, and engage with posts, articles, 
+announcements, and educational resources.
+    * Facilitate discussions, comments, and likes on posts to encourage 
+    meaningful interactions.
+3. Online Meetings and Seminars
+    * Integrate video conferencing tools to host virtual classrooms, seminars, 
+    workshops, and meetings.
+4. Official Job Portal
+    * Develop a job portal where students can explore internship, part-time job, 
+    and full-time job opportunities.
+    * Allow employers to post job listings and connect with potential candidates 
+    directly through the platform.
+5. Accessibility and Unique User Features
+    * Design the platform with a responsive and accessible user interface to cater to diverse user needs.'
+    * Implement customizable user profiles to enhance user experience.
+6. Learning Resources Repository
+    * Create a centralized repository for academic resources, including lecture 
+    notes, study materials, and research papers.
+    * Implement search and filtering options to help users quickly find other users along with their CGPA (if they are students).
+7. Security and Privacy Measures
+    * Implement robust security measures to protect user data, including 
+    encryption and secure authentication. 
+    * Using hashed password protection for enhanced security.
+  
+By incorporating these features, the StudentBook project aims to create an all-inclusive educational social platform that enriches the academic experience and fosters a sense of community within the educational institution.
+
+
 
 
