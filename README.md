@@ -33,3 +33,12 @@ The only social media you need for your education and career needs.
     :office_worker: <br>
     Username: Anisul <br> Password: 1212
 </details>
+
+## :eyes: Team Members (Team Ragnarok)
+* Md. Fahim Bin Amin (Team Leader)
+* Israt Jahan Khan (Database Designer)
+* Sadia Afrin Mou (Database Designer and Poster Designer)
+* Abtahi Arifeen (As Extra Supportive Member)
+
+
+
