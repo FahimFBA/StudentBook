@@ -53,15 +53,15 @@ StudentBook is a revamped social media platform for educational institutions. It
 <details>
 <summary>:memo: Test Users' Credentials</summary>
 <br>
-   :student: <br> Student 1 <br>
+   :student: Student <br> Student 1 <br>
     Username: Jane <br> Password: 1212 <br>
     Student 2 <br>
     Username: R2 <br> Password: 1212 <br>
     Student 3 <br>
     Username: Mou <br> Password: 1212 <br> <br>
-    :woman_teacher: <br>
-    Username: Israt <br> Password: 1212 <br>
-    :office_worker: <br> <br>
+    :woman_teacher: Faculty <br>
+    Username: Israt <br> Password: 1212 <br> <br>
+    :office_worker: Staff<br> 
     Username: Anisul <br> Password: 1212
 </details>
 
