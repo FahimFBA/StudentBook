@@ -85,3 +85,9 @@ By incorporating these features, the StudentBook project aims to create an all-i
 </details>
 
 
+## :man_technologist: Schema
+<details>
+<summary>:computer_mouse: Click here!</summary>
+<br>
+<img src="img/Schema.png" alt="ERD" width="1000"/>
+</details>
