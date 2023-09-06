@@ -88,7 +88,7 @@ announcements, and educational resources.
     * Integrate video conferencing tools to host virtual classrooms, seminars, 
     workshops, and meetings.
 4. Official Job Portal
-    * Develop a job portal where students can explore internship, part-time job, 
+    * Develop a job portal where students can explore internships, part-time jobs, 
     and full-time job opportunities.
     * Allow employers to post job listings and connect with potential candidates 
     directly through the platform.
@@ -125,7 +125,7 @@ By incorporating these features, the StudentBook project aims to create an all-i
 
 
 ## :video_camera: Video Demonstration
-*Coming Soon*
+[Video demonstration on YouTube](https://www.youtube.com/watch?v=Cl4YKiA0Maw)
 
 ## :camera: Some Screenshots
 
