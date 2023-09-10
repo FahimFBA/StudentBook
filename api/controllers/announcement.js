@@ -48,7 +48,6 @@ export const getAllAnnouncements = (req, res) => {
 }
 
 
-
 export const deleteOneAnnouncement = (req, res) => {
     const token = req.cookies.accessToken;
     if (!token) return res.status(401).json("Not logged in!");
@@ -56,10 +55,28 @@ export const deleteOneAnnouncement = (req, res) => {
     jwt.verify(token, "secretkey", (err, userInfo) => {
         if (err) return res.status(403).json("Token is not valid!");
 
-        const q = "DELETE FROM announcementtable WHERE announcement_id = ?";
-        db.query(q, [req.params.id], (err, data) => {
-            if (err) return res.status(500).json(err);
-            return res.status(200).json("Announcement has been deleted!");
+        // Check if the announcement exists and belongs to the authenticated user
+        const announcementId = req.params.id;
+        const checkQuery = "SELECT user_id FROM announcementtable WHERE announcement_id = ?";
+        db.query(checkQuery, [announcementId], (checkErr, checkData) => {
+            if (checkErr) return res.status(500).json(checkErr);
+
+            if (checkData.length === 0) {
+                return res.status(404).json("Announcement not found");
+            }
+
+            const announcementUserId = checkData[0].user_id;
+
+            if (userInfo.id !== announcementUserId) {
+                return res.status(403).json("You do not have permission to delete this announcement");
+            }
+
+            // If the user is authorized, proceed with the deletion
+            const deleteQuery = "DELETE FROM announcementtable WHERE announcement_id = ?";
+            db.query(deleteQuery, [announcementId], (deleteErr, deleteData) => {
+                if (deleteErr) return res.status(500).json(deleteErr);
+                return res.status(200).json("Announcement has been deleted!");
+            });
         });
     });
 }
