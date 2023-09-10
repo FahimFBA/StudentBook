@@ -43,3 +43,51 @@ export const addComment = (req, res) => {
         });
     });
 };
+
+
+export const deleteComment = (req, res) => {
+    const token = req.cookies.accessToken;
+    
+    if (!token) {
+        return res.status(401).json("Not logged in!");
+    }
+
+    jwt.verify(token, "secretkey", (err, userInfo) => {
+        if (err) {
+            return res.status(403).json("Token is not valid!");
+        }
+
+        const commentId = req.params.commentId; // Assuming you pass the comment ID in the URL
+
+        // Check if the user has permission to delete the comment, e.g., they are the owner of the comment
+        const checkOwnershipQuery = "SELECT user_id FROM commentstable WHERE id = ?";
+        
+        db.query(checkOwnershipQuery, [commentId], (err, commentData) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+
+            if (commentData.length === 0) {
+                return res.status(404).json("Comment not found");
+            }
+
+            const commentUserId = commentData[0].user_id;
+
+            // Check if the user making the request is the owner of the comment
+            if (userInfo.id !== commentUserId) {
+                return res.status(403).json("You don't have permission to delete this comment");
+            }
+
+            // If the user has permission, proceed with the deletion
+            const deleteQuery = "DELETE FROM commentstable WHERE id = ?";
+
+            db.query(deleteQuery, [commentId], (err, result) => {
+                if (err) {
+                    return res.status(500).json(err);
+                }
+
+                return res.status(200).json("Comment has been deleted!");
+            });
+        });
+    });
+};
