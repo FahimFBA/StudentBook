@@ -186,11 +186,6 @@ In dark mode!
 ![Job page](img/j3.png)
 
 
-
-## :page_with_curl: License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
 ## Instructions to run
 ```
 $ git clone https://github.com/FahimFBA/StudentBook.git
