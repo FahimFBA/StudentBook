@@ -186,13 +186,7 @@ In dark mode!
 ![Job page](img/j3.png)
 
 
-## Instructions to run
-```
-$ git clone https://github.com/FahimFBA/StudentBook.git
-$ cd StudentBook
-$ npm install
-$ npm run dev
-```
+
 
 
 <h2>
