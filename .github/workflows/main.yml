@@ -1,0 +1,22 @@
+name: First workflow
+on:
+ push:
+   branches:
+     - 'feature/devOps-develop'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: Deploy to local machine
+         uses: appleboy/ssh-action@v1.0.3
+         with:
+          host : ${{ secrets.HOST }}
+          username : ${{ secrets.USER }}
+          key : ${{ secrets.SSH_KEY }}
+          script : |
+            cd /var/www/html/
+            git clone https://github.com/Deepika-M-git/StudentBook-mini--on-GA.git
+            pwd
+            ls -la
+            
