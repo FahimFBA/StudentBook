@@ -187,6 +187,10 @@ If the release already exists, the workflow exits without changing it.
 
 The UI has been redesigned since the original screenshots were captured. The checked-in screenshots remain useful as historical feature references, but the current app now uses the updated responsive shell, mobile primary navigation, integrated Video Portal, route-level loading, and full dark-mode-aware surfaces.
 
+### Before and After Demo
+
+[![StudentBook before and after demo](https://img.youtube.com/vi/iIjJoesiVaw/maxresdefault.jpg)](https://youtu.be/iIjJoesiVaw)
+
 ### Login
 
 ![Login page](img/login.png)
