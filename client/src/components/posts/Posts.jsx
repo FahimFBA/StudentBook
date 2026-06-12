@@ -15,10 +15,12 @@ const Posts = ({ userId }) => {
   return (
     <div className="posts">
       {error
-        ? "Something went wrong!"
+        ? <div className="error-state">Something went wrong.</div>
         : isLoading
-        ? "loading"
-        : data.map((post) => <Post post={post} key={post.post_id} />)}
+        ? <div className="loading-state">Loading posts...</div>
+        : data?.length
+        ? data.map((post) => <Post post={post} key={post.post_id} />)
+        : <div className="empty-state">No posts yet.</div>}
     </div>
   );
 };

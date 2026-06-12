@@ -2,38 +2,42 @@
 
 .share {
   @include themify($themes) {
-    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    border-radius: 20px;
-    background-color: themed("bg");
+    box-shadow: themed("shadow");
+    border-radius: 8px;
+    background-color: themed("card");
+    border: 1px solid themed("border");
     color: themed("textColor");
-    margin-bottom: 20px;
+    width: min(760px, 100%);
+    margin: 0 auto;
 
     .container {
-      padding: 20px;
+      padding: clamp(16px, 3vw, 24px);
       .top {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
+        gap: 16px;
 
         .left {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
+          gap: 12px;
           flex: 3;
           img {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             object-fit: cover;
+            flex: 0 0 auto;
           }
 
           input {
-            border: none;
+            border: 1px solid themed("border");
+            border-radius: 8px;
             outline: none;
-            padding: 20px 10px;
-            background-color: transparent;
-            width: 60%;
+            padding: 14px 16px;
+            background-color: themed("bgSoft");
+            width: 100%;
             color: themed("textColor");
           }
         }
@@ -42,18 +46,19 @@
           display: flex;
           justify-content: flex-end;
           .file {
-            width: 100px;
-            height: 100px;
+            width: 140px;
+            height: 140px;
             object-fit: cover;
-            border-radius: 0px;
+            border-radius: 8px;
+            border: 1px solid themed("border");
           }
         }
       }
 
       hr {
-        margin: 20px 0px;
+        margin: 18px 0px;
         border: none;
-        height: 0.5px;
+        height: 1px;
         background-color: themed("border");
       }
 
@@ -64,13 +69,16 @@
         .left {
           display: flex;
           align-items: center;
-          gap: 20px;
+          gap: 12px;
 
           .item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: themed("bgSoft");
 
             img {
               height: 20px;
@@ -85,13 +93,41 @@
         .right {
           button {
             border: none;
-            padding: 5px;
+            min-height: 40px;
+            padding: 0 18px;
             color: white;
             cursor: pointer;
-            background-color: #5271ff;
-            border-radius: 3px;
+            background-color: themed("accent");
+            border-radius: 8px;
+            font-weight: 800;
+
+            &:disabled {
+              opacity: 0.7;
+              cursor: not-allowed;
+            }
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .share {
+    .container {
+      .top,
+      .bottom {
+        flex-direction: column;
+      }
+
+      .top .right,
+      .bottom .right {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .bottom .right button {
+        width: 100%;
       }
     }
   }

@@ -1,6 +1,6 @@
 # StudentBook
 
-StudentBook is an educational social platform for students, faculty, alumni, staff, and recruiters. It combines campus-style social networking with posts, comments, profiles, announcements, articles, job posts, resource discovery, dark mode, image uploads, and a separate video portal prototype.
+StudentBook is an educational social platform for students, faculty, alumni, staff, and recruiters. It combines campus-style social networking with posts, comments, profiles, announcements, articles, job posts, resource discovery, dark mode, image uploads, and an integrated campus Video Portal.
 
 ![StudentBook login screen](img/login.png)
 
@@ -11,9 +11,12 @@ StudentBook is an educational social platform for students, faculty, alumni, sta
 - Social feed with posts, likes, comments, image uploads, and profile pages.
 - Search for users and student CGPA metadata.
 - Announcement, article, and job boards.
+- Integrated Video Portal at `/videos` with a featured video, responsive video cards, and mobile navigation access.
 - Profile editing with cover and profile image uploads.
-- Dark mode support.
-- Video portal prototype in `client/VideoPortal`.
+- Dark mode support across app shell, auth screens, forms, cards, and modals.
+- Responsive desktop, tablet, and mobile layouts with a dedicated mobile primary navigation.
+- Route-level lazy loading for main client pages.
+- Separate standalone video portal prototype remains available in `client/VideoPortal`.
 
 ## Tech Stack
 
@@ -117,6 +120,20 @@ npm run dev
 
 Open `http://localhost:5173/login`.
 
+The main app routes include:
+
+| Route | Purpose |
+| --- | --- |
+| `/login` | Sign in |
+| `/register` | Create an account |
+| `/` | Social feed |
+| `/profile/:id` | Profile details and posts |
+| `/articles` | Article board |
+| `/announcements` | Announcement board |
+| `/jobs` | Job portal |
+| `/videos` | Integrated Video Portal |
+| `/something` | Campus Hub overview |
+
 Start the video portal prototype in another terminal when needed:
 
 ```powershell
@@ -158,7 +175,7 @@ Releases are driven by [CHANGELOG.md](CHANGELOG.md).
 2. Use this heading format:
 
 ```md
-## [2.1.0] - 2026-06-12
+## [2.1.0] - 2026-06-13
 ```
 
 3. Commit and push the changelog change to `main` or `master`.
@@ -167,6 +184,8 @@ Releases are driven by [CHANGELOG.md](CHANGELOG.md).
 If the release already exists, the workflow exits without changing it.
 
 ## Screenshots
+
+The UI has been redesigned since the original screenshots were captured. The checked-in screenshots remain useful as historical feature references, but the current app now uses the updated responsive shell, mobile primary navigation, integrated Video Portal, route-level loading, and full dark-mode-aware surfaces.
 
 ### Login
 

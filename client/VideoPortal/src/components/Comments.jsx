@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
 
@@ -14,15 +13,17 @@ const Avatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 const Input = styled.input`
   border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.soft};
+  border: 1px solid ${({ theme }) => theme.soft};
+  border-radius: 8px;
   color: ${({ theme }) => theme.text};
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.card};
   outline: none;
-  padding: 5px;
+  padding: 12px 14px;
   width: 100%;
 `;
 
@@ -30,16 +31,12 @@ const Comments = () => {
   return (
     <Container>
       <NewComment>
-        <Avatar src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo" />
+        <Avatar src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200" />
         <Input placeholder="Add a comment..." />
       </NewComment>
-      <Comment/>
-      <Comment/>
-      <Comment/>
-      <Comment/>
-      <Comment/>
-      <Comment/>
-      <Comment/>
+      {Array.from({ length: 5 }, (_, index) => (
+        <Comment key={index} />
+      ))}
     </Container>
   );
 };

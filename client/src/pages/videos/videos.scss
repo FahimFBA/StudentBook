@@ -1,0 +1,156 @@
+@use "../../style.scss" as *;
+
+.videos {
+  @include themify($themes) {
+    .videosShell {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .featuredVideo {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.75fr);
+      gap: 18px;
+      background: themed("card");
+      border: 1px solid themed("border");
+      border-radius: 8px;
+      box-shadow: themed("shadow");
+      padding: clamp(14px, 2vw, 20px);
+    }
+
+    .videoFrame {
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid themed("border");
+      background: themed("bgSoft");
+      aspect-ratio: 16 / 9;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+
+    .featuredDetails {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+
+      h2 {
+        margin: 0;
+        font-size: clamp(26px, 4vw, 40px);
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin: 0;
+        color: themed("textColorSoft");
+        line-height: 1.65;
+      }
+    }
+
+    .videoActions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+
+      button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 0 12px;
+        border: 1px solid themed("border");
+        border-radius: 8px;
+        background: themed("bgSoft");
+        color: themed("textColor");
+        font-weight: 800;
+      }
+    }
+
+    .videoGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+      gap: 16px;
+    }
+
+    .videoCard {
+      background: themed("card");
+      border: 1px solid themed("border");
+      border-radius: 8px;
+      box-shadow: themed("shadow");
+      overflow: hidden;
+
+      .thumb {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        background: themed("bgSoft");
+
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+        }
+
+        svg {
+          position: absolute;
+          right: 12px;
+          bottom: 12px;
+          color: white;
+          filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+          font-size: 38px;
+        }
+      }
+
+      > div:last-child {
+        padding: 14px;
+      }
+
+      h2 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        line-height: 1.3;
+        letter-spacing: 0;
+      }
+
+      p,
+      span {
+        color: themed("textColorSoft");
+      }
+
+      p {
+        margin: 0 0 4px;
+        font-weight: 800;
+      }
+
+      span {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .videos {
+    .featuredVideo {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .videos {
+    .videoActions button {
+      width: 100%;
+    }
+  }
+}

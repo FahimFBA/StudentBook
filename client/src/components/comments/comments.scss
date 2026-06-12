@@ -13,32 +13,38 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 12px;
       margin: 20px 0px;
 
       input{
         flex:5;
-        padding: 10px;
+        padding: 12px 14px;
         border: 1px solid themed("border");
-        background-color: transparent;
+        border-radius: 8px;
+        background-color: themed("bgSoft");
         color: themed("textColor");
+        outline: 0;
       }
 
       button{
         border: none;
-        background-color: #5271ff;
+        background-color: themed("accent");
         color: white;
-        padding: 10px;
+        padding: 0 16px;
+        min-height: 42px;
         cursor: pointer;
-        border-radius: 3px;
+        border-radius: 8px;
+        font-weight: 800;
       }
     }
 
     .comment {
-      margin: 30px 0px;
+      margin: 16px 0px;
       display: flex;
       justify-content: space-between;
-      gap: 20px;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid themed("border");
 
       .info {
         flex:5;
@@ -52,7 +58,8 @@
         }
 
         p{
-          color:themed("textColorSoft")
+          color:themed("textColorSoft");
+          margin: 0;
         }
       }
 

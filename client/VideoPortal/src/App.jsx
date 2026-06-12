@@ -1,23 +1,45 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Menu from "./components/Menu";
 import Navbar from "./components/Navbar";
 import { darkTheme, lightTheme } from "./utils/Theme";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Video from "./pages/Video";
-import SignIn from "./pages/SignIn";
+
+const Home = lazy(() => import("./pages/Home"));
+const Video = lazy(() => import("./pages/Video"));
+const SignIn = lazy(() => import("./pages/SignIn"));
 
 const Container = styled.div`
-  display: flex;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 34rem),
+    ${({ theme }) => theme.bg};
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Main = styled.div`
-  flex: 7;
   background-color: ${({ theme }) => theme.bg};
+  min-width: 0;
 `;
 const Wrapper = styled.div`
-  padding: 22px 96px;
+  padding: 28px clamp(16px, 4vw, 56px);
+
+  @media (max-width: 640px) {
+    padding: 18px 12px 28px;
+  }
+`;
+
+const Loading = styled.div`
+  min-height: calc(100vh - 128px);
+  display: grid;
+  place-items: center;
+  color: ${({ theme }) => theme.textSoft};
+  font-weight: 800;
 `;
 
 function App() {
@@ -31,15 +53,17 @@ function App() {
           <Main>
             <Navbar />
             <Wrapper>
-              <Routes>
-                <Route path="/">
-                  <Route index element={<Home />} />
-                  <Route path="signin" element={<SignIn />} />
-                  <Route path="video">
-                    <Route path=":id" element={<Video />} />
+              <Suspense fallback={<Loading>Loading videos...</Loading>}>
+                <Routes>
+                  <Route path="/">
+                    <Route index element={<Home />} />
+                    <Route path="signin" element={<SignIn />} />
+                    <Route path="video">
+                      <Route path=":id" element={<Video />} />
+                    </Route>
                   </Route>
-                </Route>
-              </Routes>
+                </Routes>
+              </Suspense>
             </Wrapper>
           </Main>
         </BrowserRouter>

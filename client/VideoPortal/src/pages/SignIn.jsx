@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -6,7 +5,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 56px);
+  min-height: calc(100vh - 128px);
   color: ${({ theme }) => theme.text};
 `;
 
@@ -16,8 +15,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   background-color: ${({ theme }) => theme.bgLighter};
   border: 1px solid ${({ theme }) => theme.soft};
-  padding: 20px 50px;
-  gap: 10px;
+  border-radius: 8px;
+  padding: clamp(22px, 4vw, 40px);
+  gap: 14px;
+  width: min(440px, 100%);
+  box-shadow: ${({ theme }) => theme.shadow};
 `;
 
 const Title = styled.h1`
@@ -31,21 +33,22 @@ const SubTitle = styled.h2`
 
 const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.soft};
-  border-radius: 3px;
-  padding: 10px;
+  border-radius: 8px;
+  padding: 12px 14px;
   background-color: transparent;
   width: 100%;
   color: ${({ theme }) => theme.text};
 `;
 
 const Button = styled.button`
-  border-radius: 3px;
+  border-radius: 8px;
   border: none;
-  padding: 10px 20px;
-  font-weight: 500;
+  min-height: 42px;
+  padding: 0 20px;
+  font-weight: 800;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.soft};
-  color: ${({ theme }) => theme.textSoft};
+  background-color: ${({ theme }) => theme.accent};
+  color: white;
 `;
 
 const More = styled.div`

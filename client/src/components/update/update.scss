@@ -1,13 +1,59 @@
+@use "../../style.scss" as *;
+
 .update {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    width: 50%;
-    height: 50%;
-    background-color: white;
-    padding: 50px;
+  @include themify($themes) {
+    position: fixed;
+    inset: 0;
     z-index: 999;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(15, 23, 42, 0.62);
+    backdrop-filter: blur(10px);
+
+    .updatePanel {
+      width: min(560px, 100%);
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      background: themed("card");
+      color: themed("textColor");
+      border: 1px solid themed("border");
+      border-radius: 8px;
+      padding: clamp(20px, 4vw, 32px);
+      box-shadow: themed("shadow");
+    }
+
+    .updateHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+
+      p {
+        color: themed("accent");
+        margin: 0 0 6px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      .close {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+  }
 }

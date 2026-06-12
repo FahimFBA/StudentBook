@@ -45,11 +45,14 @@ const Comments = ({ post_id }) => {
         />
         <button onClick={handleClick}>Send</button>
       </div>
-      {isLoading
-        ? "loading"
-        : data.map((comment) => (
+      {error ? (
+        <div className="error-state">Could not load comments.</div>
+      ) : isLoading ? (
+        <div className="loading-state">Loading comments...</div>
+      ) : (
+        data?.map((comment) => (
             <div className="comment" key={comment.comment_id}>
-              <img src={"/upload/" + comment.user_profile_img} alt="" />
+              <img src={"/upload/" + comment.user_profile_img} alt={comment.user_name} />
               <div className="info">
                 <span>{comment.user_name}</span>
                 <p>{comment.comment_desc}</p>
@@ -58,7 +61,8 @@ const Comments = ({ post_id }) => {
                 {moment(comment.comment_creation_time).fromNow()}
               </span>
             </div>
-          ))}
+          ))
+      )}
     </div>
   );
 };

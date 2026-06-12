@@ -17,6 +17,7 @@ import BankIcon from "../../assets/debit-card.png";
 import QuoraIcon from "../../assets/quora.png";
 import FCC from "../../assets/fcc.png";
 import LinkedInIcon from "../../assets/linkedin.png";
+import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import { AuthContext } from "../../context/authContext";
 import { use } from "react";
 import { Link } from "react-router-dom";
@@ -24,15 +25,19 @@ import { Link } from "react-router-dom";
 const LeftBar = () => {
   const { currentUser } = use(AuthContext);
 
-  console.log("TBA", currentUser)
-
   return (
     <div className="leftBar">
       <div className="container">
         <div className="menu">
           <Link to={`/profile/${currentUser?.id}`} className="user">
-            <img src={"/upload/" + currentUser.user_profile_img} alt="" />
-            <div className="text-xl">{currentUser.user_fullname}</div>
+            <img
+              src={"/upload/" + currentUser.user_profile_img}
+              alt={currentUser.user_fullname}
+            />
+            <div>
+              <strong>{currentUser.user_fullname}</strong>
+              <span>View profile</span>
+            </div>
           </Link>
           <Link to="/" className="item">
             <img src={HomeIcon} alt="" />
@@ -44,17 +49,21 @@ const LeftBar = () => {
           </Link>
           <Link to="/announcements" className="item">
             <img src={AnnouncementIcon} alt="" />
-            <span>Announncement</span>
+            <span>Announcements</span>
           </Link>
           <Link to="/jobs" className="item">
             <img src={JobIcon} alt="" />
             <span>Job Portal</span>
           </Link>
-          <Link to="http://lms.uiu.ac.bd/" target="_blank" className="item">
+          <Link to="/videos" className="item">
+            <VideoLibraryOutlinedIcon />
+            <span>Video Portal</span>
+          </Link>
+          <Link to="http://elms.uiu.ac.bd/" target="_blank" rel="noreferrer" className="item">
             <img src={LMSIcon} alt="" />
             <span>eLMS</span>
           </Link>
-          <Link to="http://ucam.uiu.ac.bd/" target="_blank" className="item">
+          <Link to="http://ucam.uiu.ac.bd/" target="_blank" rel="noreferrer" className="item">
             <img src={UCAMIcon} alt="" />
             <span>UCAM</span>
           </Link>
@@ -63,31 +72,33 @@ const LeftBar = () => {
         <hr />
         <div className="menu">
           <span>Your shortcuts</span>
-          <Link to="http://github.com/" target="_blank" className="item">
+          <Link to="http://github.com/" target="_blank" rel="noreferrer" className="item">
             <img src={GitHubIcon} alt="" />
             <span>GitHub</span>
           </Link>
           <Link
             to="https://stackoverflow.com/"
             target="_blank"
+            rel="noreferrer"
             className="item"
           >
             <img src={StackIcon} alt="" />
             <span>StackOverflow</span>
           </Link>
-          <Link to="mailto://" target="_blank" className="item">
+          <Link to="mailto://" target="_blank" rel="noreferrer" className="item">
             <img src={MailIcon} alt="" />
             <span>GMail</span>
           </Link>
           <Link
             to="https://www.researchgate.net/"
             target="_blank"
+            rel="noreferrer"
             className="item"
           >
             <img src={ResearchIcon} alt="" />
             <span>ResearchGate</span>
           </Link>
-          <Link to="https://leetcode.com/" target="_blank" className="item">
+          <Link to="https://leetcode.com/" target="_blank" rel="noreferrer" className="item">
             <img src={CodeIcon} alt="" />
             <span>LeetCode</span>
           </Link>
@@ -98,40 +109,43 @@ const LeftBar = () => {
           <Link
             to="https://ib.dhakabank.com.bd/"
             target="_blank"
+            rel="noreferrer"
             className="item"
           >
             <img src={BankIcon} alt="" />
             <span>Tuition Fee Payment (Dhaka Bank)</span>
           </Link>
-          <Link to="https://www.bkash.com/" target="_blank" className="item">
+          <Link to="https://www.bkash.com/" target="_blank" rel="noreferrer" className="item">
             <img src={BkashIcon} alt="" />
             <span>bKash</span>
           </Link>
-          <Link to="https://linkedin.com/" target="_blank" className="item">
+          <Link to="https://linkedin.com/" target="_blank" rel="noreferrer" className="item">
             <img src={LinkedInIcon} alt="" />
             <span>LinkedIn</span>
           </Link>
           <Link
             to="https://www.freecodecamp.org/"
             target="_blank"
+            rel="noreferrer"
             className="item"
           >
             <img src={FCC} alt="" />
             <span>freeCodeCamp</span>
           </Link>
-          <Link to="https://www.coursera.org/" target="_blank" className="item">
+          <Link to="https://www.coursera.org/" target="_blank" rel="noreferrer" className="item">
             <img src={CourseraIcon} alt="" />
             <span>Coursera</span>
           </Link>
           <Link
             to="https://www.goodreads.com/"
             target="_blank"
+            rel="noreferrer"
             className="item"
           >
             <img src={GoodReadIcon} alt="" />
             <span>GoodRead</span>
           </Link>
-          <Link to="https://www.quora.com/" target="_blank" className="item">
+          <Link to="https://www.quora.com/" target="_blank" rel="noreferrer" className="item">
             <img src={QuoraIcon} alt="" />
             <span>Quora</span>
           </Link>

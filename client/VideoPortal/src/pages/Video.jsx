@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
@@ -8,18 +7,35 @@ import Comments from "../components/Comments";
 import Card from "../components/Card";
 
 const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
   gap: 24px;
+
+  @media (max-width: 1080px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Content = styled.div`
-  flex: 5;
+  min-width: 0;
 `;
-const VideoWrapper = styled.div``;
+const VideoWrapper = styled.div`
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid ${({ theme }) => theme.soft};
+  background: ${({ theme }) => theme.card};
+  aspect-ratio: 16 / 9;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+`;
 
 const Title = styled.h1`
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 800;
   margin-top: 20px;
   margin-bottom: 10px;
   color: ${({ theme }) => theme.text};
@@ -29,6 +45,12 @@ const Details = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+
+  @media (max-width: 720px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 `;
 
 const Info = styled.span`
@@ -37,15 +59,30 @@ const Info = styled.span`
 
 const Buttons = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 8px;
+  flex-wrap: wrap;
   color: ${({ theme }) => theme.text};
+
+  @media (max-width: 520px) {
+    width: 100%;
+  }
 `;
 
-const Button = styled.div`
+const Button = styled.button`
   display: flex;
   align-items: center;
-  gap: 5px;
-  cursor: pointer;
+  gap: 6px;
+  border: 0;
+  border-radius: 8px;
+  min-height: 38px;
+  padding: 0 12px;
+  background: ${({ theme }) => theme.card};
+  color: ${({ theme }) => theme.textSoft};
+  font-weight: 700;
+
+  @media (max-width: 520px) {
+    flex: 1 1 calc(50% - 8px);
+  }
 `;
 
 const Hr = styled.hr`
@@ -54,22 +91,33 @@ const Hr = styled.hr`
 `;
 
 const Recommendation = styled.div`
-  flex: 2;
+  min-width: 0;
 `;
 const Channel = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 16px;
+
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
 `;
 
 const ChannelInfo = styled.div`
   display: flex;
   gap: 20px;
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const Image = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 const ChannelDetail = styled.div`
@@ -95,10 +143,10 @@ const Description = styled.p`
 
 const Subscribe = styled.button`
   background-color: #cc1a00;
-  font-weight: 500;
+  font-weight: 800;
   color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 8px;
   height: max-content;
   padding: 10px 20px;
   cursor: pointer;
@@ -111,15 +159,14 @@ const Video = () => {
         <VideoWrapper>
           <iframe
             width="100%"
-            height="720"
             src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>Campus project showcase</Title>
         <Details>
           <Info>7,948,154 views • Jun 22, 2022</Info>
           <Buttons>
@@ -140,37 +187,25 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo" />
+            <Image src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200" />
             <ChannelDetail>
-              <ChannelName>Abir Hassan</ChannelName>
+              <ChannelName>StudentBook</ChannelName>
               <ChannelCounter>13K subscribers</ChannelCounter>
               <Description>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Doloribus laborum delectus unde quaerat dolore culpa sit aliquam
-                at. Vitae facere ipsum totam ratione exercitationem. Suscipit
-                animi accusantium dolores ipsam ut.
+                A concise walkthrough from the campus community, collected for
+                students who want to revisit workshops, demos, and talks.
               </Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>SUBSCRIBE</Subscribe>
+          <Subscribe>Subscribe</Subscribe>
         </Channel>
         <Hr />
         <Comments/>
       </Content>
       <Recommendation>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
+        {Array.from({ length: 8 }, (_, index) => (
+          <Card key={index} type="sm" />
+        ))}
       </Recommendation>
     </Container>
   );
