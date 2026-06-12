@@ -4,6 +4,52 @@ All notable changes to StudentBook are documented in this file.
 
 This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YYYY-MM-DD` section at the top when preparing a release. The release workflow publishes a GitHub Release for the newest changelog version if one does not already exist.
 
+## [2.5.0] - 2026-06-13
+
+### Added
+
+- Added DB-backed Video Portal support in the main app through `/api/videos`.
+- Added authenticated video create, list, and delete API endpoints.
+- Added a `videotable` schema definition and `schema/add_videotable.sql` migration for existing databases.
+- Added a main app video submission form for user-posted YouTube videos.
+- Added README documentation for the completed DB-backed Video Portal and existing-database migration path.
+
+### Changed
+
+- Updated the integrated `/videos` page to load videos from the app API/database instead of a static hardcoded list.
+- Kept the static demo video portal browser-local so GitHub Pages builds still work without a database.
+- Updated the static demo storage key so demo video seed data refreshes.
+- Updated release documentation to use the new `2.5.0` Video Portal release version.
+
+### Verified
+
+- `npm run lint` passes in `client`.
+- `npm run build` passes in `client`.
+- `npm run build:demo` passes in `client`.
+- `VITE_BASE_PATH=/StudentBook/ npm run build:demo` passes in `client`.
+- `node --check api\controllers\video.js` passes.
+- `node --check api\routes\videos.js` passes.
+- `node --check api\index.js` passes.
+
+## [2.3.1] - 2026-06-13
+
+### Changed
+
+- Updated the integrated demo Video Portal to feature recent videos from the Fahim Amin YouTube channel.
+- Updated the standalone `client/VideoPortal` prototype to use the same Fahim Amin video list, thumbnails, embeds, and watch routes.
+- Refreshed the static demo storage key so stale demo browser data is cleared.
+
+### Fixed
+
+- Fixed the demo-student cover image by replacing the broken seed cover URL.
+
+### Verified
+
+- `npm run lint` passes in `client`.
+- `npm run build:demo` passes in `client`.
+- `VITE_BASE_PATH=/StudentBook/ npm run build:demo` passes in `client`.
+- `npm run build` passes in `client/VideoPortal`.
+
 ## [2.3.0] - 2026-06-13
 
 ### Added

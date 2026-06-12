@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Card from "../components/Card";
+import { videos } from "../data/videos";
 
 const Container = styled.div`
   display: grid;
@@ -25,21 +26,11 @@ const Header = styled.div`
 `;
 
 const Home = () => {
-  const videos = Array.from({ length: 12 }, (_, index) => ({
-    id: index + 1,
-    title: [
-      "Campus project showcase",
-      "Research sprint recap",
-      "Career prep workshop",
-    ][index % 3],
-    channel: ["StudentBook", "UIU Research", "Career Services"][index % 3],
-  }));
-
   return (
     <>
       <Header>
-        <h1>Campus video portal</h1>
-        <p>Browse lectures, project demos, workshops, and student updates.</p>
+        <h1>Fahim Amin video portal</h1>
+        <p>Browse AI, DevOps, LaTeX, Python, and developer tooling tutorials.</p>
       </Header>
       <Container>
         {videos.map((video) => (

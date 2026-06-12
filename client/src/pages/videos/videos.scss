@@ -10,6 +10,15 @@
       gap: 22px;
     }
 
+    .videoForm {
+      .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+    }
+
     .featuredVideo {
       display: grid;
       grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.75fr);
@@ -61,7 +70,8 @@
       gap: 8px;
       margin-top: 4px;
 
-      button {
+      button,
+      a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -73,6 +83,7 @@
         background: themed("bgSoft");
         color: themed("textColor");
         font-weight: 800;
+        text-decoration: none;
       }
     }
 
@@ -88,6 +99,12 @@
       border-radius: 8px;
       box-shadow: themed("shadow");
       overflow: hidden;
+      color: themed("textColor");
+
+      a {
+        display: block;
+        text-decoration: none;
+      }
 
       .thumb {
         position: relative;
@@ -111,7 +128,7 @@
         }
       }
 
-      > div:last-child {
+      .videoCardBody {
         padding: 14px;
       }
 
@@ -135,6 +152,24 @@
       span {
         font-size: 13px;
       }
+
+      .videoFooter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-top: 1px solid themed("border");
+        padding: 12px 14px;
+
+        .danger-button {
+          min-height: 34px;
+          padding: 0 10px;
+
+          svg {
+            font-size: 18px;
+          }
+        }
+      }
     }
   }
 }
@@ -149,8 +184,14 @@
 
 @media (max-width: 520px) {
   .videos {
-    .videoActions button {
+    .videoActions button,
+    .videoActions a {
       width: 100%;
+    }
+
+    .videoCard .videoFooter {
+      align-items: flex-start;
+      flex-direction: column;
     }
   }
 }

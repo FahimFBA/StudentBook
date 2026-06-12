@@ -406,6 +406,38 @@ INSERT INTO `userrelationshiptable` VALUES (17,1,12),(18,13,12);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `videotable`
+--
+
+DROP TABLE IF EXISTS `videotable`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `videotable` (
+  `video_id` int NOT NULL AUTO_INCREMENT,
+  `video_title` varchar(200) NOT NULL,
+  `video_description` varchar(1000) DEFAULT NULL,
+  `video_url` varchar(300) NOT NULL,
+  `video_embed_url` varchar(300) NOT NULL,
+  `video_thumbnail_url` varchar(300) NOT NULL,
+  `user_id` int NOT NULL,
+  `video_creation_time` datetime NOT NULL,
+  PRIMARY KEY (`video_id`),
+  UNIQUE KEY `video_id_UNIQUE` (`video_id`),
+  KEY `video_user_id_idx` (`user_id`),
+  CONSTRAINT `video_user_id` FOREIGN KEY (`user_id`) REFERENCES `usertable` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `videotable`
+--
+
+LOCK TABLES `videotable` WRITE;
+/*!40000 ALTER TABLE `videotable` DISABLE KEYS */;
+/*!40000 ALTER TABLE `videotable` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usertable`
 --
 

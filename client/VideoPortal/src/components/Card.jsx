@@ -71,25 +71,33 @@ const Info = styled.div`
   color: ${({ theme }) => theme.textSoft};
 `;
 
-const Card = ({ type, title = "Campus project showcase", channel = "StudentBook" }) => {
+const Card = ({
+  type,
+  id = "zSYg-wRSIu8",
+  title = "How To Use Local Storage To Annotate Unlimited Data in Label Studio",
+  channel = "Fahim Amin",
+  thumbnail = "https://i.ytimg.com/vi/zSYg-wRSIu8/hqdefault.jpg",
+  views = "505 views",
+  date = "Feb 25, 2026",
+}) => {
   return (
-    <Link to="/video/test" style={{ textDecoration: "none" }}>
+    <Link to={`/video/${id}`} style={{ textDecoration: "none" }}>
       <Container $type={type}>
         <Image
           $type={type}
-          src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=900"
+          src={thumbnail}
           alt={title}
         />
         <Details $type={type}>
           <ChannelImage
             $type={type}
-            src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200"
+            src="https://i.ytimg.com/vi/zSYg-wRSIu8/default.jpg"
             alt={channel}
           />
           <Texts>
             <Title>{title}</Title>
             <ChannelName>{channel}</ChannelName>
-            <Info>24K views - 1 day ago</Info>
+            <Info>{views} - {date}</Info>
           </Texts>
         </Details>
       </Container>

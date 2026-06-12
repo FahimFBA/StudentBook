@@ -1,7 +1,12 @@
 import { isDemoMode } from "../config";
 
-const demoStorageKey = "studentbook-demo-state-v3";
-const legacyDemoStorageKeys = ["studentbook-demo-state", "studentbook-demo-state-v2"];
+const demoStorageKey = "studentbook-demo-state-v5";
+const legacyDemoStorageKeys = [
+  "studentbook-demo-state",
+  "studentbook-demo-state-v2",
+  "studentbook-demo-state-v3",
+  "studentbook-demo-state-v4",
+];
 
 const now = "2026-06-13 10:00:00";
 
@@ -46,7 +51,7 @@ const users = [
     user_website: "studentbook-demo.github.io/maya",
     user_cal: "https://calendly.com/",
     user_profile_img: avatarUrl("photo-1494790108377-be9c29b29330"),
-    user_cover_img: coverUrl("photo-1523050854058-8df90110c9f1"),
+    user_cover_img: coverUrl("photo-1519389950473-47ba0277781c"),
     student_cgpa: "3.91",
   },
   {
@@ -660,6 +665,60 @@ const seedState = {
       announcement_creation_time: "2026-06-08",
     }),
   ],
+  videos: [
+    {
+      video_id: 601,
+      video_title: "How To Use Local Storage To Annotate Unlimited Data in Label Studio",
+      video_description:
+        "Configure local file storage in Label Studio so large datasets can be annotated without uploading every file manually.",
+      video_url: "https://www.youtube.com/watch?v=zSYg-wRSIu8",
+      video_embed_url: "https://www.youtube.com/embed/zSYg-wRSIu8",
+      video_thumbnail_url: "https://i.ytimg.com/vi/zSYg-wRSIu8/hqdefault.jpg",
+      user_id: 1,
+      user_fullname: userById(1).user_fullname,
+      user_profile_img: userById(1).user_profile_img,
+      video_creation_time: "2026-06-13 10:00:00",
+    },
+    {
+      video_id: 602,
+      video_title: "Windows 11 GPU Setup for TensorFlow and PyTorch",
+      video_description:
+        "A full CUDA and cuDNN walkthrough for setting up GPU acceleration for TensorFlow and PyTorch on Windows 11.",
+      video_url: "https://www.youtube.com/watch?v=qOJ49nkU4rY",
+      video_embed_url: "https://www.youtube.com/embed/qOJ49nkU4rY",
+      video_thumbnail_url: "https://i.ytimg.com/vi/qOJ49nkU4rY/hqdefault.jpg",
+      user_id: 2,
+      user_fullname: userById(2).user_fullname,
+      user_profile_img: userById(2).user_profile_img,
+      video_creation_time: "2026-06-12 15:30:00",
+    },
+    {
+      video_id: 603,
+      video_title: "How To Run Overleaf Locally and For Free",
+      video_description:
+        "Install and run Overleaf locally using Docker for an offline LaTeX collaboration workflow.",
+      video_url: "https://www.youtube.com/watch?v=jDy9rdgSoHs",
+      video_embed_url: "https://www.youtube.com/embed/jDy9rdgSoHs",
+      video_thumbnail_url: "https://i.ytimg.com/vi/jDy9rdgSoHs/hqdefault.jpg",
+      user_id: 5,
+      user_fullname: userById(5).user_fullname,
+      user_profile_img: userById(5).user_profile_img,
+      video_creation_time: "2026-06-11 14:15:00",
+    },
+    {
+      video_id: 604,
+      video_title: "How To Download Kaggle Datasets Directly To Notebook",
+      video_description:
+        "A practical walkthrough for pulling Kaggle datasets into notebooks and Google Colab.",
+      video_url: "https://www.youtube.com/watch?v=7Z0s-XDXR1E",
+      video_embed_url: "https://www.youtube.com/embed/7Z0s-XDXR1E",
+      video_thumbnail_url: "https://i.ytimg.com/vi/7Z0s-XDXR1E/hqdefault.jpg",
+      user_id: 4,
+      user_fullname: userById(4).user_fullname,
+      user_profile_img: userById(4).user_profile_img,
+      video_creation_time: "2026-06-10 12:45:00",
+    },
+  ],
 };
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -722,6 +781,28 @@ const withAuthor = (item) => {
 const byNewest = (key) => (a, b) => Number(b[key]) - Number(a[key]);
 
 const parseQuery = (url) => new URL(url, "https://studentbook.local").searchParams;
+
+const getYoutubeVideoId = (url) => {
+  try {
+    const parsedUrl = new URL(url);
+    const host = parsedUrl.hostname.replace(/^www\./, "");
+
+    if (host === "youtu.be") return parsedUrl.pathname.slice(1);
+    if (host.endsWith("youtube.com")) {
+      if (parsedUrl.pathname.startsWith("/shorts/")) {
+        return parsedUrl.pathname.split("/")[2];
+      }
+      if (parsedUrl.pathname.startsWith("/embed/")) {
+        return parsedUrl.pathname.split("/")[2];
+      }
+      return parsedUrl.searchParams.get("v");
+    }
+  } catch {
+    return "";
+  }
+
+  return "";
+};
 
 const resizeDataUrl = (dataUrl, mimeType) =>
   new Promise((resolve) => {
@@ -849,6 +930,10 @@ export const demoRequest = {
       return response([...state.announcements].sort(byNewest("announcement_id")));
     }
 
+    if (url === "/videos/get-all-videos") {
+      return response([...state.videos].sort(byNewest("video_id")));
+    }
+
     if (url.startsWith("/searches/")) {
       const search = decodeURIComponent(url.split("/").pop()).toLowerCase();
       return response(
@@ -967,6 +1052,23 @@ export const demoRequest = {
       );
     }
 
+    if (url === "/videos") {
+      const videoId = getYoutubeVideoId(body.video_url);
+      const currentUser = getCurrentUser();
+      state.videos.push({
+        video_id: nextId(state.videos, "video_id"),
+        video_title: body.video_title,
+        video_description: body.video_description || "",
+        video_url: `https://www.youtube.com/watch?v=${videoId}`,
+        video_embed_url: `https://www.youtube.com/embed/${videoId}`,
+        video_thumbnail_url: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+        user_id: currentUser.id,
+        user_fullname: currentUser.user_fullname,
+        user_profile_img: currentUser.user_profile_img,
+        video_creation_time: now,
+      });
+    }
+
     writeState(state);
     return response({ ok: true });
   },
@@ -1009,6 +1111,14 @@ export const demoRequest = {
       const announcementId = Number(url.split("/").pop());
       state.announcements = state.announcements.filter(
         (item) => item.announcement_id !== announcementId
+      );
+    }
+
+    if (url.startsWith("/videos/")) {
+      const videoId = Number(url.split("/").pop());
+      const currentUser = getCurrentUser();
+      state.videos = state.videos.filter(
+        (item) => item.video_id !== videoId || item.user_id !== currentUser.id
       );
     }
 

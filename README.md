@@ -11,7 +11,7 @@ StudentBook is an educational social platform for students, faculty, alumni, sta
 - Social feed with posts, likes, comments, image uploads, and profile pages.
 - Search for users and student CGPA metadata.
 - Announcement, article, and job boards.
-- Integrated Video Portal at `/videos` with a featured video, responsive video cards, and mobile navigation access.
+- Integrated DB-backed Video Portal at `/videos` where signed-in users can publish, browse, feature, and delete their own YouTube video posts.
 - Profile editing with cover and profile image uploads.
 - Dark mode support across app shell, auth screens, forms, cards, and modals.
 - Responsive desktop, tablet, and mobile layouts with a dedicated mobile primary navigation.
@@ -26,7 +26,7 @@ StudentBook is an educational social platform for students, faculty, alumni, sta
 | UI and styling | SCSS, Tailwind CSS 4, MUI 9, Heroicons, React Toastify |
 | API | Node.js, Express 5, MySQL2, Multer, JSON Web Token, bcrypt |
 | Database | MySQL |
-| Video portal | React 19, Vite 8, styled-components, MUI |
+| Video portal | Main app DB-backed portal, plus standalone React 19/Vite prototype |
 | Tooling | ESLint 10, npm lockfiles, GitHub Actions |
 
 ## Repository Layout
@@ -79,7 +79,9 @@ DB_NAME=studentbookdb
 DB_CONNECTION_LIMIT=10
 ```
 
-Import the database schema from [schema/studentbookdb.sql](schema/studentbookdb.sql). If you want to use the sample password from older setup notes, run this in MySQL as an admin user:
+Import the database schema from [schema/studentbookdb.sql](schema/studentbookdb.sql). If you already have an existing StudentBook database, apply [schema/add_videotable.sql](schema/add_videotable.sql) to add the Video Portal table without reimporting the full dump.
+
+If you want to use the sample password from older setup notes, run this in MySQL as an admin user:
 
 ```sql
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';
@@ -131,7 +133,7 @@ The main app routes include:
 | `/articles` | Article board |
 | `/announcements` | Announcement board |
 | `/jobs` | Job portal |
-| `/videos` | Integrated Video Portal |
+| `/videos` | DB-backed Video Portal for user-submitted YouTube videos |
 | `/something` | Campus Hub overview |
 
 Start the video portal prototype in another terminal when needed:
@@ -161,7 +163,7 @@ npm run dev
 The repository includes a GitHub Pages workflow at `.github/workflows/deploy-pages.yml`.
 It builds the Vite client with `npm run build:demo`, so the published site does not
 connect to MySQL or the Express API. Demo posts, likes, comments, profiles,
-articles, jobs, and announcements are served from seeded browser data and any changes
+articles, jobs, announcements, and videos are served from seeded browser data and any changes
 are saved only in the visitor's local storage.
 
 To publish it:
@@ -197,7 +199,7 @@ Releases are driven by [CHANGELOG.md](CHANGELOG.md).
 2. Use this heading format:
 
 ```md
-## [2.1.0] - 2026-06-13
+## [2.5.0] - 2026-06-13
 ```
 
 3. Commit and push the changelog change to `main` or `master`.
@@ -207,7 +209,7 @@ If the release already exists, the workflow exits without changing it.
 
 ## Screenshots
 
-The UI has been redesigned since the original screenshots were captured. The checked-in screenshots remain useful as historical feature references, but the current app now uses the updated responsive shell, mobile primary navigation, integrated Video Portal, route-level loading, and full dark-mode-aware surfaces.
+The UI has been redesigned since the original screenshots were captured. The checked-in screenshots remain useful as historical feature references, but the current app now uses the updated responsive shell, mobile primary navigation, DB-backed Video Portal, route-level loading, and full dark-mode-aware surfaces.
 
 ### Before and After Demo
 
@@ -245,16 +247,6 @@ The UI has been redesigned since the original screenshots were captured. The che
 
 ![Job page](img/j1.png)
 ![Job dark mode](img/j3.png)
-
-## Database Diagrams
-
-### ERD
-
-![Entity relationship diagram](img/ERD.jpg)
-
-### Schema
-
-![Database schema](img/Schema.png)
 
 ## Team
 

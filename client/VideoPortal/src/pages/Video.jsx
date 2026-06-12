@@ -3,8 +3,10 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import { useParams } from "react-router-dom";
 import Comments from "../components/Comments";
 import Card from "../components/Card";
+import { featuredVideo, videos } from "../data/videos";
 
 const Container = styled.div`
   display: grid;
@@ -150,28 +152,36 @@ const Subscribe = styled.button`
   height: max-content;
   padding: 10px 20px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 `;
 
 const Video = () => {
+  const { id } = useParams();
+  const selectedVideo = videos.find((video) => video.id === id) || featuredVideo;
+  const recommendations = videos.filter((video) => video.id !== selectedVideo.id).slice(0, 8);
+
   return (
     <Container>
       <Content>
         <VideoWrapper>
           <iframe
             width="100%"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
+            src={selectedVideo.embedUrl}
+            title={selectedVideo.title}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           ></iframe>
         </VideoWrapper>
-        <Title>Campus project showcase</Title>
+        <Title>{selectedVideo.title}</Title>
         <Details>
-          <Info>7,948,154 views • Jun 22, 2022</Info>
+          <Info>{selectedVideo.views} - {selectedVideo.date}</Info>
           <Buttons>
             <Button>
-              <ThumbUpOutlinedIcon /> 123
+              <ThumbUpOutlinedIcon /> {selectedVideo.likes}
             </Button>
             <Button>
               <ThumbDownOffAltOutlinedIcon /> Dislike
@@ -187,24 +197,25 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=200" />
+            <Image src="https://i.ytimg.com/vi/zSYg-wRSIu8/default.jpg" />
             <ChannelDetail>
-              <ChannelName>StudentBook</ChannelName>
-              <ChannelCounter>13K subscribers</ChannelCounter>
+              <ChannelName>{selectedVideo.channel}</ChannelName>
+              <ChannelCounter>youtube.com/@FahimAmin</ChannelCounter>
               <Description>
-                A concise walkthrough from the campus community, collected for
-                students who want to revisit workshops, demos, and talks.
+                {selectedVideo.description}
               </Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>Subscribe</Subscribe>
+          <Subscribe as="a" href={selectedVideo.channelUrl} target="_blank" rel="noreferrer">
+            Subscribe
+          </Subscribe>
         </Channel>
         <Hr />
         <Comments/>
       </Content>
       <Recommendation>
-        {Array.from({ length: 8 }, (_, index) => (
-          <Card key={index} type="sm" />
+        {recommendations.map((video) => (
+          <Card key={video.id} type="sm" {...video} />
         ))}
       </Recommendation>
     </Container>
