@@ -4,6 +4,7 @@ import { use, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import { uploadPath } from "../../config";
 
 const Share = () => {
   const [file, setFile] = useState(null);
@@ -79,7 +80,7 @@ const Share = () => {
         <div className="top">
           <div className="left">
             <img
-              src={"/upload/" + currentUser.user_profile_img}
+              src={uploadPath(currentUser.user_profile_img)}
               alt={currentUser.user_fullname}
             />
             <input

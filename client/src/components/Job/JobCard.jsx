@@ -1,4 +1,5 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { uploadPath } from "../../config";
 
 const JobCard = ({
   job_id,
@@ -66,7 +67,7 @@ const JobCard = ({
       <div className="resource-footer">
         <div className="resource-author">
           <img
-            src={"/upload/"+user_profile_img}
+            src={uploadPath(user_profile_img)}
             alt={job_provider_user_name}
           />
           <span>{job_provider_user_name}</span>

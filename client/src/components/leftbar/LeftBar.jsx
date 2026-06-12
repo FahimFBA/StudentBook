@@ -21,6 +21,7 @@ import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import { AuthContext } from "../../context/authContext";
 import { use } from "react";
 import { Link } from "react-router-dom";
+import { uploadPath } from "../../config";
 
 const LeftBar = () => {
   const { currentUser } = use(AuthContext);
@@ -31,7 +32,7 @@ const LeftBar = () => {
         <div className="menu">
           <Link to={`/profile/${currentUser?.id}`} className="user">
             <img
-              src={"/upload/" + currentUser.user_profile_img}
+              src={uploadPath(currentUser.user_profile_img)}
               alt={currentUser.user_fullname}
             />
             <div>

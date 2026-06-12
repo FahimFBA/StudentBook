@@ -1,6 +1,7 @@
 import "./stories.scss";
 import { use } from "react";
 import { AuthContext } from "../../context/authContext";
+import { uploadPath } from "../../config";
 
 const Stories = () => {
   const { currentUser } = use(AuthContext);
@@ -33,7 +34,7 @@ const Stories = () => {
   return (
     <div className="stories">
       <div className="story">
-        <img src={currentUser.user_profile_img} alt="" />
+        <img src={uploadPath(currentUser.user_profile_img)} alt="" />
         <span>{currentUser.user_name}</span>
         <button>+</button>
       </div>

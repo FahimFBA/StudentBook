@@ -12,6 +12,7 @@ import { Link, useLocation } from "react-router-dom";
 import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import Update from "../../components/update/Update";
+import { uploadPath } from "../../config";
 
 const Profile = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -65,9 +66,9 @@ const Profile = () => {
       ) : (
         <>
           <div className="images">
-            <img src={"/upload/" + data.user_cover_img} alt="" className="cover" />
+            <img src={uploadPath(data.user_cover_img)} alt="" className="cover" />
             <img
-              src={"/upload/" + data.user_profile_img}
+              src={uploadPath(data.user_profile_img)}
               alt={data.user_fullname}
               className="profilePic"
             />

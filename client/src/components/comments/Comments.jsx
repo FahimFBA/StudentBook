@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/authContext";
 import moment from "moment";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import { uploadPath } from "../../config";
 const Comments = ({ post_id }) => {
   const [comment_desc, setCommentDesc] = useState("");
   const { currentUser } = use(AuthContext);
@@ -36,7 +37,7 @@ const Comments = ({ post_id }) => {
   return (
     <div className="comments">
       <div className="write">
-        <img src={"/upload/" + currentUser.user_profile_img} alt="" />
+        <img src={uploadPath(currentUser.user_profile_img)} alt="" />
         <input
           type="text"
           placeholder="write a comment"
@@ -52,7 +53,7 @@ const Comments = ({ post_id }) => {
       ) : (
         data?.map((comment) => (
             <div className="comment" key={comment.comment_id}>
-              <img src={"/upload/" + comment.user_profile_img} alt={comment.user_name} />
+              <img src={uploadPath(comment.user_profile_img)} alt={comment.user_name} />
               <div className="info">
                 <span>{comment.user_name}</span>
                 <p>{comment.comment_desc}</p>

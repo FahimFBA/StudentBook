@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLogout } from "../../hooks/useLogout";
+import { uploadPath } from "../../config";
 
 const NavBar = () => {
   const { toggle, darkMode } = use(DarkModeContext);
@@ -67,7 +68,7 @@ const NavBar = () => {
         </button>
         <div className="user" title={currentUser.user_fullname}>
           <img
-            src={"/upload/" + currentUser.user_profile_img}
+            src={uploadPath(currentUser.user_profile_img)}
             alt={currentUser.user_fullname}
           />
           <span>{currentUser.user_fullname}</span>

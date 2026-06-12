@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { demoAuth } from "../demo/demoApi";
+import { isDemoMode } from "../config";
 
 
 export const AuthContext = createContext();
@@ -10,9 +12,15 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   const login = async (inputs) => {
-    const res = await axios.post("http://localhost:8800/api/auth/login", inputs, {
-      withCredentials: true,
-    });
+    const res = isDemoMode
+      ? await demoAuth.login(inputs)
+      : await axios.post(
+          `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8800/api/"}auth/login`,
+          inputs,
+          {
+            withCredentials: true,
+          }
+        );
     setCurrentUser(res.data);
   };
 

@@ -1,4 +1,5 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { uploadPath } from "../../config";
 
 const ArticleCard = ({
   article_title,
@@ -22,7 +23,7 @@ const ArticleCard = ({
       <div className="resource-footer">
         <div className="resource-author">
           <img
-            src={"/upload/"+user_profile_img}
+            src={uploadPath(user_profile_img)}
             alt={user_fullname}
           />
           <span>{user_fullname}</span>

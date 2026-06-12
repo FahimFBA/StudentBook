@@ -149,11 +149,33 @@ npm run dev
 | `api` | `npm audit` | Check API dependency advisories |
 | `client` | `npm run dev` | Start the main frontend |
 | `client` | `npm run build` | Build the main frontend |
+| `client` | `npm run build:demo` | Build the static GitHub Pages demo with mocked browser data |
 | `client` | `npm run lint` | Run ESLint |
 | `client` | `npm audit` | Check main frontend dependency advisories |
 | `client/VideoPortal` | `npm run dev` | Start the video portal |
 | `client/VideoPortal` | `npm run build` | Build the video portal |
 | `client/VideoPortal` | `npm audit` | Check video portal dependency advisories |
+
+## Static Demo on GitHub Pages
+
+The repository includes a GitHub Pages workflow at `.github/workflows/deploy-pages.yml`.
+It builds the Vite client with `npm run build:demo`, so the published site does not
+connect to MySQL or the Express API. Demo posts, likes, comments, profiles,
+articles, jobs, and announcements are served from seeded browser data and any changes
+are saved only in the visitor's local storage.
+
+To publish it:
+
+1. Push the repository to GitHub.
+2. In the GitHub repository settings, open **Pages**.
+3. Set **Build and deployment** to **GitHub Actions**.
+4. Push to `main` or `master`, or run **Deploy static demo to GitHub Pages** manually from the Actions tab.
+
+The deployed app uses hash routes, so demo pages open under URLs like:
+
+```text
+https://<your-github-user>.github.io/<repo-name>/#/
+```
 
 ## Test Accounts
 

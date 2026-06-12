@@ -8,11 +8,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import {
   createBrowserRouter,
+  createHashRouter,
   Navigate,
   Outlet,
   RouterProvider,
 } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
+import { isDemoMode } from "./config";
 
 const queryClient = new QueryClient();
 const Home = lazy(() => import("./pages/home/Home"));
@@ -63,7 +65,7 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   const { darkMode } = use(DarkModeContext);
 
-  const router = createBrowserRouter([
+  const router = (isDemoMode ? createHashRouter : createBrowserRouter)([
     {
       path: "/",
       element: (

@@ -12,6 +12,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { use } from "react";
 import { AuthContext } from "../../context/authContext";
+import { uploadPath } from "../../config";
 
 const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
@@ -63,7 +64,7 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={"/upload/" + post.user_profile_img} alt="" />
+            <img src={uploadPath(post.user_profile_img)} alt="" />
             <div className="details">
               <Link
                 to={`/profile/${post.user_id}`}
@@ -92,7 +93,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.post_desc}</p>
-          {post.img && <img src={"/upload/" + post.img} alt="" />}
+          {post.img && <img src={uploadPath(post.img)} alt="" />}
         </div>
         <div className="info">
           <button

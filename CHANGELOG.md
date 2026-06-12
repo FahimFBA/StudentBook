@@ -4,6 +4,26 @@ All notable changes to StudentBook are documented in this file.
 
 This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YYYY-MM-DD` section at the top when preparing a release. The release workflow publishes a GitHub Release for the newest changelog version if one does not already exist.
 
+## [2.2.0] - 2026-06-13
+
+### Added
+
+- Added a GitHub Pages workflow that builds and deploys the StudentBook client as a static demo site.
+- Added a Vite demo build mode with mocked browser-local data for profiles, posts, likes, comments, articles, jobs, announcements, and search.
+- Added static demo publishing instructions to the README.
+
+### Changed
+
+- Switched demo builds to hash routing so static GitHub Pages URLs work without server rewrites.
+- Updated public upload image URL handling so assets resolve correctly under a GitHub Pages repository subpath.
+- Kept normal local builds connected to the Express API while demo builds run without MySQL or the backend.
+
+### Verified
+
+- `npm run lint` passes in `client`.
+- `npm run build:demo` passes in `client`.
+- `VITE_BASE_PATH=/StudentBook/ npm run build:demo` passes in `client`.
+
 ## [2.1.1] - 2026-06-13
 
 ### Changed

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { uploadPath } from "../../config";
 
 const SearchBar = ({ search, setSearch, data, isError, isLoading }) => {
   const trimmedSearch = search.trim();
@@ -35,7 +36,7 @@ const SearchBar = ({ search, setSearch, data, isError, isLoading }) => {
               >
                 <img
                   className="searchResultAvatar"
-                  src={`/upload/${item.user_profile_img}`}
+                  src={uploadPath(item.user_profile_img)}
                   alt={item.user_fullname}
                 />
                 <span>
