@@ -126,28 +126,67 @@
           }
 
           .demoAccount {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto auto;
-            align-items: center;
-            gap: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             border: 1px solid themed("border");
             border-radius: 8px;
             background: themed("bgSoft");
             color: themed("textColorSoft");
-            padding: 10px 12px;
+            padding: 12px;
             font-size: 13px;
 
-            span,
-            strong,
-            small {
-              min-width: 0;
-            }
-
-            strong,
-            small {
+            > span {
               color: themed("textColor");
               font-weight: 800;
-              overflow-wrap: anywhere;
+            }
+
+            .demoAccountList {
+              display: grid;
+              grid-template-columns: repeat(3, minmax(0, 1fr));
+              gap: 8px;
+            }
+
+            .demoAccountButton {
+              min-height: 84px;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: center;
+              gap: 3px;
+              border: 1px solid themed("border");
+              border-radius: 8px;
+              background: themed("card");
+              color: themed("textColor");
+              padding: 10px;
+              cursor: pointer;
+              text-align: left;
+
+              &:hover,
+              &:focus-visible {
+                border-color: themed("accent");
+                box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+                outline: none;
+              }
+
+              strong,
+              small,
+              code {
+                max-width: 100%;
+                overflow-wrap: anywhere;
+              }
+
+              small {
+                color: themed("textColorSoft");
+                font-size: 12px;
+              }
+
+              code {
+                color: themed("accent");
+                font-family: inherit;
+                font-size: 11px;
+                font-weight: 800;
+              }
             }
           }
 
@@ -200,6 +239,14 @@
 
         h2 {
           font-size: 34px;
+        }
+
+        form {
+          .demoAccount {
+            .demoAccountList {
+              grid-template-columns: 1fr;
+            }
+          }
         }
       }
     }
@@ -263,6 +310,14 @@
 
         h2 {
           font-size: 34px;
+        }
+
+        form {
+          .demoAccount {
+            .demoAccountList {
+              grid-template-columns: 1fr;
+            }
+          }
         }
       }
     }

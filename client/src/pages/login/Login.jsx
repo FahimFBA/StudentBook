@@ -4,7 +4,7 @@ import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { isDemoMode } from "../../config";
-import { demoCredentials } from "../../demo/demoApi";
+import { demoAccounts, demoCredentials } from "../../demo/demoApi";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -19,6 +19,14 @@ const Login = () => {
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const selectDemoAccount = (account) => {
+    setInputs({
+      user_name: account.user_name,
+      user_password: account.user_password,
+    });
+    setErr(null);
   };
 
   const { login } = use(AuthContext);
@@ -75,9 +83,26 @@ const Login = () => {
             />
             {isDemoMode && (
               <div className="demoAccount">
-                <span>Static demo account</span>
-                <strong>{demoCredentials.user_name}</strong>
-                <small>{demoCredentials.user_password}</small>
+                <span>Try a demo role</span>
+                <div className="demoAccountList">
+                  {demoAccounts.map((account) => (
+                    <button
+                      key={account.user_name}
+                      type="button"
+                      className="demoAccountButton"
+                      onClick={() => selectDemoAccount(account)}
+                    >
+                      <strong>{account.label}</strong>
+                      <small>{account.description}</small>
+                      <code>
+                        {account.user_name} / {account.user_password}
+                      </code>
+                    </button>
+                  ))}
+                </div>
+                <small>
+                  Select a role to fill the demo username and password.
+                </small>
               </div>
             )}
             {err && <div className="authError">{err}</div>}

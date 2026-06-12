@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(() => {
+    if (isDemoMode) return demoAuth.getStoredUser();
     return JSON.parse(localStorage.getItem("user")) || null;
   });
 

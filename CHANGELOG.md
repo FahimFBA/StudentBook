@@ -4,6 +4,27 @@ All notable changes to StudentBook are documented in this file.
 
 This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YYYY-MM-DD` section at the top when preparing a release. The release workflow publishes a GitHub Release for the newest changelog version if one does not already exist.
 
+## [2.3.0] - 2026-06-13
+
+### Added
+
+- Added refreshed static demo seed data with American student, faculty, staff, and alumni profiles.
+- Added richer demo content, including 18 posts, 10 articles, 10 jobs, 6 announcements, likes, comments, and relationships.
+- Added role-specific demo login hints for student, faculty, and staff accounts.
+- Added browser-local image persistence for static demo uploads by converting uploaded images to cached data URLs.
+
+### Changed
+
+- Updated the static demo storage key so old demo users and old seed data are replaced by the refreshed demo dataset.
+- Updated demo images to load from remote Unsplash image URLs instead of the old local upload filenames.
+- Updated demo login so seeded role accounts use the visible demo credentials while locally registered demo accounts remain browser-only.
+
+### Verified
+
+- `npm run lint` passes in `client`.
+- `npm run build:demo` passes in `client`.
+- `VITE_BASE_PATH=/StudentBook/ npm run build:demo` passes in `client`.
+
 ## [2.2.0] - 2026-06-13
 
 ### Added
