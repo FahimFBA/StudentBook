@@ -18,6 +18,10 @@ This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YY
 - Updated public upload image URL handling so assets resolve correctly under a GitHub Pages repository subpath.
 - Kept normal local builds connected to the Express API while demo builds run without MySQL or the backend.
 
+### Fixed
+
+- Fixed case-sensitive SCSS imports that failed on Linux GitHub Actions runners.
+
 ### Verified
 
 - `npm run lint` passes in `client`.

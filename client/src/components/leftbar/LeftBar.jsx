@@ -1,4 +1,4 @@
-import "./leftbar.scss";
+import "./leftBar.scss";
 import ApplicationIcon from "../../assets/application.png";
 import AnnouncementIcon from "../../assets/loudspeaker.png";
 import ResearchIcon from "../../assets/research.png";
