@@ -5,9 +5,9 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const [currentUser, setCurrentUser] = useState(() => {
+    return JSON.parse(localStorage.getItem("user")) || null;
+  });
 
   const login = async (inputs) => {
     const res = await axios.post("http://localhost:8800/api/auth/login", inputs, {
@@ -21,8 +21,8 @@ export const AuthContextProvider = ({ children }) => {
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext value={{ currentUser, login }}>
       {children}
-    </AuthContext.Provider>
+    </AuthContext>
   );
 };

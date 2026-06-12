@@ -10,7 +10,7 @@ import Comments from "../comments/Comments";
 import moment from "moment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import { useContext } from "react";
+import { use } from "react";
 import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
@@ -18,45 +18,41 @@ const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = use(AuthContext);
   // console.log(currentUser);
 
-  const { isLoading, error, data } = useQuery(["likes", post.post_id], () =>
-    makeRequest.get("/likes?post_id=" + post.post_id).then((res) => {
-      return res.data;
-    })
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["likes", post.post_id],
+    queryFn: () =>
+      makeRequest.get("/likes?post_id=" + post.post_id).then((res) => {
+        return res.data;
+      }),
+  });
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (liked) => {
+  const mutation = useMutation({
+    mutationFn: (liked) => {
       if (liked) return makeRequest.delete("/likes?post_id=" + post.post_id);
       return makeRequest.post("/likes", { post_id: post.post_id });
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["likes"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["likes"] });
+    },
+  });
 
   const handleLike = () => {
     mutation.mutate(data.includes(currentUser.id));
   };
 
-  const deleteMutation = useMutation(
-    (postId) => {
+  const deleteMutation = useMutation({
+    mutationFn: (postId) => {
       return makeRequest.delete("/posts/" + postId);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["posts"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
 
   const handleDelete = () => {
     deleteMutation.mutate(post.post_id);

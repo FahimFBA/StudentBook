@@ -1,37 +1,36 @@
-import { useContext, useState } from "react";
+import { use, useState } from "react";
 import "./comments.scss";
 import { AuthContext } from "../../context/authContext";
 import moment from "moment";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 const Comments = ({ post_id }) => {
-  const [comment_desc, setcomment_desc] = useState("");
-  const { currentUser } = useContext(AuthContext);
+  const [comment_desc, setCommentDesc] = useState("");
+  const { currentUser } = use(AuthContext);
 
-  const { isLoading, error, data } = useQuery(["comments"], () =>
-    makeRequest.get(`/comments?post_id=${post_id}`).then((res) => {
-      return res?.data;
-    })
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["comments", post_id],
+    queryFn: () =>
+      makeRequest.get(`/comments?post_id=${post_id}`).then((res) => {
+        return res?.data;
+      }),
+  });
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (newComment) => {
+  const mutation = useMutation({
+    mutationFn: (newComment) => {
       return makeRequest.post("/comments", newComment);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["comments"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+    },
+  });
 
   const handleClick = async (e) => {
     e.preventDefault();
     mutation.mutate({ comment_desc, post_id });
-    setcomment_desc("");
+    setCommentDesc("");
   };
 
   return (
@@ -42,14 +41,14 @@ const Comments = ({ post_id }) => {
           type="text"
           placeholder="write a comment"
           value={comment_desc}
-          onChange={(e) => setcomment_desc(e.target.value)}
+          onChange={(e) => setCommentDesc(e.target.value)}
         />
         <button onClick={handleClick}>Send</button>
       </div>
       {isLoading
         ? "loading"
         : data.map((comment) => (
-            <div className="comment">
+            <div className="comment" key={comment.comment_id}>
               <img src={"/upload/" + comment.user_profile_img} alt="" />
               <div className="info">
                 <span>{comment.user_name}</span>

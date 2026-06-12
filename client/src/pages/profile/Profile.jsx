@@ -12,48 +12,47 @@ import Posts from "../../components/posts/Posts";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { Link, useLocation } from "react-router-dom";
-import { useContext, useState } from "react";
+import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import Update from "../../components/update/Update";
 
 const Profile = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = use(AuthContext);
 
   const userId = parseInt(useLocation().pathname.split("/")[2]);
 
-  const { isLoading, error, data } = useQuery(["user"], () =>
-    makeRequest.get("/users/find/" + userId).then((res) => {
-      return res.data;
-    })
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () =>
+      makeRequest.get("/users/find/" + userId).then((res) => {
+        return res.data;
+      }),
+  });
 
   console.log("profileData", data);
 
-  const { isLoading: rIsLoading, data: relationshipData } = useQuery(
-    ["relationship"],
-    () =>
+  const { isLoading: rIsLoading, data: relationshipData } = useQuery({
+    queryKey: ["relationship", userId],
+    queryFn: () =>
       makeRequest.get("/relationships?followeduserid=" + userId).then((res) => {
         return res.data;
-      })
-  );
+      }),
+  });
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (following) => {
+  const mutation = useMutation({
+    mutationFn: (following) => {
       if (following)
         return makeRequest.delete("/relationships?userId=" + userId);
       return makeRequest.post("/relationships", { userId });
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["relationship"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["relationship"] });
+    },
+  });
 
   const handleFollow = () => {
     mutation.mutate(relationshipData.includes(currentUser.id));
@@ -115,7 +114,7 @@ const Profile = () => {
                 )}
               </div>
               {data?.user_occ && (
-                <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                <span className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
                   {data?.user_occ}
                 </span>
               )}
@@ -123,7 +122,7 @@ const Profile = () => {
               <Link to={data?.user_cal} target="_blank">
                 <button
                   type="button"
-                  class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                  className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
                 >
                   Calendly
                 </button>

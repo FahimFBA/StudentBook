@@ -2,7 +2,7 @@ import "./share.scss";
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
-import { useContext, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -12,7 +12,9 @@ import { makeRequest } from "../../axios";
 const Share = () => {
   const [file, setFile] = useState(null);
   console.log(file);
-  const [post_desc, setpost_desc] = useState("");
+  const [post_desc, setPostDesc] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
+  const previewUrlRef = useRef("");
 
   const upload = async () => {
     try {
@@ -25,29 +27,55 @@ const Share = () => {
     }
   };
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = use(AuthContext);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) {
+        URL.revokeObjectURL(previewUrlRef.current);
+      }
+    };
+  }, []);
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (newPost) => {
+  const mutation = useMutation({
+    mutationFn: (newPost) => {
       return makeRequest.post("/posts", newPost);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["posts"]);
-      },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
+
+  const revokePreviewUrl = () => {
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current);
+      previewUrlRef.current = "";
     }
-  );
+    setPreviewUrl("");
+  };
+
+  const handleFileChange = (e) => {
+    const nextFile = e.target.files[0] || null;
+    revokePreviewUrl();
+    setFile(nextFile);
+
+    if (nextFile) {
+      const nextPreviewUrl = URL.createObjectURL(nextFile);
+      previewUrlRef.current = nextPreviewUrl;
+      setPreviewUrl(nextPreviewUrl);
+    }
+  };
 
   const handleClick = async (e) => {
     e.preventDefault();
     let imgUrl = "";
     if (file) imgUrl = await upload();
     mutation.mutate({ post_desc, img: imgUrl });
-    setpost_desc("");
+    setPostDesc("");
     setFile(null);
+    revokePreviewUrl();
   };
 
   return (
@@ -60,20 +88,20 @@ const Share = () => {
               type="text"
               value={post_desc}
               placeholder={`What's on your mind, ${currentUser.user_fullname}?`}
-              onChange={(e) => setpost_desc(e.target.value)}
+              onChange={(e) => setPostDesc(e.target.value)}
               required
             />
           </div>
           <div className="right">
-            {file && (
+            {previewUrl && (
               <img
-                styles={{
+                style={{
                   height: "200px",
                   width: "200px",
                 }}
                 className="file"
                 alt=""
-                src={URL.createObjectURL(file)}
+                src={previewUrl}
               />
             )}
           </div>
@@ -85,7 +113,7 @@ const Share = () => {
               type="file"
               id="file"
               style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={handleFileChange}
               // value={file}
             />
             <label htmlFor="file">

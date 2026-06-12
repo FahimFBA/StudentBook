@@ -18,11 +18,11 @@ import QuoraIcon from "../../assets/quora.png";
 import FCC from "../../assets/fcc.png";
 import LinkedInIcon from "../../assets/linkedin.png";
 import { AuthContext } from "../../context/authContext";
-import { useContext } from "react";
+import { use } from "react";
 import { Link } from "react-router-dom";
 
 const LeftBar = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = use(AuthContext);
 
   console.log("TBA", currentUser)
 

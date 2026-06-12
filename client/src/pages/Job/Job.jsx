@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import "./Job.scss";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -23,25 +23,22 @@ const Job = () => {
 
   const [data, setData] = useState(initialData);
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = use(AuthContext);
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (j) => {
+  const mutation = useMutation({
+    mutationFn: (j) => {
       return makeRequest.post("/jobs", j);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["jobs"]);
-        toast.success("Job posted successfully");
-      },
-      onError: (err) => {
-        toast.error("ServerError");
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      toast.success("Job posted successfully");
+    },
+    onError: (err) => {
+      toast.error("ServerError");
+    },
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -53,32 +50,31 @@ const Job = () => {
     isLoading,
     error,
     data: jobPosting,
-  } = useQuery(["jobs"], () =>
-    makeRequest.get("/jobs/get-all-jobs").then((res) => {
-      return res.data;
-    })
-  );
+  } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: () =>
+      makeRequest.get("/jobs/get-all-jobs").then((res) => {
+        return res.data;
+      }),
+  });
 
   console.log(jobPosting);
 
   const handleInputChange = (e) =>
     setData({ ...data, [e.target.name]: e.target.value });
 
-  const deleteMutation = useMutation(
-    (jobId) => {
+  const deleteMutation = useMutation({
+    mutationFn: (jobId) => {
       return makeRequest.delete("/jobs/" + jobId);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["jobs"]);
-        toast.success("Job deleted successfully");
-      },
-      onError: (err) => {
-        toast.error("ServerError");
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      toast.success("Job deleted successfully");
+    },
+    onError: (err) => {
+      toast.error("ServerError");
+    },
+  });
 
   const handleDelete = (jobId) => {
     deleteMutation.mutate(jobId);
@@ -92,10 +88,10 @@ const Job = () => {
         <div>
           {/* Job Provider's Full Name */}
           <label
-            for="job_provider_user_name"
+            htmlFor="job_provider_user_name"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Recruiter's Full Name
+            Recruiter&apos;s Full Name
           </label>
           <input
             type="text"
@@ -111,7 +107,7 @@ const Job = () => {
         <div>
           {/* Job Provider Company Name */}
           <label
-            for="job_provider_company_name"
+            htmlFor="job_provider_company_name"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Company Name
@@ -130,7 +126,7 @@ const Job = () => {
         <div>
           {/* Job Provider Company Website */}
           <label
-            for="job_provider_company_website"
+            htmlFor="job_provider_company_website"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Website
@@ -149,7 +145,7 @@ const Job = () => {
         <div>
           {/* Job Provider Company Linkedin */}
           <label
-            for="job_provider_company_linkedin"
+            htmlFor="job_provider_company_linkedin"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Official LinkedIn Page
@@ -168,7 +164,7 @@ const Job = () => {
         <div>
           {/* Job Provider Company Twitter */}
           <label
-            for="job_provider_company_twitter"
+            htmlFor="job_provider_company_twitter"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Official Twitter/X
@@ -187,7 +183,7 @@ const Job = () => {
         <div>
           {/* Job Provider Company Facebook */}
           <label
-            for="job_provider_company_facebook"
+            htmlFor="job_provider_company_facebook"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Official Facebook Page
@@ -206,7 +202,7 @@ const Job = () => {
         {/* Job Provider Company Email */}
         <div className="mb-6">
           <label
-            for="job_provider_company_email"
+            htmlFor="job_provider_company_email"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Email address
@@ -225,7 +221,7 @@ const Job = () => {
         <div className="mb-6">
           {/* Job Description */}
           <label
-            for="job_description"
+            htmlFor="job_description"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Job Description
@@ -244,7 +240,7 @@ const Job = () => {
         <div className="mb-6">
           {/* Job Requirement */}
           <label
-            for="job_requirement"
+            htmlFor="job_requirement"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Job Requirement
@@ -263,7 +259,7 @@ const Job = () => {
         <div>
           {/* Job Salary */}
           <label
-            for="job_salary"
+            htmlFor="job_salary"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Salary/Salary Range
@@ -280,7 +276,7 @@ const Job = () => {
           />
         </div>
         <button
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           type="submit"
         >
           Submit
@@ -288,7 +284,7 @@ const Job = () => {
         <button
           type="button"
           onClick={() => setData(initialData)}
-          class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
         >
           Cancel
         </button>

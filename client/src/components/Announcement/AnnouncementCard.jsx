@@ -58,7 +58,7 @@ const AnnouncementCard = ({
           >
             <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M10 18a8 8 0 100-16 8 8 0 000 16zM2 10a8 8 0 1116 0 8 8 0 01-16 0z"
             ></path>
           </svg>

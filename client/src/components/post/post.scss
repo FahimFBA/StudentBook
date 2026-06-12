@@ -1,4 +1,4 @@
-@import "../../style.scss";
+@use "../../style.scss" as *;
 
 .post {
   @include themify($themes) {

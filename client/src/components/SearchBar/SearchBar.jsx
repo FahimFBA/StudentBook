@@ -1,16 +1,21 @@
-import React, { Component } from "react";
-import ReactSearchBox from "react-search-box";
-
 const SearchBar = ({ search, setSearch, data }) => {
+  const listId = "studentbook-search-options";
+
   return (
-    <ReactSearchBox
-      placeholder="Placeholder"
-      value={search}
-      
-      data={data}
-      onChange={(record) => setSearch(record)}
-    //   callback={(record) => console.log(record)}
-    />
+    <>
+      <input
+        type="search"
+        placeholder="Search..."
+        value={search}
+        list={listId}
+        onChange={(event) => setSearch(event.target.value)}
+      />
+      <datalist id={listId}>
+        {data?.map((item) => (
+          <option key={item.key} value={item.value} />
+        ))}
+      </datalist>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ import Register from "./pages/register/Register";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
 import "./style.scss";
-import { useContext } from "react";
+import { use } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -15,9 +15,6 @@ import {
   Navigate,
   Outlet,
   RouterProvider,
-  BrowserRouter,
-  Routes,
-  Route,
 } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
 import Something from "./pages/something/Something";
@@ -25,39 +22,39 @@ import Article from "./pages/Article/Article";
 import Job from "./pages/Job/Job";
 import Announcement from "./pages/Announcement/Announcement";
 
-function App() {
-  const { currentUser } = useContext(AuthContext);
+const queryClient = new QueryClient();
 
-  const { darkMode } = useContext(DarkModeContext);
+const Layout = () => {
+  const { darkMode } = use(DarkModeContext);
 
-  const queryClient = new QueryClient();
-
-  const Layout = () => {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <div className={`theme-${darkMode ? "dark" : "light"}`}>
-          <NavBar />
-          <div style={{ display: "flex" }}>
-            <LeftBar />
-            <div style={{ flex: 6 }}>
-              <Outlet />
-            </div>
-
-            {/* <RightBar /> */}
+  return (
+    <QueryClientProvider client={queryClient}>
+      <div className={`theme-${darkMode ? "dark" : "light"}`}>
+        <NavBar />
+        <div style={{ display: "flex" }}>
+          <LeftBar />
+          <div style={{ flex: 6 }}>
+            <Outlet />
           </div>
+
+          {/* <RightBar /> */}
         </div>
-      </QueryClientProvider>
-    );
-  };
+      </div>
+    </QueryClientProvider>
+  );
+};
 
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" />;
-    }
+const ProtectedRoute = ({ children }) => {
+  const { currentUser } = use(AuthContext);
 
-    return children;
-  };
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
 
+  return children;
+};
+
+function App() {
   const router = createBrowserRouter([
     {
       path: "/",

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./login.scss";
-import { useContext, useState } from "react";
+import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ const Login = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const { login } = useContext(AuthContext);
+  const { login } = use(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const Login = () => {
           <p>
             The only social media you need for your education and career needs.
           </p>
-          <span>Don't you have an account?</span>
+          <span>Don&apos;t you have an account?</span>
           <Link to="/register">
             <button>Register!</button>
           </Link>

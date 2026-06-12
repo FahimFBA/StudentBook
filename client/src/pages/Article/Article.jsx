@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { use, useState } from "react";
 import "./Article.scss";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../context/authContext";
@@ -13,25 +13,22 @@ const Article = () => {
   };
   const [data, setData] = useState(initialData);
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = use(AuthContext);
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (x) => {
+  const mutation = useMutation({
+    mutationFn: (x) => {
       return makeRequest.post("/articles", x);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["articles"]);
-        toast.success("Article posted successfully");
-      },
-      onError: (err) => {
-        toast.error("ServerError");
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
+      toast.success("Article posted successfully");
+    },
+    onError: (err) => {
+      toast.error("ServerError");
+    },
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -43,30 +40,29 @@ const Article = () => {
     isLoading,
     error,
     data: articleData,
-  } = useQuery(["articles"], () =>
-    makeRequest.get("/articles/get-all-articles").then((res) => {
-      return res.data;
-    })
-  );
+  } = useQuery({
+    queryKey: ["articles"],
+    queryFn: () =>
+      makeRequest.get("/articles/get-all-articles").then((res) => {
+        return res.data;
+      }),
+  });
 
   const handleInputChange = (e) =>
     setData({ ...data, [e.target.name]: e.target.value });
 
-  const deleteMutation = useMutation(
-    (articleId) => {
+  const deleteMutation = useMutation({
+    mutationFn: (articleId) => {
       return makeRequest.delete("/articles/" + articleId);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["articles"]);
-        toast.success("Article deleted successfully");
-      },  
-      onError: (err) => {
-        toast.error("ServerError");
-      }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
+      toast.success("Article deleted successfully");
+    },
+    onError: (err) => {
+      toast.error("ServerError");
     }
-  );
+  });
 
   const handleDelete = (articleId) => {
     deleteMutation.mutate(articleId);
@@ -77,8 +73,8 @@ const Article = () => {
       <form onSubmit={onSubmit}>
         <div>
           <label
-            for="article_title"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            htmlFor="article_title"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Article title
           </label>
@@ -94,7 +90,7 @@ const Article = () => {
           />
         </div>
         <label
-          for="article_content"
+          htmlFor="article_content"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
           Your Wisdom
@@ -110,7 +106,7 @@ const Article = () => {
           rows={4}
         ></textarea>
         <button
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
           type="submit"
         >
           Submit
@@ -118,7 +114,7 @@ const Article = () => {
         <button
           type="button"
           onClick={() => setData(initialData)}
-          class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
         >
           Cancel
         </button>
