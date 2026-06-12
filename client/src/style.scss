@@ -1,37 +1,77 @@
+@use "sass:map";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 $themes: (
   light: (
-    textColor: #000,
-    bg: white,
-    logo: darkblue,
-    bgSoft: #f6f3f3,
-    textColorSoft: #555,
-    border: lightgray,
+    textColor: #172033,
+    bg: #ffffff,
+    logo: #1d4ed8,
+    bgSoft: #f5f7fb,
+    textColorSoft: #657085,
+    border: #dfe5ef,
+    card: #ffffff,
+    cardHover: #f8fbff,
+    accent: #2563eb,
+    accentSoft: #dbeafe,
+    danger: #dc2626,
+    shadow: 0 18px 45px rgba(15, 23, 42, 0.08),
   ),
   dark: (
-    textColor: whitesmoke,
-    bg: #222,
-    logo: white,
-    bgSoft: #333,
-    textColorSoft: lightgray,
-    border: #444,
+    textColor: #f7f9fc,
+    bg: #101827,
+    logo: #93c5fd,
+    bgSoft: #0b1120,
+    textColorSoft: #aab6ca,
+    border: #273244,
+    card: #121c2d,
+    cardHover: #19253a,
+    accent: #60a5fa,
+    accentSoft: #1e3a5f,
+    danger: #f87171,
+    shadow: 0 18px 45px rgba(0, 0, 0, 0.24),
   ),
 );
+
+$theme-map: null;
 
 @mixin themify($themes) {
   @each $theme, $map in $themes {
     .theme-#{$theme} & {
       $theme-map: () !global;
       @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), "#{$key}");
-        $theme-map: map-merge(
+        $value: map.get(map.get($themes, $theme), "#{$key}");
+        $theme-map: map.merge(
           $theme-map,
           (
             $key: $value,
@@ -45,7 +85,7 @@ $themes: (
 }
 
 @function themed($key) {
-  @return map-get($theme-map, $key);
+  @return map.get($theme-map, $key);
 }
 
 @mixin mobile {
@@ -56,5 +96,422 @@ $themes: (
 @mixin tablet {
   @media (max-width: 960px) {
     @content;
+  }
+}
+
+.theme-light,
+.theme-dark {
+  min-height: 100vh;
+}
+
+.app-shell {
+  @include themify($themes) {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 34rem),
+      themed("bgSoft");
+    color: themed("textColor");
+  }
+}
+
+.main-shell {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  align-items: start;
+}
+
+.content-panel {
+  min-width: 0;
+}
+
+.app-loading {
+  @include themify($themes) {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: themed("bgSoft");
+    color: themed("textColorSoft");
+    font-weight: 800;
+  }
+}
+
+.page-surface {
+  @include themify($themes) {
+    min-height: calc(100vh - 72px);
+    background: transparent;
+    padding: 28px clamp(16px, 4vw, 56px);
+  }
+}
+
+.page-stack {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-surface {
+  @include themify($themes) {
+    background: themed("card");
+    color: themed("textColor");
+    border: 1px solid themed("border");
+    border-radius: 8px;
+    box-shadow: themed("shadow");
+  }
+}
+
+.primary-button,
+.secondary-button,
+.danger-button,
+.icon-button {
+  border: 0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  font-weight: 700;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.primary-button {
+  @include themify($themes) {
+    background: themed("accent");
+    color: #ffffff;
+    padding: 0 18px;
+  }
+}
+
+.secondary-button {
+  @include themify($themes) {
+    background: themed("accentSoft");
+    color: themed("accent");
+    padding: 0 18px;
+  }
+}
+
+.danger-button {
+  @include themify($themes) {
+    background: rgba(220, 38, 38, 0.1);
+    color: themed("danger");
+    padding: 0 16px;
+  }
+}
+
+.icon-button {
+  @include themify($themes) {
+    width: 40px;
+    min-width: 40px;
+    padding: 0;
+    background: transparent;
+    color: themed("textColorSoft");
+
+    &:hover {
+      background: themed("cardHover");
+      color: themed("textColor");
+    }
+  }
+}
+
+.form-card {
+  @include themify($themes) {
+    background: themed("card");
+    border: 1px solid themed("border");
+    border-radius: 8px;
+    box-shadow: themed("shadow");
+    padding: clamp(18px, 3vw, 28px);
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &.full {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    @include themify($themes) {
+      color: themed("textColorSoft");
+      font-size: 13px;
+      font-weight: 700;
+    }
+  }
+
+  input,
+  textarea {
+    @include themify($themes) {
+      width: 100%;
+      border: 1px solid themed("border");
+      border-radius: 8px;
+      background: themed("bg");
+      color: themed("textColor");
+      outline: 0;
+      padding: 12px 14px;
+
+      &:focus {
+        border-color: themed("accent");
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      }
+    }
+  }
+}
+
+.page-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+
+  h1 {
+    margin: 0;
+    font-size: clamp(26px, 4vw, 38px);
+    line-height: 1.08;
+    letter-spacing: 0;
+  }
+
+  p {
+    @include themify($themes) {
+      margin: 8px 0 0;
+      color: themed("textColorSoft");
+      max-width: 640px;
+    }
+  }
+}
+
+.empty-state,
+.loading-state,
+.error-state {
+  @include themify($themes) {
+    border: 1px dashed themed("border");
+    border-radius: 8px;
+    color: themed("textColorSoft");
+    padding: 22px;
+    text-align: center;
+    background: themed("card");
+  }
+}
+
+.resource-card {
+  @include themify($themes) {
+    background: themed("card");
+    border: 1px solid themed("border");
+    border-radius: 8px;
+    box-shadow: themed("shadow");
+    padding: clamp(18px, 3vw, 26px);
+  }
+}
+
+.resource-meta,
+.resource-footer {
+  @include themify($themes) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    color: themed("textColorSoft");
+    font-size: 13px;
+  }
+}
+
+.resource-type {
+  @include themify($themes) {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: themed("accentSoft");
+    color: themed("accent");
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+}
+
+.resource-body {
+  @include themify($themes) {
+    margin: 18px 0;
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.15;
+      letter-spacing: 0;
+      color: themed("textColor");
+    }
+
+    p {
+      margin: 0;
+      line-height: 1.7;
+      color: themed("textColorSoft");
+      white-space: pre-wrap;
+    }
+  }
+}
+
+.resource-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  font-weight: 800;
+
+  img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.resource-card .danger-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.hub-card {
+  @include themify($themes) {
+    background: themed("card");
+    border: 1px solid themed("border");
+    border-radius: 8px;
+    box-shadow: themed("shadow");
+    padding: 22px;
+
+    svg {
+      color: themed("accent");
+      font-size: 34px;
+    }
+
+    h2 {
+      margin: 14px 0 8px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: themed("textColorSoft");
+      line-height: 1.6;
+    }
+  }
+}
+
+.job-details {
+  @include themify($themes) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 16px;
+
+    div {
+      border: 1px solid themed("border");
+      border-radius: 8px;
+      padding: 12px;
+      background: themed("bgSoft");
+    }
+
+    dt {
+      color: themed("textColorSoft");
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    dd {
+      margin: 0;
+      color: themed("textColor");
+      line-height: 1.5;
+    }
+  }
+}
+
+.job-links {
+  @include themify($themes) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    a {
+      border-radius: 999px;
+      background: themed("accentSoft");
+      color: themed("accent");
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  .job-details {
+    grid-template-columns: 1fr;
+  }
+
+  .hub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .main-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-surface {
+    padding: 16px 12px 28px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-heading {
+    flex-direction: column;
+  }
+
+  .resource-meta,
+  .resource-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .danger-button {
+    width: 100%;
   }
 }

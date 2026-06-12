@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./register.scss";
-import axios from "axios";
+import { makeRequest } from "../../axios";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -23,30 +23,32 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8800/api/auth/register", inputs);
+      await makeRequest.post("/auth/register", inputs);
     } catch (err) {
       setErr(err.response.data);
     }
   };
 
-  console.log(err);
-
   return (
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>Student Book</h1>
+          <p className="eyebrow">Join the network</p>
+          <h1>StudentBook</h1>
           <p>
-            The only social media you need for your education and career needs.
+            Build your campus profile and stay connected to the people, posts,
+            and opportunities that matter.
           </p>
-          <span>Do you have an account?</span>
-          <Link to="/login">
-            <button>Login!</button>
+          <Link to="/login" className="authLink">
+            <button type="button">Sign in instead</button>
           </Link>
         </div>
         <div className="right">
-          <h1>Register</h1>
-          <form>
+          <div>
+            <p className="eyebrow">Create account</p>
+            <h2>Register</h2>
+          </div>
+          <form onSubmit={handleClick}>
             <input
               type="text"
               placeholder="Username"
@@ -82,10 +84,8 @@ const Register = () => {
               onChange={handleChange}
               required
             />
-            {/* <input type="password" placeholder="Retype Password" required /> */}
-            {/* {err && <span className="error">Something went wrong!</span>} */}
-            {err && err}
-            <button onClick={handleClick}>Register</button>
+            {err && <div className="authError">{err}</div>}
+            <button type="submit">Register</button>
           </form>
         </div>
       </div>

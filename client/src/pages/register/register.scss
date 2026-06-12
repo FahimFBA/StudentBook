@@ -1,89 +1,264 @@
+@use "../../style.scss" as *;
+
 .register {
-  height: 100vh;
-  background-color: rgb(193, 190, 255);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .card {
-    width: 50%;
+  @include themify($themes) {
+    min-height: 100vh;
+    background:
+      linear-gradient(135deg, rgba(37, 99, 235, 0.85), rgba(15, 23, 42, 0.74)),
+      url(https://images.pexels.com/photos/4126749/pexels-photo-4126749.jpeg?auto=compress&cs=tinysrgb&w=1600)
+        center/cover;
     display: flex;
-    flex-direction: row-reverse;
-    background-color: #fff;
-    border-radius: 10px;
-    // min-height: 600px;
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
 
-    .left {
-      flex: 1;
-      background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
-        url(https://images.pexels.com/photos/4126749/pexels-photo-4126749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
-          center;
-      background-size: cover;
-      padding: 50px;
-      display: flex;
-      flex-direction: column;
-      gap: 35px;
-      color: white;
+    .card {
+      width: min(1120px, 100%);
+      min-height: min(720px, calc(100vh - 48px));
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(380px, 0.95fr);
+      background-color: themed("card");
+      border: 1px solid themed("border");
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: themed("shadow");
 
-      h1 {
-        font-size: 100px;
-        line-height: 100px;
-      }
-
-      p {
-        font-size: 40px;
-        line-height: 30px;
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-      }
-
-      span {
-        font-size: 20px;
-      }
-
-      button {
-        width: 50%;
-        padding: 10px;
-        border: none;
-        background-color: white;
-        color: rebeccapurple;
-        font-weight: bold;
-        cursor: pointer;
-      }
-    }
-
-    .right {
-      flex: 1;
-      padding: 50px;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
-      justify-content: center;
-
-      h1 {
-        color: #555;
-        font-size: 50px;
-      }
-
-      form {
+      .left {
+        background: rgba(15, 23, 42, 0.72);
+        padding: clamp(32px, 6vw, 64px);
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        justify-content: flex-end;
+        gap: 18px;
+        color: white;
 
-        input {
-          border: none;
-          border-bottom: 1px solid lightgray;
-          padding: 20px 10px;
+        .eyebrow {
+          margin: 0;
+          font-size: 13px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: #bfdbfe;
+        }
+
+        h1 {
+          margin: 0;
+          font-size: clamp(44px, 8vw, 82px);
+          line-height: 0.95;
+          letter-spacing: 0;
+        }
+
+        p {
+          max-width: 620px;
+          margin: 0;
+          font-size: clamp(18px, 2.5vw, 28px);
+          line-height: 1.3;
+          color: #e5edff;
         }
 
         button {
-          width: 50%;
-          padding: 10px;
+          width: fit-content;
+          padding: 12px 18px;
           border: none;
-          background-color: #938eef;
-          color: white;
+          border-radius: 8px;
+          background-color: white;
+          color: #1d4ed8;
           font-weight: bold;
           cursor: pointer;
+        }
+      }
+
+      .right {
+        padding: clamp(28px, 5vw, 56px);
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        justify-content: center;
+        color: themed("textColor");
+
+        .eyebrow {
+          color: themed("accent");
+          font-size: 13px;
+          font-weight: 800;
+          margin: 0 0 8px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+
+        h2 {
+          color: themed("textColor");
+          font-size: clamp(32px, 5vw, 48px);
+          line-height: 1;
+          margin: 0;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+
+          input {
+            border: 1px solid themed("border");
+            border-radius: 8px;
+            background: themed("bg");
+            color: themed("textColor");
+            padding: 13px 16px;
+            outline: 0;
+
+            &::placeholder {
+              color: themed("textColorSoft");
+            }
+
+            &:focus {
+              border-color: themed("accent");
+              box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+            }
+          }
+
+          .authError {
+            border-radius: 8px;
+            background: rgba(220, 38, 38, 0.12);
+            color: themed("danger");
+            padding: 10px 12px;
+            font-size: 14px;
+          }
+
+          button {
+            width: 100%;
+            min-height: 46px;
+            border: none;
+            border-radius: 8px;
+            background-color: themed("accent");
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .register {
+    align-items: safe center;
+    min-height: 100dvh;
+    padding: 18px;
+
+    .card {
+      grid-template-columns: 1fr;
+      min-height: 0;
+
+      .left {
+        min-height: 0;
+        padding: 28px;
+        gap: 12px;
+        justify-content: flex-start;
+
+        h1 {
+          font-size: 42px;
+          line-height: 1;
+        }
+
+        p {
+          font-size: 17px;
+          line-height: 1.35;
+        }
+      }
+
+      .right {
+        padding: 28px;
+        gap: 22px;
+
+        h2 {
+          font-size: 34px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .register {
+    padding: 12px;
+
+    .card {
+      .left,
+      .right {
+        padding: 22px;
+      }
+
+      .left {
+        h1 {
+          font-size: 36px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .theme-light .register,
+  .theme-dark .register {
+    align-items: safe center;
+    min-height: 100dvh;
+    padding: 18px;
+
+    .card {
+      min-height: 0;
+      grid-template-columns: 1fr;
+
+      .left {
+        min-height: 0;
+        padding: 28px;
+        gap: 12px;
+        justify-content: flex-start;
+
+        h1 {
+          font-size: 42px;
+          line-height: 1;
+        }
+
+        p {
+          font-size: 17px;
+          line-height: 1.35;
+        }
+      }
+
+      .right {
+        padding: 28px;
+        gap: 22px;
+
+        h2 {
+          font-size: 34px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .theme-light .register,
+  .theme-dark .register {
+    padding: 12px;
+
+    .card {
+      .left,
+      .right {
+        padding: 22px;
+      }
+
+      .left {
+        h1 {
+          font-size: 36px;
+        }
+
+        p {
+          font-size: 16px;
         }
       }
     }

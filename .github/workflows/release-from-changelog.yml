@@ -1,0 +1,92 @@
+name: Release from changelog
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - CHANGELOG.md
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Publish newest changelog version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.3
+
+      - name: Create release from latest changelog entry
+        uses: actions/github-script@v9.0.0
+        with:
+          script: |
+            const fs = require("fs");
+
+            const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
+            const headingPattern = /^## \[?v?(\d+\.\d+\.\d+(?:[-+][^\]\s]+)?)\]?\s*(?:-\s*(.*))?$/gm;
+            const latest = headingPattern.exec(changelog);
+
+            if (!latest) {
+              core.setFailed("CHANGELOG.md must contain a version heading like: ## [2.0.0] - 2026-06-12");
+              return;
+            }
+
+            const version = latest[1];
+            const date = latest[2] || "";
+            const tag = `v${version}`;
+            const bodyStart = latest.index + latest[0].length;
+            const nextHeadingPattern = /^## \[?v?\d+\.\d+\.\d+(?:[-+][^\]\s]+)?\]?\s*(?:-\s*.*)?$/gm;
+            nextHeadingPattern.lastIndex = bodyStart;
+            const nextHeading = nextHeadingPattern.exec(changelog);
+            const body = changelog
+              .slice(bodyStart, nextHeading ? nextHeading.index : changelog.length)
+              .trim();
+
+            if (!body) {
+              core.setFailed(`The ${tag} changelog entry is empty.`);
+              return;
+            }
+
+            const { owner, repo } = context.repo;
+
+            try {
+              await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+              core.notice(`Release ${tag} already exists. Nothing to do.`);
+              return;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+
+            try {
+              await github.rest.git.getRef({
+                owner,
+                repo,
+                ref: `tags/${tag}`,
+              });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+
+              await github.rest.git.createRef({
+                owner,
+                repo,
+                ref: `refs/tags/${tag}`,
+                sha: context.sha,
+              });
+            }
+
+            await github.rest.repos.createRelease({
+              owner,
+              repo,
+              tag_name: tag,
+              name: `StudentBook ${tag}${date ? ` - ${date}` : ""}`,
+              body,
+              draft: false,
+              prerelease: version.includes("-"),
+            });
+
+            core.notice(`Published release ${tag}.`);

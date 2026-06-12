@@ -1,191 +1,242 @@
 # StudentBook
 
-The only social media you need for your education and career needs.
+StudentBook is an educational social platform for students, faculty, alumni, staff, and recruiters. It combines campus-style social networking with posts, comments, profiles, announcements, articles, job posts, resource discovery, dark mode, image uploads, and an integrated campus Video Portal.
+
+![StudentBook login screen](img/login.png)
+
+## Features
+
+- Role-aware student, faculty, and staff accounts backed by MySQL.
+- Login and registration with hashed passwords and cookie-based authentication.
+- Social feed with posts, likes, comments, image uploads, and profile pages.
+- Search for users and student CGPA metadata.
+- Announcement, article, and job boards.
+- Integrated Video Portal at `/videos` with a featured video, responsive video cards, and mobile navigation access.
+- Profile editing with cover and profile image uploads.
+- Dark mode support across app shell, auth screens, forms, cards, and modals.
+- Responsive desktop, tablet, and mobile layouts with a dedicated mobile primary navigation.
+- Route-level lazy loading for main client pages.
+- Separate standalone video portal prototype remains available in `client/VideoPortal`.
+
+## Tech Stack
+
+| Area | Technology |
+| --- | --- |
+| Main frontend | React 19, Vite 8, React Router 7, React Query 5 |
+| UI and styling | SCSS, Tailwind CSS 4, MUI 9, Heroicons, React Toastify |
+| API | Node.js, Express 5, MySQL2, Multer, JSON Web Token, bcrypt |
+| Database | MySQL |
+| Video portal | React 19, Vite 8, styled-components, MUI |
+| Tooling | ESLint 10, npm lockfiles, GitHub Actions |
+
+## Repository Layout
+
+```text
+StudentBook/
+  api/                 Express API and MySQL access
+  client/              Main Vite React application
+  client/VideoPortal/  Separate Vite React video portal prototype
+  schema/              MySQL schema export
+  img/                 README screenshots and diagrams
+  .github/workflows/   Release automation
+```
+
+## Requirements
+
+- Node.js 22 or newer. The upgraded Vite and ESLint toolchain expects a modern Node runtime.
+- npm 11 or newer.
+- MySQL 8 or compatible.
+
+## Setup
+
+Clone the repository:
+
+```powershell
+git clone https://github.com/FahimFBA/StudentBook.git
+cd StudentBook
+```
+
+Install API dependencies:
+
+```powershell
+cd api
+npm ci
+```
+
+Create the API environment file:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Edit `api/.env` with your local MySQL credentials:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_mysql_password
+DB_NAME=studentbookdb
+DB_CONNECTION_LIMIT=10
+```
+
+Import the database schema from [schema/studentbookdb.sql](schema/studentbookdb.sql). If you want to use the sample password from older setup notes, run this in MySQL as an admin user:
+
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';
+FLUSH PRIVILEGES;
+```
+
+Install the main frontend:
+
+```powershell
+cd ..\client
+npm ci
+```
+
+Install the video portal when you need it:
+
+```powershell
+cd VideoPortal
+npm ci
+```
+
+## Running Locally
+
+Start the API:
+
+```powershell
+cd api
+npm start
+```
+
+The API runs on `http://localhost:8800`.
+
+Start the main frontend in another terminal:
+
+```powershell
+cd client
+npm run dev
+```
+
+Open `http://localhost:5173/login`.
+
+The main app routes include:
+
+| Route | Purpose |
+| --- | --- |
+| `/login` | Sign in |
+| `/register` | Create an account |
+| `/` | Social feed |
+| `/profile/:id` | Profile details and posts |
+| `/articles` | Article board |
+| `/announcements` | Announcement board |
+| `/jobs` | Job portal |
+| `/videos` | Integrated Video Portal |
+| `/something` | Campus Hub overview |
+
+Start the video portal prototype in another terminal when needed:
+
+```powershell
+cd client\VideoPortal
+npm run dev
+```
+
+## Useful Commands
+
+| Location | Command | Purpose |
+| --- | --- | --- |
+| `api` | `npm start` | Start the Express API with Nodemon |
+| `api` | `npm audit` | Check API dependency advisories |
+| `client` | `npm run dev` | Start the main frontend |
+| `client` | `npm run build` | Build the main frontend |
+| `client` | `npm run lint` | Run ESLint |
+| `client` | `npm audit` | Check main frontend dependency advisories |
+| `client/VideoPortal` | `npm run dev` | Start the video portal |
+| `client/VideoPortal` | `npm run build` | Build the video portal |
+| `client/VideoPortal` | `npm audit` | Check video portal dependency advisories |
+
+## Test Accounts
+
+These accounts are available when the sample database has been imported:
+
+| Type | Username | Password |
+| --- | --- | --- |
+| Student | `Jane` | `1212` |
+| Student | `R2` | `1212` |
+| Student | `Mou` | `1212` |
+| Faculty | `Israt` | `1212` |
+| Staff | `Anisul` | `1212` |
+
+## Release Process
+
+Releases are driven by [CHANGELOG.md](CHANGELOG.md).
+
+1. Add a new version section at the top of `CHANGELOG.md`.
+2. Use this heading format:
+
+```md
+## [2.1.0] - 2026-06-13
+```
+
+3. Commit and push the changelog change to `main` or `master`.
+4. The `Release from changelog` workflow creates tag `v2.1.0` and publishes a GitHub Release using that changelog section as the release notes.
+
+If the release already exists, the workflow exits without changing it.
+
+## Screenshots
+
+The UI has been redesigned since the original screenshots were captured. The checked-in screenshots remain useful as historical feature references, but the current app now uses the updated responsive shell, mobile primary navigation, integrated Video Portal, route-level loading, and full dark-mode-aware surfaces.
+
+### Login
 
 ![Login page](img/login.png)
 
-## :raising_hand: What is StudentBook
-StudentBook is a revamped social media platform for educational institutions. It is a web application that allows students, faculty, alumni, and staff to connect and collaborate in a secure and exclusive environment. StudentBook is a one-stop solution for all your educational and career needs. It is a platform where you can share your thoughts, ideas, and resources with your peers. You can also host virtual classrooms, seminars, and workshops using the integrated video conferencing tools (using [Calendly](https://calendly.com/) for now). StudentBook also has a job portal where you can explore internship, part-time job, and full-time job opportunities. Employers can post job listings and connect with potential candidates directly through the platform. StudentBook is designed with a responsive and accessible user interface to cater to diverse user needs. It also has customizable user profiles to enhance user experience. StudentBook is a centralized repository for academic resources, including lecture notes, study materials, and research papers. It has search and filtering options to help users quickly find other users along with their CGPA (if they are students). StudentBook implements robust security measures to protect user data, including encryption and secure authentication. It also uses hashed password protection for enhanced security.
+### Register
 
-## :raising_hand: Project Show Festival (27 August 2023)
-
-![Project Show Festival](img/project_show.jpg)
-
-## :computer: Technologies Used
-* FrontEnd
-    * React
-    * React Router
-    * SCSS
-    * Tailwind CSS
-    * Axios
-    * React Toastify
-    * Material UI Icons
-    * React Icons
-    * Hero Icons
-
-* BackEnd
-    * Node.js
-    * Express.js
-    * MySQL
-    * Bcrypt
-    * Cors
-    * Multer
-    * Moment
-    * Express Validator
-    * Express Async Handler
-
-## :man_technologist: Installation
-
-- Clone the repository `git clone https://github.com/FahimFBA/StudentBook.git`
-- Go to the project directory `cd StudentBook`
-- Go to the api directory `cd api`
-- Install the dependencies `npm ci`
-- Go to the client directory `cd client`
-- Install the dependencies `npm ci`
-- Import the database to your MySQL server from [schema](/schema/) directory. I suggest to use the MySQL Workbench for this.
-- Modify the schema by adding the root password. Use `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';`
-- Run the backend server. For this, go to the api directory `cd api` and run `npm start`
-- Run the frontend server. For this, go to the client directory `cd client` and run `npm run dev`
-- It will open the application in your browser. If not, go to [http://localhost:5173](http://localhost:5173). Make sure to go the Login page by adding `/login` at the end of the URL if that does not happen automatically (For presenting the project, I might have disabled the prtected route then.). It would be [http://localhost:5173/login](http://localhost:5173/login) in that case.
-- Login with the test users given below.
-- Enjoy!
-
-<details>
-<summary>:memo: Test Users' Credentials</summary>
-<br>
-   :student: Student <br> Student 1 <br>
-    Username: Jane <br> Password: 1212 <br>
-    Student 2 <br>
-    Username: R2 <br> Password: 1212 <br>
-    Student 3 <br>
-    Username: Mou <br> Password: 1212 <br> <br>
-    :woman_teacher: Faculty <br>
-    Username: Israt <br> Password: 1212 <br> <br>
-    :office_worker: Staff<br> 
-    Username: Anisul <br> Password: 1212
-</details>
-
-## :eyes: Team Members (Team Ragnarok)
-* Md. Fahim Bin Amin (Team Leader)
-* Israt Jahan Khan (Database Designer)
-* Sadia Afrin Mou (Database Designer and Poster Designer)
-* Abtahi Arifeen (As Extra Supportive Member)
-
-## :feather: Project Features
-1. Connectivity for Unique Educational Social Media:
-   * Create a secure and exclusive social media platform tailored to the specific 
-educational institution.
-    * Implement user authentication mechanisms to ensure only valid students, 
-faculty, alumni, and staff can access the platform.
-    * Foster a sense of community by providing a dedicated space for students, 
-    faculty, alumni, and staff to interact and collaborate.
-2. Sharing Posts and Resources
-    * Enable users to create, share, and engage with posts, articles, 
-announcements, and educational resources.
-    * Facilitate discussions, comments, and likes on posts to encourage 
-    meaningful interactions.
-3. Online Meetings and Seminars
-    * Integrate video conferencing tools to host virtual classrooms, seminars, 
-    workshops, and meetings.
-4. Official Job Portal
-    * Develop a job portal where students can explore internships, part-time jobs, 
-    and full-time job opportunities.
-    * Allow employers to post job listings and connect with potential candidates 
-    directly through the platform.
-5. Accessibility and Unique User Features
-    * Design the platform with a responsive and accessible user interface to cater to diverse user needs.'
-    * Implement customizable user profiles to enhance user experience.
-6. Learning Resources Repository
-    * Create a centralized repository for academic resources, including lecture 
-    notes, study materials, and research papers.
-    * Implement search and filtering options to help users quickly find other users along with their CGPA (if they are students).
-7. Security and Privacy Measures
-    * Implement robust security measures to protect user data, including 
-    encryption and secure authentication. 
-    * Using hashed password protection for enhanced security.
-  
-By incorporating these features, the StudentBook project aims to create an all-inclusive educational social platform that enriches the academic experience and fosters a sense of community within the educational institution.
-
-
-## :desktop_computer: ERD
-
-<details>
-<summary>:computer_mouse: Click here!</summary>
-<br>
-<img src="img/ERD.jpg" alt="ERD" width="1000"/>
-</details>
-
-
-## :man_technologist: Schema
-<details>
-<summary>:computer_mouse: Click here!</summary>
-<br>
-<img src="img/Schema.png" alt="ERD" width="1000"/>
-</details>
-
-
-## :video_camera: Video Demonstration
-[Video demonstration on YouTube](https://www.youtube.com/watch?v=Cl4YKiA0Maw)
-
-## :camera: Some Screenshots
-
-### Login Page
-![Login page](img/login.png)
-
-### Register Page
 ![Register page](img/Register.png)
 
-### Home Page
+### Home
+
 ![Home page](img/HomeLong.png)
+![Home dark mode](img/h2.png)
 
-![Home Page 1](img/h1.png)
+### Profile
 
-Did I forget to mention that we also have a dark mode? :smile:
-
-![Home Page 2](img/h2.png)
-
-### Profile Page
 ![Profile page](img/p1.png)
+![Profile dark mode](img/p3.png)
 
-![Profile page](img/p2.png)
-
-In dark mode!
-
-![Profile page](img/p3.png)
-
-### Article Page
-
-In white mode!
+### Articles
 
 ![Article page](img/a1.png)
+![Article dark mode](img/a2.png)
 
-In dark mode!
-
-![Article page](img/a2.png)
-
-### Announcement Page
-
-In white mode!
+### Announcements
 
 ![Announcement page](img/an1.png)
+![Announcement dark mode](img/an2.png)
 
-In dark mode!
-
-![Announcement page](img/an2.png)
-
-### Job Page
-
-In white mode!
+### Jobs
 
 ![Job page](img/j1.png)
+![Job dark mode](img/j3.png)
 
-![Job page](img/j2.png)
+## Database Diagrams
 
-In dark mode!
+### ERD
 
-![Job page](img/j3.png)
+![Entity relationship diagram](img/ERD.jpg)
 
+### Schema
 
+![Database schema](img/Schema.png)
 
-## :page_with_curl: License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Team
+
+- Md. Fahim Bin Amin, Team Leader
+- Israt Jahan Khan, Database Designer
+- Sadia Afrin Mou, Database Designer and Poster Designer
+- Abtahi Arifeen, Extra Supportive Member
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

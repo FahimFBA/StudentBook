@@ -1,97 +1,110 @@
 import "./profile.scss";
-import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import PinterestIcon from "@mui/icons-material/Pinterest";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import XIcon from "@mui/icons-material/X";
 import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from "../../components/posts/Posts";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { Link, useLocation } from "react-router-dom";
-import { useContext, useState } from "react";
+import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import Update from "../../components/update/Update";
 
 const Profile = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser } = use(AuthContext);
 
   const userId = parseInt(useLocation().pathname.split("/")[2]);
 
-  const { isLoading, error, data } = useQuery(["user"], () =>
-    makeRequest.get("/users/find/" + userId).then((res) => {
-      return res.data;
-    })
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: () =>
+      makeRequest.get("/users/find/" + userId).then((res) => {
+        return res.data;
+      }),
+  });
 
-  console.log("profileData", data);
-
-  const { isLoading: rIsLoading, data: relationshipData } = useQuery(
-    ["relationship"],
-    () =>
+  const { isLoading: rIsLoading, data: relationshipData } = useQuery({
+    queryKey: ["relationship", userId],
+    queryFn: () =>
       makeRequest.get("/relationships?followeduserid=" + userId).then((res) => {
         return res.data;
-      })
-  );
+      }),
+  });
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (following) => {
+  const mutation = useMutation({
+    mutationFn: (following) => {
       if (following)
         return makeRequest.delete("/relationships?userId=" + userId);
       return makeRequest.post("/relationships", { userId });
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["relationship"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["relationship"] });
+    },
+  });
+
+  const isOwnProfile = userId === currentUser.id;
+  const isFollowing = relationshipData?.includes(currentUser.id);
 
   const handleFollow = () => {
-    mutation.mutate(relationshipData.includes(currentUser.id));
+    mutation.mutate(isFollowing);
   };
 
   return (
     <div className="profile">
       {isLoading ? (
-        "loading"
+        <div className="page-surface"><div className="loading-state">Loading profile...</div></div>
+      ) : error ? (
+        <div className="page-surface"><div className="error-state">Could not load this profile.</div></div>
       ) : (
         <>
           <div className="images">
-            <img
-              src={"/upload/" + data.user_cover_img}
-              alt=""
-              className="cover"
-            />
+            <img src={"/upload/" + data.user_cover_img} alt="" className="cover" />
             <img
               src={"/upload/" + data.user_profile_img}
-              alt=""
+              alt={data.user_fullname}
               className="profilePic"
             />
           </div>
-          <div className="profileContainer mt-12">
+          <div className="profileContainer">
             <div className="uInfo">
-              <div className="left">
-                <a href="https://twitter.com/">
-                  <TwitterIcon fontSize="large" />
+              <div className="profileSocials">
+                <a
+                  href="https://x.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="X"
+                  aria-label="X profile"
+                >
+                  <XIcon />
                 </a>
-                <a href="http://facebook.com">  
-                  <LinkedInIcon fontSize="large" />
+                <a
+                  href="https://linkedin.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="LinkedIn"
+                  aria-label="LinkedIn profile"
+                >
+                  <LinkedInIcon />
                 </a>
-                <a href="http://facebook.com">
-                  <PinterestIcon fontSize="large" />
+                <a
+                  href="https://pinterest.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Pinterest"
+                  aria-label="Pinterest profile"
+                >
+                  <PinterestIcon />
                 </a>
               </div>
               <div className="center">
-              <div className="text-center text-2xl font-bold">{data.user_fullname}</div>
+                <h1>{data.user_fullname}</h1>
                 <div className="info">
                   <div className="item">
                     <PlaceIcon />
@@ -103,35 +116,45 @@ const Profile = () => {
                   </div>
                 </div>
                 {rIsLoading ? (
-                  "loading"
-                ) : userId === currentUser.id ? (
-                  <button onClick={() => setOpenUpdate(true)}>update</button>
+                  <span className="relationshipLoading">Loading...</span>
+                ) : isOwnProfile ? (
+                  <button
+                    className="profilePrimaryAction"
+                    onClick={() => setOpenUpdate(true)}
+                    type="button"
+                  >
+                    Update profile
+                  </button>
                 ) : (
-                  <button onClick={handleFollow}>
-                    {relationshipData.includes(currentUser.id)
-                      ? "Follow"
-                      : "Following"}
+                  <button
+                    className="profilePrimaryAction"
+                    onClick={handleFollow}
+                    type="button"
+                  >
+                    {isFollowing ? "Following" : "Follow"}
                   </button>
                 )}
               </div>
-              {data?.user_occ && (
-                <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                  {data?.user_occ}
-                </span>
-              )}
+              <div className="profileActions">
+                {data?.user_occ && (
+                  <span className="occupationBadge">{data?.user_occ}</span>
+                )}
 
-              <Link to={data?.user_cal} target="_blank">
+                {data?.user_cal && (
+                  <Link to={data?.user_cal} target="_blank" rel="noreferrer">
+                    <button type="button" className="calendarButton">
+                      Calendly
+                    </button>
+                  </Link>
+                )}
+
                 <button
+                  className="profileMenuButton"
                   type="button"
-                  class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                  aria-label="Profile options"
                 >
-                  Calendly
+                  <MoreVertIcon />
                 </button>
-              </Link>
-
-              <div className="right">
-                <EmailOutlinedIcon />
-                <MoreVertIcon />
               </div>
             </div>
             <Posts userId={userId} />

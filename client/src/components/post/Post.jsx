@@ -10,53 +10,49 @@ import Comments from "../comments/Comments";
 import moment from "moment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import { useContext } from "react";
+import { use } from "react";
 import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
-  console.log("fba", post);
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { currentUser } = useContext(AuthContext);
-  // console.log(currentUser);
-
-  const { isLoading, error, data } = useQuery(["likes", post.post_id], () =>
-    makeRequest.get("/likes?post_id=" + post.post_id).then((res) => {
-      return res.data;
-    })
-  );
+  const { currentUser } = use(AuthContext);
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["likes", post.post_id],
+    queryFn: () =>
+      makeRequest.get("/likes?post_id=" + post.post_id).then((res) => {
+        return res.data;
+      }),
+  });
 
   const queryClient = useQueryClient();
+  const liked = Boolean(data?.includes(currentUser.id));
+  const cachedComments = queryClient.getQueryData(["comments", post.post_id]);
+  const commentCount = Array.isArray(cachedComments) ? cachedComments.length : null;
 
-  const mutation = useMutation(
-    (liked) => {
+  const mutation = useMutation({
+    mutationFn: (liked) => {
       if (liked) return makeRequest.delete("/likes?post_id=" + post.post_id);
       return makeRequest.post("/likes", { post_id: post.post_id });
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["likes"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["likes"] });
+    },
+  });
 
   const handleLike = () => {
-    mutation.mutate(data.includes(currentUser.id));
+    mutation.mutate(liked);
   };
 
-  const deleteMutation = useMutation(
-    (postId) => {
+  const deleteMutation = useMutation({
+    mutationFn: (postId) => {
       return makeRequest.delete("/posts/" + postId);
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["posts"]);
-      },
-    }
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
 
   const handleDelete = () => {
     deleteMutation.mutate(post.post_id);
@@ -80,37 +76,60 @@ const Post = ({ post }) => {
               </span>
             </div>
           </div>
-          <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
+          <button
+            className="icon-button"
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            title="Post menu"
+          >
+            <MoreHorizIcon />
+          </button>
           {menuOpen && post.user_id === currentUser.id && (
-            <button onClick={handleDelete}>Delete Post</button>
+            <button className="deleteMenu" onClick={handleDelete} type="button">
+              Delete Post
+            </button>
           )}
         </div>
         <div className="content">
           <p>{post.post_desc}</p>
-          <img src={"/upload/" + post.img} alt="" />
+          {post.img && <img src={"/upload/" + post.img} alt="" />}
         </div>
         <div className="info">
-          <div className="item">
-            {isLoading ? (
-              "loading"
-            ) : data.includes(currentUser.id) ? (
-              <FavoriteOutlinedIcon
-                style={{ color: "red" }}
-                onClick={handleLike}
-              />
-            ) : (
-              <FavoriteBorderOutlinedIcon onClick={handleLike} />
-            )}
-            {data?.length} Likes
-          </div>
-          <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
-            <TextsmsOutlinedIcon />
-            12 Comments
-          </div>
-          <div className="item">
-            <ShareOutlinedIcon />
-            Share
-          </div>
+          <button
+            className={`item ${liked ? "active" : ""}`}
+            onClick={handleLike}
+            type="button"
+            disabled={isLoading || error}
+            aria-pressed={liked}
+          >
+            <span className="actionIcon">
+              {!isLoading && liked ? (
+                <FavoriteOutlinedIcon className="likedIcon" />
+              ) : (
+                <FavoriteBorderOutlinedIcon />
+              )}
+            </span>
+            <span>{data?.length || 0}</span>
+            <span>{data?.length === 1 ? "Like" : "Likes"}</span>
+          </button>
+          <button
+            className={`item ${commentOpen ? "active" : ""}`}
+            onClick={() => setCommentOpen(!commentOpen)}
+            type="button"
+            aria-expanded={commentOpen}
+          >
+            <span className="actionIcon">
+              <TextsmsOutlinedIcon />
+            </span>
+            {commentCount !== null && <span>{commentCount}</span>}
+            <span>{commentCount === 1 ? "Comment" : "Comments"}</span>
+          </button>
+          <button className="item" type="button">
+            <span className="actionIcon">
+              <ShareOutlinedIcon />
+            </span>
+            <span>Share</span>
+          </button>
         </div>
         {commentOpen && <Comments post_id={post.post_id} />}
       </div>

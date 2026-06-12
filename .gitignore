@@ -1,11 +1,19 @@
 # Logs
 logs
 *.log
+*.log.*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
+vite-dev.log
+vite-dev.err.log
+
+# Generated UI verification artifacts
+screenshots/
+.tmp-edge-profile/
+.tmp-responsive-check.mjs
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -74,6 +82,9 @@ web_modules/
 
 # dotenv environment variable files
 .env
+.env.*
+!.env.example
+!api/.env.example
 .env.development.local
 .env.test.local
 .env.production.local
@@ -90,6 +101,7 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+build
 
 # Gatsby files
 .cache/
@@ -121,6 +133,23 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+# IDE and OS files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.DS_Store
+Thumbs.db
+
+# Local agent/tooling metadata
+.agents/
+skills-lock.json
+
+# Runtime uploads created by the API during local development.
+# Existing checked-in demo uploads remain tracked by Git.
+client/public/upload/*
+!client/public/upload/.gitkeep
 
 # yarn v2
 .yarn/cache

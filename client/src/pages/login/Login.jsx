@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import "./login.scss";
-import { useContext, useState } from "react";
+import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -20,7 +19,7 @@ const Login = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const { login } = useContext(AuthContext);
+  const { login } = use(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,18 +39,22 @@ const Login = () => {
     <div className="login">
       <div className="card">
         <div className="left">
-          <h1>Student Book</h1>
+          <p className="eyebrow">Campus network</p>
+          <h1>StudentBook</h1>
           <p>
-            The only social media you need for your education and career needs.
+            Stay close to classmates, articles, announcements, and career posts
+            in one focused student space.
           </p>
-          <span>Don't you have an account?</span>
-          <Link to="/register">
-            <button>Register!</button>
+          <Link to="/register" className="authLink">
+            <button type="button">Create account</button>
           </Link>
         </div>
         <div className="right">
-          <h1>Login</h1>
-          <form>
+          <div>
+            <p className="eyebrow">Welcome back</p>
+            <h2>Sign in</h2>
+          </div>
+          <form onSubmit={handleLogin}>
             <input
               type="text"
               placeholder="Username"
@@ -68,8 +71,8 @@ const Login = () => {
               required
               value={inputs.user_password}
             />
-            {err && err}
-            <button onClick={handleLogin}>Login</button>
+            {err && <div className="authError">{err}</div>}
+            <button type="submit">Login</button>
           </form>
         </div>
       </div>

@@ -1,12 +1,8 @@
 import LeftBar from "./components/leftbar/LeftBar";
+import MobileNav from "./components/mobileNav/MobileNav";
 import NavBar from "./components/navbar/NavBar";
-// import RightBar from "./components/rightbar/RightBar";
-import Login from "./pages/login/Login";
-import Register from "./pages/register/Register";
-import Home from "./pages/home/Home";
-import Profile from "./pages/profile/Profile";
 import "./style.scss";
-import { useContext } from "react";
+import { lazy, Suspense, use } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -15,48 +11,57 @@ import {
   Navigate,
   Outlet,
   RouterProvider,
-  BrowserRouter,
-  Routes,
-  Route,
 } from "react-router-dom";
 import { AuthContext } from "./context/authContext";
-import Something from "./pages/something/Something";
-import Article from "./pages/Article/Article";
-import Job from "./pages/Job/Job";
-import Announcement from "./pages/Announcement/Announcement";
+
+const queryClient = new QueryClient();
+const Home = lazy(() => import("./pages/home/Home"));
+const Profile = lazy(() => import("./pages/profile/Profile"));
+const Login = lazy(() => import("./pages/login/Login"));
+const Register = lazy(() => import("./pages/register/Register"));
+const Something = lazy(() => import("./pages/something/Something"));
+const Videos = lazy(() => import("./pages/videos/Videos"));
+const Article = lazy(() => import("./pages/Article/Article"));
+const Job = lazy(() => import("./pages/Job/Job"));
+const Announcement = lazy(() => import("./pages/Announcement/Announcement"));
+
+const AppLoading = () => (
+  <div className="app-loading" aria-live="polite">
+    Loading StudentBook...
+  </div>
+);
+
+const Layout = () => {
+  const { darkMode } = use(DarkModeContext);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <div className={`theme-${darkMode ? "dark" : "light"} app-shell`}>
+        <NavBar />
+        <MobileNav />
+        <main className="main-shell">
+          <LeftBar />
+          <div className="content-panel">
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </QueryClientProvider>
+  );
+};
+
+const ProtectedRoute = ({ children }) => {
+  const { currentUser } = use(AuthContext);
+
+  if (!currentUser) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+};
 
 function App() {
-  const { currentUser } = useContext(AuthContext);
-
-  const { darkMode } = useContext(DarkModeContext);
-
-  const queryClient = new QueryClient();
-
-  const Layout = () => {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <div className={`theme-${darkMode ? "dark" : "light"}`}>
-          <NavBar />
-          <div style={{ display: "flex" }}>
-            <LeftBar />
-            <div style={{ flex: 6 }}>
-              <Outlet />
-            </div>
-
-            {/* <RightBar /> */}
-          </div>
-        </div>
-      </QueryClientProvider>
-    );
-  };
-
-  const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
-      return <Navigate to="/login" />;
-    }
-
-    return children;
-  };
+  const { darkMode } = use(DarkModeContext);
 
   const router = createBrowserRouter([
     {
@@ -88,6 +93,10 @@ function App() {
           element: <Something />,
         },
         {
+          path: "/videos",
+          element: <Videos />,
+        },
+        {
           path: "/profile/:id",
           element: <Profile />,
         },
@@ -104,8 +113,10 @@ function App() {
   ]);
 
   return (
-    <div>
-      <RouterProvider router={router} />
+    <div className={`theme-${darkMode ? "dark" : "light"}`}>
+      <Suspense fallback={<AppLoading />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </div>
   );
 }

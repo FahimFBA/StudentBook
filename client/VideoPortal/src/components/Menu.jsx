@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import StudentBook from "../img/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
@@ -19,38 +18,51 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
 const Container = styled.div`
-  flex: 1;
-  background-color: ${({ theme }) => theme.bgLighter};
+  background-color: transparent;
   height: 100vh;
   color: ${({ theme }) => theme.text};
   font-size: 14px;
   position: sticky;
   top: 0;
+  border-right: 1px solid ${({ theme }) => theme.soft};
+  overflow: auto;
+
+  @media (max-width: 960px) {
+    display: none;
+  }
 `;
 const Wrapper = styled.div`
-  padding: 18px 26px;
+  padding: 18px;
 `;
 const Logo = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   font-weight: bold;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
+  color: ${({ theme }) => theme.text};
 `;
 
 const Img = styled.img`
-  height: 25px;
+  height: 34px;
+  width: 34px;
+  border-radius: 8px;
 `;
 
 const Item = styled.div`
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
   cursor: pointer;
-  padding: 7.5px 0px;
+  min-height: 42px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: ${({ theme }) => theme.textSoft};
+  font-weight: 650;
 
   &:hover {
-    background-color: ${({ theme }) => theme.soft};
+    background-color: ${({ theme }) => theme.cardHover};
+    color: ${({ theme }) => theme.text};
   }
 `;
 
@@ -61,12 +73,13 @@ const Hr = styled.hr`
 
 const Login = styled.div``;
 const Button = styled.button`
-  padding: 5px 15px;
-  background-color: transparent;
-  border: 1px solid #3ea6ff;
-  color: #3ea6ff;
-  border-radius: 3px;
-  font-weight: 500;
+  min-height: 40px;
+  padding: 0 14px;
+  background-color: ${({ theme }) => theme.accent};
+  border: 0;
+  color: white;
+  border-radius: 8px;
+  font-weight: 800;
   margin-top: 10px;
   cursor: pointer;
   display: flex;
@@ -84,11 +97,11 @@ const Title = styled.h2`
 const Menu = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
-      <Wrapper>
+  <Wrapper>
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Logo>
-            <Img src={StudentBook} />
-            StudentBook
+            <Img src={StudentBook} alt="StudentBook" />
+            StudentBook Video
           </Logo>
         </Link>
         <Item>
@@ -118,7 +131,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
           <Link to="signin" style={{textDecoration:"none"}}>
             <Button>
               <AccountCircleOutlinedIcon />
-              SIGN IN
+              Sign in
             </Button>
           </Link>
         </Login>

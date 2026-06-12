@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import "./Job.scss";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -6,42 +6,94 @@ import { toast } from "react-toastify";
 import { makeRequest } from "../../axios";
 import JobCard from "../../components/Job/JobCard";
 
+const initialData = {
+  job_provider_user_name: "",
+  job_provider_company_name: "",
+  job_provider_company_linkedin: "",
+  job_provider_company_website: "",
+  job_provider_company_email: "",
+  job_description: "",
+  job_requirement: "",
+  job_salary: "",
+  job_provider_company_twitter: "",
+  job_provider_company_facebook: "",
+};
+
+const jobFields = [
+  {
+    name: "job_provider_user_name",
+    label: "Recruiter's full name",
+    placeholder: "Write your full name...",
+  },
+  {
+    name: "job_provider_company_name",
+    label: "Company name",
+    placeholder: "Brain Station 23",
+  },
+  {
+    name: "job_provider_company_website",
+    label: "Website",
+    type: "url",
+    placeholder: "https://brainstation23.com",
+  },
+  {
+    name: "job_provider_company_linkedin",
+    label: "Official LinkedIn page",
+    type: "url",
+    placeholder: "https://www.linkedin.com/company/brain-station-23/",
+  },
+  {
+    name: "job_provider_company_twitter",
+    label: "Official Twitter/X",
+    type: "url",
+    placeholder: "https://twitter.com/BrainStation23",
+  },
+  {
+    name: "job_provider_company_facebook",
+    label: "Official Facebook page",
+    type: "url",
+    placeholder: "https://www.facebook.com/brainstation23",
+  },
+  {
+    name: "job_provider_company_email",
+    label: "Email address",
+    type: "email",
+    placeholder: "hrbrainstation23@gmail.com",
+  },
+  {
+    name: "job_salary",
+    label: "Salary / salary range",
+    placeholder: "Enter the salary range...",
+  },
+  {
+    name: "job_description",
+    label: "Job description",
+    placeholder: "Write down the complete job description",
+    multiline: true,
+  },
+  {
+    name: "job_requirement",
+    label: "Job requirements",
+    placeholder: "Write down the complete job requirements",
+    multiline: true,
+  },
+];
+
 const Job = () => {
-  const initialData = {
-    job_provider_user_name: "",
-    job_provider_company_name: "",
-    job_provider_company_linkedin: "",
-    job_provider_company_website: "",
-    job_provider_company_email: "",
-    job_description: "",
-    job_requirement: "",
-    job_salary: "",
-    job_provider_company_twitter: "",
-    job_provider_company_facebook: "",
-    // job_creation_time: "",
-  };
-
   const [data, setData] = useState(initialData);
-
-  const { currentUser } = useContext(AuthContext);
-
+  const { currentUser } = use(AuthContext);
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (j) => {
-      return makeRequest.post("/jobs", j);
+  const mutation = useMutation({
+    mutationFn: (job) => makeRequest.post("/jobs", job),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      toast.success("Job posted successfully");
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["jobs"]);
-        toast.success("Job posted successfully");
-      },
-      onError: (err) => {
-        toast.error("ServerError");
-      },
-    }
-  );
+    onError: () => {
+      toast.error("ServerError");
+    },
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -53,250 +105,109 @@ const Job = () => {
     isLoading,
     error,
     data: jobPosting,
-  } = useQuery(["jobs"], () =>
-    makeRequest.get("/jobs/get-all-jobs").then((res) => {
-      return res.data;
-    })
-  );
-
-  console.log(jobPosting);
+  } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: () =>
+      makeRequest.get("/jobs/get-all-jobs").then((res) => {
+        return res.data;
+      }),
+  });
 
   const handleInputChange = (e) =>
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const deleteMutation = useMutation(
-    (jobId) => {
-      return makeRequest.delete("/jobs/" + jobId);
+  const deleteMutation = useMutation({
+    mutationFn: (jobId) => makeRequest.delete("/jobs/" + jobId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      toast.success("Job deleted successfully");
     },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["jobs"]);
-        toast.success("Job deleted successfully");
-      },
-      onError: (err) => {
-        toast.error("ServerError");
-      },
-    }
-  );
+    onError: () => {
+      toast.error("ServerError");
+    },
+  });
 
   const handleDelete = (jobId) => {
     deleteMutation.mutate(jobId);
   };
 
-
-
   return (
-    <div className="p-5 bg-black min-h-[100vh]">
-      <form onSubmit={onSubmit}>
-        <div>
-          {/* Job Provider's Full Name */}
-          <label
-            for="job_provider_user_name"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Recruiter's Full Name
-          </label>
-          <input
-            type="text"
-            id="job_provider_user_name"
-            name="job_provider_user_name"
-            value={data?.job_provider_user_name}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Write your full name..."
-            required={true}
-            onChange={handleInputChange}
-          />
+    <div className="jobs page-surface">
+      <div className="page-stack">
+        <div className="page-heading">
+          <div>
+            <h1>Job Portal</h1>
+            <p>
+              Publish internship, full-time, and referral opportunities for
+              students and alumni.
+            </p>
+          </div>
         </div>
-        <div>
-          {/* Job Provider Company Name */}
-          <label
-            for="job_provider_company_name"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Company Name
-          </label>
-          <input
-            type="text"
-            id="job_provider_company_name"
-            name="job_provider_company_name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Brain Station 23"
-            required={true}
-            value={data?.job_provider_company_name}
-            onChange={handleInputChange}
-          />
+
+        <form onSubmit={onSubmit} className="form-card">
+          <div className="form-grid">
+            {jobFields.map((field) => (
+              <div
+                className={`form-field ${field.multiline ? "full" : ""}`}
+                key={field.name}
+              >
+                <label htmlFor={field.name}>{field.label}</label>
+                {field.multiline ? (
+                  <textarea
+                    id={field.name}
+                    name={field.name}
+                    value={data[field.name]}
+                    placeholder={field.placeholder}
+                    required
+                    rows={4}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  <input
+                    type={field.type || "text"}
+                    id={field.name}
+                    name={field.name}
+                    value={data[field.name]}
+                    placeholder={field.placeholder}
+                    required
+                    onChange={handleInputChange}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="form-actions">
+            <button
+              className="primary-button"
+              type="submit"
+              disabled={mutation.isPending}
+            >
+              {mutation.isPending ? "Publishing..." : "Publish job"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setData(initialData)}
+              className="secondary-button"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+
+        <div className="resource-list">
+          {error ? (
+            <div className="error-state">Could not load jobs.</div>
+          ) : isLoading ? (
+            <div className="loading-state">Loading jobs...</div>
+          ) : jobPosting?.length ? (
+            jobPosting.map((job) => (
+              <JobCard key={job?.job_id} {...job} onDelete={handleDelete} />
+            ))
+          ) : (
+            <div className="empty-state">No jobs posted yet.</div>
+          )}
         </div>
-        <div>
-          {/* Job Provider Company Website */}
-          <label
-            for="job_provider_company_website"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Website
-          </label>
-          <input
-            type="url"
-            id="job_provider_company_website"
-            name="job_provider_company_website"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="brainstation23.com"
-            required={true}
-            value={data?.job_provider_company_website}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          {/* Job Provider Company Linkedin */}
-          <label
-            for="job_provider_company_linkedin"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Official LinkedIn Page
-          </label>
-          <input
-            type="url"
-            id="job_provider_company_linkedin"
-            name="job_provider_company_linkedin"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="https://www.linkedin.com/company/brain-station-23/"
-            value={data?.job_provider_company_linkedin}
-            required={true}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          {/* Job Provider Company Twitter */}
-          <label
-            for="job_provider_company_twitter"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Official Twitter/X
-          </label>
-          <input
-            type="url"
-            id="job_provider_company_twitter"
-            name="job_provider_company_twitter"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="https://twitter.com/BrainStation23"
-            value={data?.job_provider_company_twitter}
-            required={true}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          {/* Job Provider Company Facebook */}
-          <label
-            for="job_provider_company_facebook"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Official Facebook Page
-          </label>
-          <input
-            type="url"
-            id="job_provider_company_facebook"
-            name="job_provider_company_facebook"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="https://www.facebook.com/brainstation23"
-            required={true}
-            value={data?.job_provider_company_facebook}
-            onChange={handleInputChange}
-          />
-        </div>
-        {/* Job Provider Company Email */}
-        <div className="mb-6">
-          <label
-            for="job_provider_company_email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Email address
-          </label>
-          <input
-            type="email"
-            id="job_provider_company_email"
-            name="job_provider_company_email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="hrbrainstation23@gmail.com"
-            required={true}
-            value={data?.job_provider_company_email}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-6">
-          {/* Job Description */}
-          <label
-            for="job_description"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Job Description
-          </label>
-          <input
-            type="text"
-            id="job_description"
-            name="job_description"
-            value={data?.job_description}
-            className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Write down the complete job description"
-            required={true}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mb-6">
-          {/* Job Requirement */}
-          <label
-            for="job_requirement"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Job Requirement
-          </label>
-          <input
-            type="text"
-            id="job_requirement"
-            name="job_requirement"
-            value={data?.job_requirement}
-            className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Write down the complete job requirement"
-            required={true}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          {/* Job Salary */}
-          <label
-            for="job_salary"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Salary/Salary Range
-          </label>
-          <input
-            type="text"
-            id="job_salary"
-            value={data?.job_salary}
-            name="job_salary"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Enter your salary range..."
-            required={true}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          type="submit"
-        >
-          Submit
-        </button>
-        <button
-          type="button"
-          onClick={() => setData(initialData)}
-          class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-        >
-          Cancel
-        </button>
-      </form>
-      {/* Display jobs here */}
-      {jobPosting?.map((job) => {
-        return <JobCard key={job?.job_id} {...job} onDelete={handleDelete} />;
-      })}
+      </div>
     </div>
   );
 };

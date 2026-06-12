@@ -1,0 +1,20 @@
+.article {
+  .form-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.resource-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
