@@ -3,11 +3,13 @@ import "./login.scss";
 import { use, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { isDemoMode } from "../../config";
+import { demoCredentials } from "../../demo/demoApi";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
-    user_name: "",
-    user_password: "",
+    user_name: isDemoMode ? demoCredentials.user_name : "",
+    user_password: isDemoMode ? demoCredentials.user_password : "",
     // passwordAgain: "",
   });
 
@@ -71,6 +73,13 @@ const Login = () => {
               required
               value={inputs.user_password}
             />
+            {isDemoMode && (
+              <div className="demoAccount">
+                <span>Static demo account</span>
+                <strong>{demoCredentials.user_name}</strong>
+                <small>{demoCredentials.user_password}</small>
+              </div>
+            )}
             {err && <div className="authError">{err}</div>}
             <button type="submit">Login</button>
           </form>

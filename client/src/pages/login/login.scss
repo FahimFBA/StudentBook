@@ -43,9 +43,11 @@
 
         h1 {
           margin: 0;
-          font-size: clamp(44px, 8vw, 82px);
-          line-height: 0.95;
+          max-width: 100%;
+          font-size: clamp(40px, 5.4vw, 60px);
+          line-height: 1;
           letter-spacing: 0;
+          overflow-wrap: anywhere;
         }
 
         p {
@@ -123,6 +125,32 @@
             font-size: 14px;
           }
 
+          .demoAccount {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid themed("border");
+            border-radius: 8px;
+            background: themed("bgSoft");
+            color: themed("textColorSoft");
+            padding: 10px 12px;
+            font-size: 13px;
+
+            span,
+            strong,
+            small {
+              min-width: 0;
+            }
+
+            strong,
+            small {
+              color: themed("textColor");
+              font-weight: 800;
+              overflow-wrap: anywhere;
+            }
+          }
+
           button {
             width: 100%;
             min-height: 46px;
@@ -156,7 +184,7 @@
         justify-content: flex-start;
 
         h1 {
-          font-size: 42px;
+          font-size: 40px;
           line-height: 1;
         }
 
@@ -190,7 +218,7 @@
 
       .left {
         h1 {
-          font-size: 36px;
+          font-size: 34px;
         }
 
         p {
@@ -219,7 +247,7 @@
         justify-content: flex-start;
 
         h1 {
-          font-size: 42px;
+          font-size: 40px;
           line-height: 1;
         }
 
@@ -254,7 +282,7 @@
 
       .left {
         h1 {
-          font-size: 36px;
+          font-size: 34px;
         }
 
         p {

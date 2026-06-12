@@ -4,6 +4,11 @@ const demoStorageKey = "studentbook-demo-state";
 
 const now = "2026-06-13 10:00:00";
 
+export const demoCredentials = {
+  user_name: "demo",
+  user_password: "demo123",
+};
+
 const demoUser = {
   id: 1,
   user_name: "demo",
@@ -265,7 +270,27 @@ export const demoRequest = {
     const state = readState();
     const currentUser = getCurrentUser();
 
-    if (url === "/auth/logout" || url === "/auth/register") return response({ ok: true });
+    if (url === "/auth/logout") return response({ ok: true });
+
+    if (url === "/auth/register") {
+      const nextUser = {
+        id: nextId(state.users, "id"),
+        user_name: body.user_name,
+        user_fullname: body.user_fullname,
+        user_occ: body.user_occ,
+        user_email: body.user_email,
+        user_city: "Dhaka",
+        user_website: "studentbook-demo.github.io",
+        user_cal: "https://calendly.com/",
+        user_profile_img: "1693166576309pexels-pixabay-220453.jpg",
+        user_cover_img: "1693163601872pexels-lina-kivaka-16550526.jpg",
+        student_cgpa: "",
+      };
+      state.users.push(nextUser);
+      writeState(state);
+      return response(nextUser);
+    }
+
     if (url === "/upload") return response("");
 
     if (url === "/posts") {

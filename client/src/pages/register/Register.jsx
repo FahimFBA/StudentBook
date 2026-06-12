@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { use, useState } from "react";
 import "./register.scss";
 import { makeRequest } from "../../axios";
+import { AuthContext } from "../../context/authContext";
+import { isDemoMode } from "../../config";
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -14,6 +16,8 @@ const Register = () => {
   });
 
   const [err, setErr] = useState(null);
+  const { login } = use(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -24,6 +28,10 @@ const Register = () => {
 
     try {
       await makeRequest.post("/auth/register", inputs);
+      if (isDemoMode) {
+        await login(inputs);
+        navigate("/");
+      }
     } catch (err) {
       setErr(err.response.data);
     }
@@ -84,6 +92,11 @@ const Register = () => {
               onChange={handleChange}
               required
             />
+            {isDemoMode && (
+              <div className="demoAccount">
+                New demo accounts are saved in this browser only.
+              </div>
+            )}
             {err && <div className="authError">{err}</div>}
             <button type="submit">Register</button>
           </form>

@@ -10,16 +10,19 @@ This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YY
 
 - Added a GitHub Pages workflow that builds and deploys the StudentBook client as a static demo site.
 - Added a Vite demo build mode with mocked browser-local data for profiles, posts, likes, comments, articles, jobs, announcements, and search.
+- Added static demo account credentials on the demo login screen.
 - Added static demo publishing instructions to the README.
 
 ### Changed
 
 - Switched demo builds to hash routing so static GitHub Pages URLs work without server rewrites.
 - Updated public upload image URL handling so assets resolve correctly under a GitHub Pages repository subpath.
+- Updated demo signup so it creates a browser-local account and signs the visitor in.
 - Kept normal local builds connected to the Express API while demo builds run without MySQL or the backend.
 
 ### Fixed
 
+- Fixed the StudentBook heading on login and signup pages so it stays inside the auth column on narrower screens.
 - Fixed case-sensitive SCSS imports that failed on Linux GitHub Actions runners.
 
 ### Verified
