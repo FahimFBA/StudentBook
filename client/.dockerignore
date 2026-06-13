@@ -1,0 +1,10 @@
+node_modules
+dist
+npm-debug.log*
+.env
+.env.*
+!.env.example
+Dockerfile
+.dockerignore
+VideoPortal/node_modules
+VideoPortal/dist

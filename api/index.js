@@ -11,9 +11,19 @@ import jobRouter from './routes/jobs.js'
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import multer from "multer";
+import fs from "fs";
 import searchRoutes from "./routes/searches.js";
 import announcementRoutes from "./routes/announcements.js";
 import videoRoutes from "./routes/videos.js";
+
+const port = process.env.PORT || 8800;
+const allowedOrigins = (process.env.CORS_ORIGIN || "http://localhost:5173")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+const uploadDir = process.env.UPLOAD_DIR || "../client/public/upload";
+
+fs.mkdirSync(uploadDir, { recursive: true });
 
 // middlewares
 app.use((req, res, next) => {
@@ -23,14 +33,15 @@ app.use((req, res, next) => {
 app.use(express.json())
 app.use(cors({
     // update it to the address of the frontend if you get CORS blocking error
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
+    credentials: true,
 }));
 app.use(cookieParser());
 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../client/public/upload');
+        cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + file.originalname);
@@ -67,6 +78,10 @@ app.use("/api/videos", videoRoutes);
 // ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_current_password';
 
 // ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';
-app.listen(8800, () => {
-    console.log("API is Working!")
+app.get("/api/health", (req, res) => {
+    res.status(200).json({ status: "ok" });
+});
+
+app.listen(port, () => {
+    console.log(`API is working on port ${port}!`)
 })
