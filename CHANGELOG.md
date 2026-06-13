@@ -4,6 +4,30 @@ All notable changes to StudentBook are documented in this file.
 
 This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YYYY-MM-DD` section at the top when preparing a release. The release workflow publishes a GitHub Release for the newest changelog version if one does not already exist.
 
+## [2.6.0] - 2026-06-13
+
+### Added
+
+- Added Docker Compose support for running the MySQL database, Express API, and Vite frontend together.
+- Added production Dockerfiles for the API and main client.
+- Added nginx configuration for serving the built client, proxying `/api`, and serving uploaded files from `/upload`.
+- Added Docker documentation to the README, including startup, health check, reset, and upload volume notes.
+
+### Changed
+
+- Updated the API to support environment-based port, CORS origins, and upload directory configuration.
+- Updated the API startup path to create the configured upload directory automatically.
+- Added an `/api/health` endpoint for container and deployment checks.
+- Updated release documentation to use the new `2.6.0` Docker release version.
+
+### Verified
+
+- `npm run build` passes in `client`.
+- `node --check api\index.js` passes.
+- `docker compose config` passes.
+- `docker compose build` passes.
+- `docker compose up -d db` initializes the MySQL schema and reaches healthy status.
+
 ## [2.5.0] - 2026-06-13
 
 ### Added

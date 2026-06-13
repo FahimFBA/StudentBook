@@ -27,7 +27,7 @@ StudentBook is an educational social platform for students, faculty, alumni, sta
 | API | Node.js, Express 5, MySQL2, Multer, JSON Web Token, bcrypt |
 | Database | MySQL |
 | Video portal | Main app DB-backed portal, plus standalone React 19/Vite prototype |
-| Tooling | ESLint 10, npm lockfiles, GitHub Actions |
+| Tooling | Docker Compose, ESLint 10, npm lockfiles, GitHub Actions |
 
 ## Repository Layout
 
@@ -36,6 +36,7 @@ StudentBook/
   api/                 Express API and MySQL access
   client/              Main Vite React application
   client/VideoPortal/  Separate Vite React video portal prototype
+  docker-compose.yml   Docker Compose app stack
   schema/              MySQL schema export
   img/                 README screenshots and diagrams
   .github/workflows/   Release automation
@@ -46,6 +47,7 @@ StudentBook/
 - Node.js 22 or newer. The upgraded Vite and ESLint toolchain expects a modern Node runtime.
 - npm 11 or newer.
 - MySQL 8 or compatible.
+- Docker Desktop or Docker Engine with Compose, if you want to run the full stack in containers.
 
 ## Setup
 
@@ -143,6 +145,33 @@ cd client\VideoPortal
 npm run dev
 ```
 
+## Running With Docker
+
+Build and start the full app stack from the repository root:
+
+```powershell
+docker compose up --build
+```
+
+Docker Compose starts:
+
+| Service | URL | Notes |
+| --- | --- | --- |
+| Main frontend | `http://localhost:5173` | Built Vite app served by nginx |
+| API | `http://localhost:8800/api/health` | Express API, also proxied through the frontend at `/api` |
+| MySQL | internal Docker network only | Initialized from `schema/studentbookdb.sql` on first run |
+
+The Compose stack builds the frontend with `VITE_API_BASE_URL=/api/`, so browser requests go through nginx and keep authentication cookies on the same origin.
+
+The Docker database uses the `mysql-data` volume, so the schema import runs only when that volume is first created. To reset the Docker database and import the schema again:
+
+```powershell
+docker compose down -v
+docker compose up --build
+```
+
+Uploaded files are stored in the `uploads` volume and served by the frontend container from `/upload/...`.
+
 ## Useful Commands
 
 | Location | Command | Purpose |
@@ -157,6 +186,7 @@ npm run dev
 | `client/VideoPortal` | `npm run dev` | Start the video portal |
 | `client/VideoPortal` | `npm run build` | Build the video portal |
 | `client/VideoPortal` | `npm audit` | Check video portal dependency advisories |
+| repository root | `docker compose up --build` | Start MySQL, API, and frontend containers |
 
 ## Static Demo on GitHub Pages
 
@@ -199,11 +229,11 @@ Releases are driven by [CHANGELOG.md](CHANGELOG.md).
 2. Use this heading format:
 
 ```md
-## [2.5.0] - 2026-06-13
+## [2.6.0] - 2026-06-13
 ```
 
 3. Commit and push the changelog change to `main` or `master`.
-4. The `Release from changelog` workflow creates tag `v2.1.0` and publishes a GitHub Release using that changelog section as the release notes.
+4. The `Release from changelog` workflow creates a matching version tag and publishes a GitHub Release using that changelog section as the release notes.
 
 If the release already exists, the workflow exits without changing it.
 

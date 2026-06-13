@@ -1,0 +1,55 @@
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: studentbookdb
+      MYSQL_USER: studentbook
+      MYSQL_PASSWORD: studentbook
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./schema/studentbookdb.sql:/docker-entrypoint-initdb.d/01-studentbookdb.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -ustudentbook -pstudentbook"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./api
+    restart: unless-stopped
+    environment:
+      PORT: 8800
+      DB_HOST: db
+      DB_USER: studentbook
+      DB_PASSWORD: studentbook
+      DB_NAME: studentbookdb
+      DB_CONNECTION_LIMIT: 10
+      CORS_ORIGIN: http://localhost:5173,http://127.0.0.1:5173
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - uploads:/app/uploads
+    ports:
+      - "8800:8800"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  client:
+    build:
+      context: ./client
+      args:
+        VITE_API_BASE_URL: /api/
+    restart: unless-stopped
+    volumes:
+      - uploads:/usr/share/nginx/html/upload
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  mysql-data:
+  uploads:
