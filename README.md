@@ -255,28 +255,27 @@ The UI has been redesigned since the original screenshots were captured. The che
 
 ### Home
 
-![Home page](img/HomeLong.png)
-![Home dark mode](img/h2.png)
+![Home page](img/Home.png)
 
 ### Profile
 
-![Profile page](img/p1.png)
-![Profile dark mode](img/p3.png)
+![Profile page](img/Profile.png)
 
 ### Articles
 
-![Article page](img/a1.png)
-![Article dark mode](img/a2.png)
+![Article page](img/Articles.png)
 
 ### Announcements
 
-![Announcement page](img/an1.png)
-![Announcement dark mode](img/an2.png)
+![Announcement page](img/Announcements.png)
 
 ### Jobs
 
-![Job page](img/j1.png)
-![Job dark mode](img/j3.png)
+![Job page](img/Job_Portal.png)
+
+### Video Portal
+
+![Video Portal page](img/Video_Portal.png)
 
 ## Team
 
