@@ -279,8 +279,8 @@ The UI has been redesigned since the original screenshots were captured. The che
 
 ## Team
 
-- Md. Fahim Bin Amin, Team Leader
-- Israt Jahan Khan, Database Designer
+- [Md. Fahim Bin Amin](https://fahimbinamin.com/), Team Leader
+- [Israt Jahan Khan](https://www.isratjahankhan.com/), Database Designer
 - Sadia Afrin Mou, Database Designer and Poster Designer
 - Abtahi Arifeen, Extra Supportive Member
 
