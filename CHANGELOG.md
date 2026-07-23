@@ -4,6 +4,19 @@ All notable changes to StudentBook are documented in this file.
 
 This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YYYY-MM-DD` section at the top when preparing a release. The release workflow publishes a GitHub Release for the newest changelog version if one does not already exist.
 
+## [2.7.0] - 2026-07-23
+
+### Security
+
+- Bumped `axios` in `client` to `^1.18.0`, fixing 5 Dependabot alerts (`GHSA-gcfj-64vw-6mp9`, `GHSA-hcpx-6fm6-wx23`, `GHSA-f4gw-2p7v-4548`, `GHSA-xj6q-8x83-jv6g`, `GHSA-mwf2-3pr3-8698`): SSRF via crafted redirect, ReDoS in URL parsing, and an HTTP/2 upload `maxBodyLength` bypass.
+- Bumped `multer` in `api` to `^2.2.0`, fixing 2 Dependabot alerts (`GHSA-72gw-mp4g-v24j`, `GHSA-3p4h-7m6x-2hcm`): unhandled exception and DoS on malformed multipart requests.
+- Updated transitive `body-parser` (api), and `brace-expansion`, `form-data`, `immutable` (client) via `npm audit fix`, resolving the remaining Dependabot alerts: DoS from a silently disabled size limit (`GHSA-v422-hmwv-36x6`), ReDoS in brace expansion (`GHSA-3jxr-9vmj-r5cp`), and CRLF injection in multipart field/filename encoding (`GHSA-hmw2-7cc7-3qxx`).
+- Regenerated `api/package-lock.json` and `client/package-lock.json` to lock in the patched dependency tree.
+
+### Verified
+
+- `npm audit` reports 0 vulnerabilities in `api`, `client`, and `client/VideoPortal`.
+
 ## [2.6.0] - 2026-06-13
 
 ### Added
