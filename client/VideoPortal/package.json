@@ -10,7 +10,7 @@
     "@mui/material": "^9.1.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.17.0",
+    "react-router-dom": "^7.18.0",
     "styled-components": "^6.4.2"
   },
   "scripts": {
@@ -34,5 +34,8 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.2",
     "vite": "^8.0.16"
+  },
+  "overrides": {
+    "postcss": "^8.5.18"
   }
 }
