@@ -4,6 +4,20 @@ All notable changes to StudentBook are documented in this file.
 
 This project follows a Keep a Changelog-style format. Add a new `## [x.y.z] - YYYY-MM-DD` section at the top when preparing a release. The release workflow publishes a GitHub Release for the newest changelog version if one does not already exist.
 
+## [2.8.0] - 2026-08-04
+
+### Security
+
+- Bumped `postcss` in `client` to `^8.5.18` (resolved to 8.5.25), fixing path traversal via malicious previous source map auto-loading (`sourceMappingURL`).
+- Added `postcss` override in `client/VideoPortal` to pin the transitive dep (pulled in via `vite`) to `^8.5.18`, applying the same path traversal fix.
+- Bumped `react-router-dom` from `7.17.0` to `7.18.2` in `client` and `client/VideoPortal`, fixing four Dependabot alerts: open redirect via backslash in `<Link>` and `useNavigate` (CVE-2025-68470 bypass), arbitrary constructor injection via `deserializeErrors()` in SSR hydration, unauthenticated DoS via inefficient route matching, and XSS via missing protocol validation in `RSCErrorHandler`.
+- Fixed `brace-expansion` DoS (`GHSA-rgw5-rvv9-x895`) in `client` via `npm audit fix`.
+- Regenerated `client/package-lock.json` and `client/VideoPortal/package-lock.json` to lock in the patched dependency tree.
+
+### Known
+
+- `react-router` CSRF bypass in RSC mode (`GHSA-qwww-vcr4-c8h2`) requires upgrading to `react-router-dom` v8.3.0+, a breaking major-version change. Both apps are SPAs with no RSC actions — this vulnerability is not exploitable in the current setup.
+
 ## [2.7.0] - 2026-07-23
 
 ### Security
